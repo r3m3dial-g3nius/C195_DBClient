@@ -1,6 +1,6 @@
 package com.company;
 
-import helper.DBConnection;
+import Database.DBConnection;
 
 public class Main {
 
