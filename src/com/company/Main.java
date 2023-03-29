@@ -1,14 +1,13 @@
 package com.company;
 
-import helper.JDBC;
+import helper.DBConnection;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("added gitignore");
-        JDBC.openConnection();
+        DBConnection.openConnection();
 
-        JDBC.closeConnection();
+        DBConnection.closeConnection();
     }
 }
