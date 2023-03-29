@@ -19,10 +19,10 @@ public class DBCountries {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int countryID = rs.getInt("Country_ID");
+                int countryId = rs.getInt("Country_ID");
                 String countryName = rs.getString("Country");
 
-                Country c = new Country(countryID, countryName);
+                Country c = new Country(countryId, countryName);
                 countryList.add(c);
             }
         }
@@ -62,5 +62,29 @@ public class DBCountries {
         }
 
         return null;
+    }
+
+    public static void checkDateConversions()
+    {
+        System.out.println("Date test");
+
+        String sql = "SELECT Create_Date FROM countries";
+
+        try
+        {
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Timestamp ts = rs.getTimestamp("Create_Date");
+                System.out.println("CD: " + ts.toLocalDateTime().toString());
+            }
+        }
+
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
     }
 }
