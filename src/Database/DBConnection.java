@@ -18,7 +18,8 @@ public abstract class DBConnection {
 
     public static void openConnection()
     {
-        try {
+        try
+        {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
             System.out.println("Connection successful!");
@@ -30,12 +31,15 @@ public abstract class DBConnection {
         }
     }
 
-    public static Connection getConnection() {
+    public static Connection getConnection()
+    {
         return connection;
     }
 
-    public static void closeConnection() {
-        try {
+    public static void closeConnection()
+    {
+        try
+        {
             connection.close();
             System.out.println("Connection closed!");
         }
