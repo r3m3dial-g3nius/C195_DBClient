@@ -1,11 +1,11 @@
 package Models;
 
-public class Countries {
+public class Country {
 
     private int countryID;
     private String countryName;
 
-    public Countries(int id, String name)
+    public Country(int id, String name)
     {
         this.countryID = id;
         this.countryName = name;

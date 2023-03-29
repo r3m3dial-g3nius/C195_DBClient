@@ -8,6 +8,6 @@ public class Main {
     {
         DBConnection.openConnection();
 
-        DBConnection.closeConnection();
+        DBConnection.closeConnection();     // -------------------   end
     }
 }

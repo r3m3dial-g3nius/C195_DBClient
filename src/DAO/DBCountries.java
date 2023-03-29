@@ -1,28 +1,28 @@
 package DAO;
 
 import Database.DBConnection;
-import Models.Countries;
+import Models.Country;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class DBCountries {
 
-    public static ObservableList<Countries> getAllCountries()
+    public static ObservableList<Country> getAllCountries()
     {
-        ObservableList<Countries> countryList = FXCollections.observableArrayList();    // here is where you left off
+        ObservableList<Country> countryList = FXCollections.observableArrayList();    // here is where you left off
 
         try {
-            String sql = "SELECT * FROM Countries";
+            String sql = "SELECT * FROM countries";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int countryID = rs.getInt("CountryID");
+                int countryID = rs.getInt("Country_ID");
                 String countryName = rs.getString("Country");
 
-                Countries c = new Countries(countryID, countryName);
+                Country c = new Country(countryID, countryName);
                 countryList.add(c);
             }
         }
@@ -36,7 +36,7 @@ public class DBCountries {
     }
 
 
-    public static Countries getCountry(int countryID)
+    public static Country getCountry(int countryID)
     {
         try
         {
@@ -52,7 +52,7 @@ public class DBCountries {
                 countryName = rs.getString("Country");
             }
 
-            Countries c = new Countries(countryID, countryName);
+            Country c = new Country(countryID, countryName);
             return c;
         }
 
