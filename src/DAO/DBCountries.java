@@ -1,6 +1,6 @@
 package DAO;
 
-import Database.DBConnection;
+import Helper.DBConnection;
 import Models.Country;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

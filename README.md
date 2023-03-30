@@ -8,7 +8,7 @@ The skills you will showcase in this assessment are also directly relevant to te
 
 
 
-Several attachments and links have been included to help you complete this task. The attached “Database ERD” shows the entity relationship diagram (ERD) for this database, which you can reference as you create your application.
+Several attachments and links have been included to help you complete this task. The attached “Helper ERD” shows the entity relationship diagram (ERD) for this database, which you can reference as you create your application.
 
 
 
