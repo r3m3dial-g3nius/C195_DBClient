@@ -8,7 +8,18 @@ import javafx.stage.Stage;
 import DAO.DBCountries;
 import Helper.DBConnection;
 
-public class Main {
+public class Main extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainscreen.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("C195 PA");          //   --------------------   CHANGE THIS LATER  ----------------
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
 
     public static void main(String[] args)
     {
