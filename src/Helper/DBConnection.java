@@ -22,7 +22,7 @@ public abstract class DBConnection {
         {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbc_URL, userName, password); // Reference Connection object
-            System.out.println("Connection successful!");
+            System.out.println("Connection successful!\n");
         }
         catch(SQLException | ClassNotFoundException e)
         {
@@ -41,7 +41,7 @@ public abstract class DBConnection {
         try
         {
             connection.close();
-            System.out.println("Connection closed!");
+            System.out.println("Connection closed!\n");
         }
         catch(Exception e)
         {

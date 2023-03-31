@@ -67,7 +67,7 @@ public class DBCountries {
 
     public static void checkDateConversions()
     {
-        System.out.println("Date test");
+        System.out.println("Countries Date test\n");
 
         String sql = "SELECT Create_Date FROM countries";
 
@@ -81,6 +81,7 @@ public class DBCountries {
                 Timestamp ts = rs.getTimestamp("Create_Date");
                 System.out.println("CD: " + ts.toLocalDateTime().toString());
             }
+            System.out.println();
         }
 
         catch (SQLException throwables)
