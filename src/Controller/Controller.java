@@ -19,18 +19,33 @@ import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
 
-
+/**
+ * This class is a Controller template.
+ *
+ * Controls the XXXXX screen of the app.
+ */
 public class Controller implements Initializable {
     public TableColumn idColumn;
     public TableColumn nameColumn;
     public TableView dataTable;
 
+    /**
+     * Initializes the XXXXXXX screen
+     *
+     * @param url the location
+     * @param resourceBundle the resources
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-
+        // initialize screen
     }
 
+
+
+
+
+//   -------------------------------------------   TESTING   ----------------------------------------------------
     public void showMe(ActionEvent actionEvent)
     {
         ObservableList<Country> countryList = DBCountries.getAllCountries();

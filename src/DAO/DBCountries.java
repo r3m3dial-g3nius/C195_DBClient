@@ -6,8 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 
+
+/**
+ * This class handles database interactions with countries.
+ */
 public class DBCountries {
 
+    /**
+     * Returns list of all countries in database.
+     *
+     * @return list of all countries
+     */
     public static ObservableList<Country> getAllCountries()
     {
         ObservableList<Country> countryList = FXCollections.observableArrayList();    // here is where you left off
@@ -36,6 +45,12 @@ public class DBCountries {
     }
 
 
+    /**
+     * Returns country object from argument specifying country ID (int)
+     *
+     * @param countryID ID of country
+     * @return country object
+     */
     public static Country getCountry(int countryID)
     {
         try
@@ -65,6 +80,10 @@ public class DBCountries {
         return null;
     }
 
+
+    /**
+     * This method outputs date country was created in database
+     */
     public static void checkDateConversions()
     {
         System.out.println("Countries Date test\n");

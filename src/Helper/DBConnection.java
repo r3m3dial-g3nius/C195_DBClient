@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+/**
+ * This class manages the database connection.
+ */
 public abstract class DBConnection {
 
     private static final String protocol = "jdbc";
@@ -16,6 +20,10 @@ public abstract class DBConnection {
     private static final String password = "Passw0rd!";                 // Password
     public static Connection connection;                                // Connection Interface
 
+
+    /**
+     * Opens the database connection.
+     */
     public static void openConnection()
     {
         try
@@ -31,11 +39,21 @@ public abstract class DBConnection {
         }
     }
 
+
+    /**
+     * Gets the connection with the database.
+     *
+     * @return returns the connection
+     */
     public static Connection getConnection()
     {
         return connection;
     }
 
+
+    /**
+     * Closes the connection to the database.
+     */
     public static void closeConnection()
     {
         try

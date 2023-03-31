@@ -7,8 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 
+
+/**
+ * This class handles database interactions with users.
+ */
 public class DBUsers {
 
+    /**
+     * Returns list of all users in database
+     * @return list of all users in database
+     */
     public static ObservableList<User> getAllUsers()
     {
         ObservableList<User> userList = FXCollections.observableArrayList();    // here is where you left off
@@ -38,6 +46,11 @@ public class DBUsers {
     }
 
 
+    /**
+     * This method returns User object from users table in database specified by user ID.
+     * @param userID ID of user to return
+     * @return User object
+     */
     public static User getUser(int userID)
     {
         try
@@ -70,6 +83,9 @@ public class DBUsers {
     }
 
 
+    /**
+     * This method prints the date the user was created in database.
+     */
     public static void checkDateConversions()
     {
         System.out.println("User Create Date test");
