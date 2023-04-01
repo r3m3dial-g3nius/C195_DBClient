@@ -15,6 +15,7 @@ public class DBUsers {
 
     /**
      * Returns list of all users in database
+     *
      * @return list of all users in database
      */
     public static ObservableList<User> getAllUsers()

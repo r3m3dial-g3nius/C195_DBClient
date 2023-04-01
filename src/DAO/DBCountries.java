@@ -19,7 +19,7 @@ public class DBCountries {
      */
     public static ObservableList<Country> getAllCountries()
     {
-        ObservableList<Country> countryList = FXCollections.observableArrayList();    // here is where you left off
+        ObservableList<Country> countryList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * FROM countries";
