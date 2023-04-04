@@ -12,12 +12,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * This class is a Controller template.
@@ -26,15 +29,27 @@ import java.util.Optional;
  */
 public class LoginScreenController implements Initializable {
 
-//    public TableColumn idColumn;        //  ------------   DO I NEED THESE?
-//    public TableColumn nameColumn;
-//    public TableColumn passwordColumn;
-//    public TableView dataTable;
+    @FXML
+    private Button cancelButton;
 
-    @FXML private Button loginButton;
-    @FXML private Button cancelButton;
-    @FXML private TextField userNameField;
-    @FXML private TextField passwordField;
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField userNameField;
+
+    @FXML
+    void onActionCancel(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionLogin(ActionEvent event) {
+
+    }
 
 
     /**
