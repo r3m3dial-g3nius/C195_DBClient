@@ -26,10 +26,16 @@ import java.util.Optional;
  */
 public class LoginScreenController implements Initializable {
 
-    public TableColumn idColumn;        //  ------------   DO I NEED THESE?
-    public TableColumn nameColumn;
-    public TableColumn passwordColumn;
-    public TableView dataTable;
+//    public TableColumn idColumn;        //  ------------   DO I NEED THESE?
+//    public TableColumn nameColumn;
+//    public TableColumn passwordColumn;
+//    public TableView dataTable;
+
+    @FXML private Button loginButton;
+    @FXML private Button cancelButton;
+    @FXML private TextField userNameField;
+    @FXML private TextField passwordField;
+
 
     /**
      * Initializes the Login screen
@@ -40,5 +46,7 @@ public class LoginScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // initialize screen
+        ResourceBundle rb = ResourceBundle.getBundle("language");
+        System.out.println(rb.getString("welcome"));
     }
 }

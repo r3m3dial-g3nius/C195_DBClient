@@ -49,16 +49,18 @@ public class DBUsers {
 
     /**
      * This method returns User object from users table in database specified by user ID.
-     * @param userID ID of user to return
+     * @param username name of user to return
+     * @param userPassword password of user to return
      * @return User object
      */
-    public static User getUser(int userID)
+    public static User getUser(String username, String userPassword)
     {
         try
         {
             System.out.println("Getting User...");
 
-            String sql = "SELECT * FROM users WHERE User_ID = " + userID;
+            String sql = "SELECT * FROM users WHERE User_Name = " + username + "and Password = " + userPassword;       // FIX ME filter by username and userpw
+            int userID = 0;
             String userName = "";
             String password = "";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -66,6 +68,7 @@ public class DBUsers {
 
             if (rs.next())
             {
+                userID = rs.getInt("User_ID");
                 userName = rs.getString("User_Name");
                 password = rs.getString("Password");
             }

@@ -22,7 +22,7 @@ public class Main extends Application {
      * Set up initial app primaryStage
      *
      * @param primaryStage The primaryStage to be set.
-     * @throws Exception The exception thats thrown if there's an error.
+     * @throws Exception The exception that is thrown if there's an error.
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -40,14 +40,14 @@ public class Main extends Application {
      *
      * @param args The arguments
      */
-    public static void main(String[] args)
+    public static void main (String[] args) throws Exception
     {
         DBConnection.openConnection();      //  ------------------   start
 
 
-        DBCountries.checkDateConversions(); //  ------------------   TEST
-        System.out.println(DBUsers.getAllUsers()); //  ------------------   TEST
-        System.out.println();
+        DBCountries.checkDateConversions();             //  ------------------   TEST
+        System.out.println(DBUsers.getAllUsers());      //  ------------------   TEST
+        System.out.println();                           //  ------------------   TEST
 
 
         launch(args);
