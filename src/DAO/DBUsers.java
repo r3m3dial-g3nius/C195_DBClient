@@ -57,7 +57,7 @@ public class DBUsers {
     {
         try
         {
-            System.out.println("Getting User...");
+            System.out.println("Validating User...\n");
 
             int userID = 0;
             String userName = "";
