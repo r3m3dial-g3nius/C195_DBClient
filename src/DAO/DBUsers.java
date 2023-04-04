@@ -59,10 +59,10 @@ public class DBUsers {
         {
             System.out.println("Getting User...");
 
-            String sql = "SELECT * FROM users WHERE User_Name = " + username + "and Password = " + userPassword;       // FIX ME filter by username and userpw
             int userID = 0;
             String userName = "";
-            String password = "";
+            String passWord = "";
+            String sql = "SELECT * FROM users WHERE User_Name = '" + username + "' AND Password = '" + userPassword + "'";       // WATCH OUT FOR THE SINGLE QUOTES
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -70,10 +70,10 @@ public class DBUsers {
             {
                 userID = rs.getInt("User_ID");
                 userName = rs.getString("User_Name");
-                password = rs.getString("Password");
+                passWord = rs.getString("Password");
             }
 
-            User x = new User(userID, userName, password);
+            User x = new User(userID, userName, passWord);
 
             return x;
         }

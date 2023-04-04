@@ -1,7 +1,9 @@
 package Controller;
 
 import DAO.DBCountries;
+import DAO.DBUsers;
 import Models.Country;
+import Models.User;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -43,11 +45,35 @@ public class LoginScreenController implements Initializable {
 
     @FXML
     void onActionCancel(ActionEvent event) {
-
+        System.out.println("Cancel Button Pressed");
     }
 
     @FXML
     void onActionLogin(ActionEvent event) {
+
+        System.out.println("Login Button pressed");
+
+        String user_name = userNameField.getText();
+        String password = passwordField.getText();
+
+        User authorizedUser = DBUsers.getUser(user_name, password);
+
+        System.out.println(user_name + " - " + password);                           // test user_name and password field input
+        System.out.println("User ID: " + authorizedUser.getUserID());               //
+        System.out.println("User Name: " + authorizedUser.getUserName());           //
+        System.out.println("Password: " + authorizedUser.getPassword());            //
+
+        if (authorizedUser == null)
+        {
+            System.out.println("Invalid login credentials.");
+        }
+
+        else
+        {
+            System.out.println("Successful login.");
+        }
+
+
 
     }
 
