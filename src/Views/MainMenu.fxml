@@ -26,7 +26,7 @@
             <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="180.0">
               <buttons>
                 <Button fx:id="okButton" mnemonicParsing="false" onAction="#onActionOK" text="Ok" />
-                  <Button fx:id="cancelButton" layoutX="335.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+                  <Button fx:id="exitButton" layoutX="335.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
               </buttons>
                <padding>
                   <Insets right="20.0" top="20.0" />

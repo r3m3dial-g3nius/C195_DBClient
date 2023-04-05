@@ -23,6 +23,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Scanner;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -36,6 +38,17 @@ public class LoginScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
+
+
+    @FXML
+    private Label loginScreenTitle;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private Label userNameLabel;
+
 
     /**
      * The Cancel button on the Login Screen
@@ -70,10 +83,6 @@ public class LoginScreenController implements Initializable {
     void onActionCancel(ActionEvent event) {
         System.out.println("Cancel Button Pressed");
         System.exit(0);
-
-//        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();    //  WHICH ONE IS CORRECT?
-//        stage.close();
-
     }
 
     /**
@@ -140,12 +149,33 @@ public class LoginScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // initialize screen
-        Locale locale = Locale.getDefault();
-        Locale.setDefault(locale);
+        Locale fr = new Locale("fr", "FR");
+        Scanner scanner = new Scanner(System.in);
 
-        ZoneId timeZone = ZoneId.systemDefault();
+        System.out.println("Enter 'F' for French or any other key for English: ");
+        String setLangToFrench = scanner.nextLine().toLowerCase();
 
-        ResourceBundle rb = ResourceBundle.getBundle("language");   // -----   Locale.getDefault() ??
+        if (setLangToFrench.equals("f"))
+        {
+            Locale.setDefault(fr);
+        }
+
+//        ZoneId timeZone = ZoneId.systemDefault();
+
+        ResourceBundle rb = ResourceBundle.getBundle("language", Locale.getDefault());
         System.out.println(rb.getString("welcome"));
+
+        if (Locale.getDefault().getLanguage().equals("fr"))
+        {
+            //   ----------   set GUI labels/buttons here   ----------------
+            System.out.println("Set GUI labels/buttons here");
+            loginScreenTitle.setText(rb.getString("login"));
+            userNameLabel.setText(rb.getString("username"));
+            passwordLabel.setText(rb.getString("password"));
+            loginButton.setText(rb.getString("login"));
+            cancelButton.setText(rb.getString("cancel"));
+        }
+
+
     }
 }

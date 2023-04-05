@@ -14,15 +14,16 @@ import java.util.ResourceBundle;
 public class MainMenuController implements Initializable {
 
     @FXML
-    private Button cancelButton;
+    private Button exitButton;
 
     @FXML
     private Button okButton;
 
     @FXML
-    void onActionCancel(ActionEvent event)
+    void onActionExit(ActionEvent event)
     {
-        // code here
+        System.out.println("Exit Button pressed");
+        System.exit(0);
     }
 
     @FXML
