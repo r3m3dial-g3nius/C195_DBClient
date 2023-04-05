@@ -30,21 +30,34 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * This class is a Controller template.
- *
  * Controls the Login screen of the app.
  */
 public class LoginScreenController implements Initializable {
 
+    Stage stage;
+    Parent scene;
+
+    /**
+     * The Cancel button on the Login Screen
+     */
     @FXML
     private Button cancelButton;
 
+    /**
+     * The Login button on the Login screen
+     */
     @FXML
     private Button loginButton;
 
+    /**
+     * The password text field in the Login Screen
+     */
     @FXML
     private PasswordField passwordField;
 
+    /**
+     * The Username text field in the Login Screen
+     */
     @FXML
     private TextField userNameField;
 
@@ -69,7 +82,7 @@ public class LoginScreenController implements Initializable {
      * @param event validates login credentials, progresses to either Main Menu or Error Message
      */
     @FXML
-    void onActionLogin(ActionEvent event)
+    void onActionLogin(ActionEvent event) throws IOException
     {
         try
         {
@@ -87,7 +100,7 @@ public class LoginScreenController implements Initializable {
 //        System.out.println("User Name: " + authorizedUser.getUserName());           //
 //        System.out.println("Password: " + authorizedUser.getPassword());            //
 
-            if (authorizedUser.getUserID() == 0)
+            if (authorizedUser.getUserID() == 0)        // -----------------   Invalid login
             {
                 System.out.println("Whoops!  Invalid login credentials...please try again");
 
@@ -97,15 +110,21 @@ public class LoginScreenController implements Initializable {
                 alert.show();
             }
 
-            else
+            else                                        //  ----------------   Valid login
             {
                 System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()));
                 System.out.println();
+
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.centerOnScreen();                 //  ----------------   Center Screen
+                stage.show();
             }
 
         }
 
-        catch (Exception e)
+        catch (IOException e)
         {
             e.printStackTrace();
         }

@@ -12,6 +12,8 @@ import Helper.DBConnection;
 import DAO.DBCountries;                     //  ------------------   TEST
 import DAO.DBUsers;
 
+import java.io.IOException;
+
 
 /**
  * This is the Main class of the app.
@@ -22,10 +24,10 @@ public class Main extends Application {
      * Set up initial app primaryStage
      *
      * @param primaryStage The primaryStage to be set.
-     * @throws Exception The exception that is thrown if there's an error.
+     * @throws IOException The exception that is thrown if there's an error.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Client Scheduler");          //   --------------------   CHANGE THIS LATER  ----------------

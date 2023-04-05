@@ -25,9 +25,6 @@ import java.util.Optional;
  * Controls the XXXXX screen of the app.
  */
 public class Controller implements Initializable {
-    public TableColumn idColumn;
-    public TableColumn nameColumn;
-    public TableView dataTable;
 
     /**
      * Initializes the XXXXXXX screen
@@ -43,16 +40,4 @@ public class Controller implements Initializable {
 
 
 
-
-
-//   -------------------------------------------   TESTING   ----------------------------------------------------
-    public void showMe(ActionEvent actionEvent)
-    {
-        ObservableList<Country> countryList = DBCountries.getAllCountries();
-
-        for(Country c : countryList)
-        {
-            System.out.println("Country ID : " + c.getCountryID() + " Country Name : " + c.getCountryName());
-        }
-    }
 }
