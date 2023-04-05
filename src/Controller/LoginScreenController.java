@@ -82,25 +82,25 @@ public class LoginScreenController implements Initializable {
      * @param event validates login credentials, progresses to either Main Menu or Error Message
      */
     @FXML
-    void onActionLogin(ActionEvent event) throws IOException
+    void onActionLogin(ActionEvent event)
     {
         try
         {
-//            System.out.println("Login Button pressed!\n");                                    // test print
+            System.out.println("Login Button pressed!\n");                                    // test print
 
             String user_name = userNameField.getText();
             String password = passwordField.getText();
 
             ResourceBundle rb = ResourceBundle.getBundle("language");
 
-            User authorizedUser = DBUsers.getUser(user_name, password);
+            User newUser = DBUsers.getUser(user_name, password);
 
 //        System.out.println(user_name + " - " + password);                           // test user_name and password field input
-//        System.out.println("User ID: " + authorizedUser.getUserID());               //
-//        System.out.println("User Name: " + authorizedUser.getUserName());           //
-//        System.out.println("Password: " + authorizedUser.getPassword());            //
+//        System.out.println("User ID: " + newUser.getUserID());               //
+//        System.out.println("User Name: " + newUser.getUserName());           //
+//        System.out.println("Password: " + newUser.getPassword());            //
 
-            if (authorizedUser.getUserID() == 0)        // -----------------   Invalid login
+            if (newUser.getUserID() == 0)               // -----------------   Invalid login
             {
                 System.out.println("Whoops!  Invalid login credentials...please try again");
 
@@ -121,7 +121,6 @@ public class LoginScreenController implements Initializable {
                 stage.centerOnScreen();                 //  ----------------   Center Screen
                 stage.show();
             }
-
         }
 
         catch (IOException e)
