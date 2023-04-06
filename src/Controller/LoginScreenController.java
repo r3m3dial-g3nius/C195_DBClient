@@ -183,6 +183,7 @@ public class LoginScreenController implements Initializable {
         //   ^^^^^^  ------------------   TEST LOGIN TRANSLATION   -----------------------   ^^^^^^
 
 
+        //   --------------------   Detects timezone and updates User Location Text   -------------
         ZoneId timeZone = ZoneId.systemDefault();
         userLocationText.setText(timeZone.toString());
 
