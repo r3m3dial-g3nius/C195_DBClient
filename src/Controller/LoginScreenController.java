@@ -39,16 +39,23 @@ public class LoginScreenController implements Initializable {
     Stage stage;
     Parent scene;
 
-
+    /**
+     * "Login" label at top of window
+     */
     @FXML
     private Label loginScreenTitle;
 
+    /**
+     * Label for Password text field
+     */
     @FXML
     private Label passwordLabel;
 
+    /**
+     * Label for Username text field
+     */
     @FXML
     private Label userNameLabel;
-
 
     /**
      * The Cancel button on the Login Screen
@@ -109,7 +116,7 @@ public class LoginScreenController implements Initializable {
 //        System.out.println("User Name: " + newUser.getUserName());           //
 //        System.out.println("Password: " + newUser.getPassword());            //
 
-            if (newUser.getUserID() == 0)               // -----------------   Invalid login
+            if (newUser.getUserID() == 0)               // -----------------   If invalid login
             {
                 System.out.println("Whoops!  Invalid login credentials...please try again");
 
@@ -119,7 +126,7 @@ public class LoginScreenController implements Initializable {
                 alert.show();
             }
 
-            else                                        //  ----------------   Valid login
+            else                                        //  ----------------   else Valid login
             {
                 System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()));
                 System.out.println();
@@ -147,8 +154,10 @@ public class LoginScreenController implements Initializable {
      * @param resourceBundle the resources
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // initialize screen
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+
+        //   VVVVVV  -----------------   TEST LOGIN TRANSLATION   -----------------------   VVVVVV
         Locale fr = new Locale("fr", "FR");
         Scanner scanner = new Scanner(System.in);
 
@@ -159,22 +168,26 @@ public class LoginScreenController implements Initializable {
         {
             Locale.setDefault(fr);
         }
+        //   ^^^^^^  ------------------   TEST LOGIN TRANSLATION   -----------------------   ^^^^^^
+
 
 //        ZoneId timeZone = ZoneId.systemDefault();
+
 
         ResourceBundle rb = ResourceBundle.getBundle("language", Locale.getDefault());
         System.out.println(rb.getString("welcome"));
 
+        //   --------------------   set GUI labels/buttons here   --------------------------
         if (Locale.getDefault().getLanguage().equals("fr"))
         {
-            //   ----------   set GUI labels/buttons here   ----------------
-//            System.out.println("Set GUI labels/buttons here");              //  -----  TEST
+            System.out.println("Language set to French");
             loginScreenTitle.setText(rb.getString("login"));
             userNameLabel.setText(rb.getString("username"));
             passwordLabel.setText(rb.getString("password"));
             loginButton.setText(rb.getString("login"));
             cancelButton.setText(rb.getString("cancel"));
         }
+        //   -------------------------------------------------------------------------------
 
 
     }
