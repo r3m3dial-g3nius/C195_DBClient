@@ -29,6 +29,7 @@ public class MainMenuController implements Initializable {
     @FXML
     void onActionOK(ActionEvent event) {
         // code here
+        System.out.println("Main Menu OK button pressed");
 
     }
 

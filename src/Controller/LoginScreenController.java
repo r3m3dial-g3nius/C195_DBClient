@@ -168,7 +168,7 @@ public class LoginScreenController implements Initializable {
         if (Locale.getDefault().getLanguage().equals("fr"))
         {
             //   ----------   set GUI labels/buttons here   ----------------
-            System.out.println("Set GUI labels/buttons here");
+//            System.out.println("Set GUI labels/buttons here");              //  -----  TEST
             loginScreenTitle.setText(rb.getString("login"));
             userNameLabel.setText(rb.getString("username"));
             passwordLabel.setText(rb.getString("password"));
