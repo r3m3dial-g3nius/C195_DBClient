@@ -52,6 +52,20 @@
                   <Insets right="20.0" top="20.0" />
                </padding>
             </ButtonBar>
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="userLocationLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="30.0" prefWidth="180.0" text="User Location:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="userLocationText" prefHeight="30.0" prefWidth="180.0" text="Location">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

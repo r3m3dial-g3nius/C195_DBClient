@@ -82,6 +82,18 @@ public class LoginScreenController implements Initializable {
     private TextField userNameField;
 
     /**
+     * Label for "User Location"
+     */
+    @FXML
+    private Label userLocationLabel;
+
+    /**
+     * relays user location per system Zone ID
+     */
+    @FXML
+    private Label userLocationText;
+
+    /**
      * fires when Cancel button is pressed
      *
      * @param event closes app
@@ -171,7 +183,8 @@ public class LoginScreenController implements Initializable {
         //   ^^^^^^  ------------------   TEST LOGIN TRANSLATION   -----------------------   ^^^^^^
 
 
-//        ZoneId timeZone = ZoneId.systemDefault();
+        ZoneId timeZone = ZoneId.systemDefault();
+        userLocationText.setText(timeZone.toString());
 
 
         ResourceBundle rb = ResourceBundle.getBundle("language", Locale.getDefault());
@@ -186,6 +199,9 @@ public class LoginScreenController implements Initializable {
             passwordLabel.setText(rb.getString("password"));
             loginButton.setText(rb.getString("login"));
             cancelButton.setText(rb.getString("cancel"));
+            userLocationLabel.setText(rb.getString("user_location"));
+            userLocationText.setText("!France (Test)");
+
         }
         //   -------------------------------------------------------------------------------
 

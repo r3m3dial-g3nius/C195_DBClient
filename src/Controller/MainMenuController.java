@@ -19,6 +19,10 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button okButton;
 
+    /**
+     * fires when the Exit button is pressed
+     * @param event
+     */
     @FXML
     void onActionExit(ActionEvent event)
     {
@@ -26,6 +30,10 @@ public class MainMenuController implements Initializable {
         System.exit(0);
     }
 
+    /**
+     * fires when the OK button is pressed
+     * @param event
+     */
     @FXML
     void onActionOK(ActionEvent event) {
         // code here
