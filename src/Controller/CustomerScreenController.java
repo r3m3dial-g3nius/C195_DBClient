@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.DBCustomers;
+import Models.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,13 +32,28 @@ public class CustomerScreenController implements Initializable {
     private Button addCustomerButton;
 
     @FXML
-    private TableColumn<?, ?> column_Address;
+    private TableColumn<?, ?> column1stLevelDivision;
 
     @FXML
-    private TableColumn<?, ?> column_Customer_ID;
+    private TableColumn<?, ?> columnAddress;
 
     @FXML
-    private TableColumn<?, ?> column_Name;
+    private TableColumn<?, ?> columnCountry;
+
+    @FXML
+    private TableColumn<?, ?> columnCustomerID;
+
+    @FXML
+    private TableColumn<?, ?> columnName;
+
+    @FXML
+    private TableColumn<?, ?> columnPhone;
+
+    @FXML
+    private TableColumn<?, ?> columnPostalCode;
+
+    @FXML
+    private TableView<Customer> customersTableView;
 
     @FXML
     private Button deleteCustomerButton;
@@ -76,11 +95,25 @@ public class CustomerScreenController implements Initializable {
      * @param resourceBundle the resources
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-        // initialize screen
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try
 
+                //  THIS ONLY LOADS ONE CUSTOMER!
+        {
+            customersTableView.setItems(DBCustomers.getAllCustomers());
+            columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+            columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+            column1stLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+            columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+            columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
 }

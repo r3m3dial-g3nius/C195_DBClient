@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerScreenController">
    <children>
       <VBox alignment="CENTER" layoutY="-2.0" prefHeight="600.0" prefWidth="800.0" spacing="10.0">
@@ -21,15 +20,15 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TableView prefHeight="490.0" prefWidth="800.0">
+            <TableView fx:id="customersTableView" prefHeight="490.0" prefWidth="800.0">
               <columns>
-                <TableColumn fx:id="column_Customer_ID" text="Customer ID" />
-                <TableColumn fx:id="column_Name" prefWidth="120.0" text="Name" />
-                  <TableColumn fx:id="column_Address" prefWidth="180.0" text="Address" />
-                  <TableColumn prefWidth="120.0" text="1st Level Division" />
-                  <TableColumn prefWidth="100.0" text="Country" />
-                  <TableColumn text="Postal Code" />
-                  <TableColumn prefWidth="100.0" text="Phone Number" />
+                <TableColumn fx:id="columnCustomerID" text="Customer ID" />
+                <TableColumn fx:id="columnName" prefWidth="120.0" text="Name" />
+                  <TableColumn fx:id="columnAddress" prefWidth="180.0" text="Address" />
+                  <TableColumn fx:id="column1stLevelDivision" prefWidth="120.0" text="1st Level Division" />
+                  <TableColumn fx:id="columnCountry" prefWidth="100.0" text="Country" />
+                  <TableColumn fx:id="columnPostalCode" text="Postal Code" />
+                  <TableColumn fx:id="columnPhone" prefWidth="100.0" text="Phone Number" />
               </columns>
             </TableView>
             <HBox prefHeight="40.0" prefWidth="300.0">

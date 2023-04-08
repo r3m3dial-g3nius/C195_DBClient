@@ -22,13 +22,15 @@ public class DBUsers {
     {
         ObservableList<User> userList = FXCollections.observableArrayList();    // here is where you left off
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM users";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 int userId = rs.getInt("User_ID");
                 String userName = rs.getString("User_Name");
                 String password = rs.getString("Password");

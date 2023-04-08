@@ -27,8 +27,12 @@ public class Main extends Application {
      * @throws IOException The exception that is thrown if there's an error.
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/Login.fxml"));
+    public void start(Stage primaryStage) throws IOException
+    {
+        //  ----------   Temp bypass for testing purposes   ----------
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/MainMenu.fxml"));
+
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Client Scheduler");          //   --------------------   CHANGE THIS LATER  ----------------
         primaryStage.setScene(scene);
