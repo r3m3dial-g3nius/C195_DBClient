@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerScreenController">
+   <children>
+      <VBox alignment="CENTER" layoutY="-2.0" prefHeight="600.0" prefWidth="800.0" spacing="10.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="All Customers">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="490.0" prefWidth="800.0">
+              <columns>
+                <TableColumn fx:id="column_Customer_ID" text="Customer ID" />
+                <TableColumn fx:id="column_Name" prefWidth="120.0" text="Name" />
+                  <TableColumn fx:id="column_Address" prefWidth="180.0" text="Address" />
+                  <TableColumn prefWidth="120.0" text="1st Level Division" />
+                  <TableColumn prefWidth="100.0" text="Country" />
+                  <TableColumn text="Postal Code" />
+                  <TableColumn prefWidth="100.0" text="Phone Number" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="40.0" prefWidth="300.0">
+               <children>
+                  <ButtonBar prefHeight="40.0" prefWidth="100.0">
+                     <buttons>
+                      <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onActionMainMenu" prefWidth="80.0" text="Main Menu" />
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="700.0">
+                     <buttons>
+                        <Button fx:id="addCustomerButton" layoutX="735.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionAddCustomer" prefWidth="80.0" text="Add" />
+                        <Button fx:id="modifyCustomerButton" layoutX="735.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionModifyCustomer" prefWidth="80.0" text="Modify" />
+                        <Button fx:id="deleteCustomerButton" layoutX="735.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" prefWidth="80.0" text="Delete" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
