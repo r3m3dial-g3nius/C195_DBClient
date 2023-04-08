@@ -98,7 +98,7 @@ public class CustomerScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try
 
-                //  THIS ONLY LOADS ONE CUSTOMER!
+                //  >>>>>>>>>>>>>>   THIS ONLY LOADS ONE CUSTOMER!   <<<<<<<<<<<<<<<<<<  FIXME
         {
             customersTableView.setItems(DBCustomers.getAllCustomers());
             columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
