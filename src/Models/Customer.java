@@ -13,7 +13,7 @@ public class Customer {
     private String customerAddress;
     private int divisionID;
     private String customerCountry;
-    private int customerPostalCode;
+    private String customerPostalCode;
     private String customerPhone;
 
     /**
@@ -25,7 +25,7 @@ public class Customer {
      * @param customerPostalCode Postal code of customer
      * @param customerPhone Phone number of customer
      */
-    public Customer(int customerID, String customerName, String customerAddress, int divisionID, int customerPostalCode, String customerPhone)
+    public Customer(int customerID, String customerName, String customerAddress, int divisionID, String customerPostalCode, String customerPhone)
     {
         this.customerID = customerID;
         this.customerName = customerName;
@@ -120,7 +120,7 @@ public class Customer {
      * gets customer postal code
      * @return postal code of customer
      */
-    public int getCustomerPostalCode() {
+    public String getCustomerPostalCode() {
         return customerPostalCode;
     }
 
@@ -128,7 +128,7 @@ public class Customer {
      * sets customer postal code
      * @param customerPostalCode postal code of customer
      */
-    public void setCustomerPostalCode(int customerPostalCode) {
+    public void setCustomerPostalCode(String customerPostalCode) {
         this.customerPostalCode = customerPostalCode;
     }
 

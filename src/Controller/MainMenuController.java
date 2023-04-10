@@ -69,6 +69,7 @@ public class MainMenuController implements Initializable {
     @FXML
     void onActionCustomersButton(ActionEvent event) throws IOException {
         System.out.println("Customers button pressed");
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/Views/Customers.fxml"));
         stage.setScene(new Scene(scene));

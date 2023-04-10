@@ -102,27 +102,7 @@ public class CustomerScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-
-
-        //   --------------------------------------------   TEST customerList   --------------------------
-        ObservableList<Customer> testCustomerList = DBCustomers.getAllCustomers();
-
-        System.out.println(testCustomerList.size());
-        for (Customer customer : testCustomerList)
-        {
-            System.out.println(customer.getCustomerName());
-        }
-
-
-        //   -------------------------------------------------------------------------------------------------
-
-
-
-
-
         try
-
-                //  >>>>>>>>>>>>>>   THIS ONLY LOADS ONE CUSTOMER!   <<<<<<<<<<<<<<<<<<  FIXME
         {
             customersTableView.setItems(DBCustomers.getAllCustomers());
 
