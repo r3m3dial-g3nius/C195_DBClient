@@ -1,7 +1,11 @@
 package Controller;
 
+import DAO.DBCountries;
 import DAO.DBCustomers;
+import DAO.DBDivisions;
+import Models.Country;
 import Models.Customer;
+import Models.Division;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +23,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * This class is a Controller template.
+ * This class is a Controller for the Customer Screen.
  *
- * Controls the XXXXX screen of the app.
+ * Controls the Customer screen of the app.
  */
 public class CustomerScreenController implements Initializable {
 
@@ -49,11 +53,8 @@ public class CustomerScreenController implements Initializable {
     @FXML
     private TableColumn<?, ?> columnPhone;
 
-
-
     @FXML
     private TableView<Customer> customersTableView;
-
 
     @FXML
     private Button mainMenuButton;
@@ -92,7 +93,7 @@ public class CustomerScreenController implements Initializable {
     }
 
     /**
-     * Initializes the XXXXXXX screen
+     * Initializes the Customer screen
      *
      * @param url the location
      * @param resourceBundle the resources
@@ -108,7 +109,7 @@ public class CustomerScreenController implements Initializable {
             columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
             column1stLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
-            columnCountry.setCellValueFactory(new PropertyValueFactory<>("FIXME"));     // FIXME
+            columnCountry.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
             columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
             columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         }

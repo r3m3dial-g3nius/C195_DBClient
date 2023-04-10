@@ -1,5 +1,11 @@
 package Models;
 
+import DAO.DBCountries;
+import DAO.DBDivisions;
+
+/**
+ * This class manages Customer data
+ */
 public class Customer {
 
     private int customerID;
@@ -25,65 +31,146 @@ public class Customer {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.divisionID = divisionID;
-        this.customerCountry = "FIXME";     //  FIXME
+        this.customerCountry = getCountryName(divisionID);
         this.customerPostalCode = customerPostalCode;
         this.customerPhone = customerPhone;
     }
 
+    /**
+     * gets ID number of customer
+     * @return customer ID number
+     */
     public int getCustomerID() {
         return customerID;
     }
 
+    /**
+     * sets value of customerID
+     * @param customerID ID number of customer
+     */
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
+    /**
+     * gets name of customer
+     * @return name of customer
+     */
     public String getCustomerName() {
         return customerName;
     }
 
+    /**
+     * sets customerName
+     * @param customerName name of customer
+     */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
+    /**
+     * gets customer address
+     * @return address of customer
+     */
     public String getCustomerAddress() {
         return customerAddress;
     }
 
+    /**
+     * sets customer address
+     * @param customerAddress address of customer
+     */
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
     }
 
+    /**
+     * gets the division ID number
+     * @return ID number of division
+     */
     public int getDivisionID() {
         return divisionID;
     }
 
+    /**
+     * sets division ID number
+     * @param divisionID ID number of division
+     */
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
     }
 
+    /**
+     * gets country name
+     * @return name of customer country
+     */
     public String getCustomerCountry() {
         return customerCountry;
     }
 
+    /**
+     * sets customer country name
+     * @param customerCountry name of customer country
+     */
     public void setCustomerCountry(String customerCountry) {
         this.customerCountry = customerCountry;
     }
 
+    /**
+     * gets customer postal code
+     * @return postal code of customer
+     */
     public int getCustomerPostalCode() {
         return customerPostalCode;
     }
 
+    /**
+     * sets customer postal code
+     * @param customerPostalCode postal code of customer
+     */
     public void setCustomerPostalCode(int customerPostalCode) {
         this.customerPostalCode = customerPostalCode;
     }
 
+    /**
+     * gets customer phone number
+     * @return phone number of customer
+     */
     public String getCustomerPhone() {
         return customerPhone;
     }
 
+    /**
+     * sets customer phone number
+     * @param customerPhone phone number of customer
+     */
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
+    }
+
+    /**
+     * gets name of customer country
+     * @param divisionID division ID number
+     * @return name of customer country
+     */
+    private String getCountryName(int divisionID)
+    {
+        String countryName = "";
+
+        try
+        {
+            Division d = DBDivisions.getDivision(divisionID);
+            int countryID = d.getCountryID();
+            Country c = DBCountries.getCountry(countryID);
+            countryName = c.getCountryName();
+        }
+
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+
+        return countryName;
     }
 
 }

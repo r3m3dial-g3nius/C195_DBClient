@@ -23,10 +23,10 @@
             <TableView fx:id="customersTableView" prefHeight="490.0" prefWidth="800.0">
               <columns>
                 <TableColumn fx:id="columnCustomerID" text="Customer ID" />
-                <TableColumn fx:id="columnName" prefWidth="120.0" text="Name" />
+                <TableColumn fx:id="columnName" prefWidth="130.0" text="Name" />
                   <TableColumn fx:id="columnAddress" prefWidth="180.0" text="Address" />
-                  <TableColumn fx:id="column1stLevelDivision" prefWidth="120.0" text="1st Level Division" />
-                  <TableColumn fx:id="columnCountry" prefWidth="100.0" text="Country" />
+                  <TableColumn fx:id="column1stLevelDivision" prefWidth="110.0" text="1st Level Division" />
+                  <TableColumn fx:id="columnCountry" prefWidth="90.0" text="Country" />
                   <TableColumn fx:id="columnPostalCode" text="Postal Code" />
                   <TableColumn fx:id="columnPhone" prefWidth="100.0" text="Phone Number" />
               </columns>
