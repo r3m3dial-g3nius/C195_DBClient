@@ -6,7 +6,7 @@ public class Customer {
     private String customerName;
     private String customerAddress;
     private int divisionID;
-    //private int customerCountry;
+    private String customerCountry;
     private int customerPostalCode;
     private String customerPhone;
 
@@ -25,6 +25,7 @@ public class Customer {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.divisionID = divisionID;
+        this.customerCountry = "FIXME";     //  FIXME
         this.customerPostalCode = customerPostalCode;
         this.customerPhone = customerPhone;
     }
@@ -59,6 +60,14 @@ public class Customer {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public String getCustomerCountry() {
+        return customerCountry;
+    }
+
+    public void setCustomerCountry(String customerCountry) {
+        this.customerCountry = customerCountry;
     }
 
     public int getCustomerPostalCode() {

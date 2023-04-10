@@ -29,50 +29,43 @@ public class CustomerScreenController implements Initializable {
     Parent scene;
 
     @FXML
-    private Button addCustomerButton;
-
-    @FXML
-    private TableColumn<?, ?> column1stLevelDivision;
-
-    @FXML
-    private TableColumn<?, ?> columnAddress;
-
-    @FXML
-    private TableColumn<?, ?> columnCountry;
-
-    @FXML
     private TableColumn<?, ?> columnCustomerID;
 
     @FXML
     private TableColumn<?, ?> columnName;
 
     @FXML
-    private TableColumn<?, ?> columnPhone;
+    private TableColumn<?, ?> columnAddress;
+
+    @FXML
+    private TableColumn<?, ?> column1stLevelDivision;
+
+    @FXML
+    private TableColumn<?, ?> columnCountry;
 
     @FXML
     private TableColumn<?, ?> columnPostalCode;
 
     @FXML
-    private TableView<Customer> customersTableView;
+    private TableColumn<?, ?> columnPhone;
+
+
 
     @FXML
-    private Button deleteCustomerButton;
+    private TableView<Customer> customersTableView;
+
 
     @FXML
     private Button mainMenuButton;
 
     @FXML
+    private Button addCustomerButton;
+
+    @FXML
     private Button modifyCustomerButton;
 
     @FXML
-    void onActionAddCustomer(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionDeleteCustomer(ActionEvent event) {
-
-    }
+    private Button deleteCustomerButton;
 
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
@@ -84,7 +77,17 @@ public class CustomerScreenController implements Initializable {
     }
 
     @FXML
+    void onActionAddCustomer(ActionEvent event) {
+
+    }
+
+    @FXML
     void onActionModifyCustomer(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionDeleteCustomer(ActionEvent event) {
 
     }
 
@@ -105,6 +108,7 @@ public class CustomerScreenController implements Initializable {
             columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
             column1stLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+            columnCountry.setCellValueFactory(new PropertyValueFactory<>("FIXME"));     // FIXME
             columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
             columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         }
