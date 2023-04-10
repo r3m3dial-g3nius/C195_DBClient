@@ -34,12 +34,23 @@ public class DBCustomers {
                 String customerName = rs.getString("Customer_Name");
                 String customerAddress = rs.getString("Address");
                 int divisionID = rs.getInt("Division_ID");
-                //int customerCountry = ;
                 int customerPostalCode = rs.getInt("Postal_Code");
                 String customerPhone = rs.getString("Phone");
 
                 Customer newCustomer = new Customer(customerID, customerName, customerAddress, divisionID, customerPostalCode, customerPhone);
                 customerList.add(newCustomer);
+
+
+
+
+
+                //   -------------------   TEST   --------------------------
+                System.out.println(newCustomer.getCustomerName());
+
+                //   ^^^   THE PROBLEM IS HERE   ^^^  - only 1 customer in list
+
+
+
             }
 
         }

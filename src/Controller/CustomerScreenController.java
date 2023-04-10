@@ -6,6 +6,7 @@ import DAO.DBDivisions;
 import Models.Country;
 import Models.Customer;
 import Models.Division;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,12 +100,32 @@ public class CustomerScreenController implements Initializable {
      * @param resourceBundle the resources
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+
+
+        //   --------------------------------------------   TEST customerList   --------------------------
+        ObservableList<Customer> testCustomerList = DBCustomers.getAllCustomers();
+
+        System.out.println(testCustomerList.size());
+        for (Customer customer : testCustomerList)
+        {
+            System.out.println(customer.getCustomerName());
+        }
+
+
+        //   -------------------------------------------------------------------------------------------------
+
+
+
+
+
         try
 
                 //  >>>>>>>>>>>>>>   THIS ONLY LOADS ONE CUSTOMER!   <<<<<<<<<<<<<<<<<<  FIXME
         {
             customersTableView.setItems(DBCustomers.getAllCustomers());
+
             columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
