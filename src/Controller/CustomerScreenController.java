@@ -115,10 +115,14 @@ public class CustomerScreenController implements Initializable {
             //  ------   Creates observable list of string values to populate drop down boxes to filter customer table   ------
             ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
             ObservableList<String> divisionNames = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression   <---
             allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
 
             ObservableList<Country> allCountries = DBCountries.getAllCountries();
             ObservableList<String> countryNames = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression   <---
             allCountries.forEach(country -> countryNames.add(country.getCountryName()));
 
 
