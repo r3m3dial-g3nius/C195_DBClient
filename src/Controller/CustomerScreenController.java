@@ -3,6 +3,7 @@ package Controller;
 import DAO.DBCountries;
 import DAO.DBCustomers;
 import DAO.DBDivisions;
+import Helper.DBConnection;
 import Models.Country;
 import Models.Customer;
 import Models.Division;
@@ -14,15 +15,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -80,21 +82,85 @@ public class CustomerScreenController implements Initializable {
     @FXML
     private Button deleteCustomerButton;
 
-
-
-
-
-
-
     @FXML
     void onActionApplyFilter(ActionEvent event) {
         System.out.println("Apply filter button pressed");
+
         String countryFilter = dropDownCountry.getValue();
         String divisionFilter = dropDownDivision.getValue();
 
+        ObservableList<Customer> customerList = DBCustomers.getAllCustomers();
+        ObservableList<Customer> filteredCustomerList = FXCollections.observableArrayList();
+
+        //  -----   if only country drop down is selected   -----
+        if (!countryFilter.equals("Country") && divisionFilter.equals("Division"))
+        {
+            System.out.println(countryFilter);          // test
+
+            for (Customer customer : customerList)
+            {
+                if (customer.getCustomerCountry().equals(countryFilter))
+                {
+                    filteredCustomerList.add(customer);
+                }
+            }
+        }
+
+        //  -----   if only division drop down is selected   -----
+        else if (countryFilter.equals("Country") && !divisionFilter.equals("Division"))
+        {
+            for (Customer customer : customerList)
+            {
+                if (customer.getDivisionName().equals(divisionFilter))
+                {
+                    filteredCustomerList.add(customer);
+                }
+            }
+        }
+
+        //  -----   if country & division drop down are selected   -----
+        else if (!countryFilter.equals("Country") && !divisionFilter.equals("Division"))
+        {
+            for (Customer customer : customerList)
+            {
+                if (customer.getCustomerCountry().equals(countryFilter) && customer.getDivisionName().equals(divisionFilter))
+                {
+                    filteredCustomerList.add(customer);
+                }
+            }
+        }
+
+        //  ------------------------   VVVVV   update tableview   VVVVV   ------------------------
+        //  ------   Creates observable list of string values to populate drop down boxes to filter customer table   ------
+        ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
+        ObservableList<String> divisionNames = FXCollections.observableArrayList();
+
+        ObservableList<Country> allCountries = DBCountries.getAllCountries();
+        ObservableList<String> countryNames = FXCollections.observableArrayList();
+
+        //  --->   LAMBDA expression   <---
+        allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
+
+        //  --->   LAMBDA expression   <---
+        allCountries.forEach(country -> countryNames.add(country.getCountryName()));
+
+        customersTableView.setItems(filteredCustomerList);
+
+        columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        column1stLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        columnCountry.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
+        columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+
+//        dropDownCountry.setValue("Country");                //   Set dropdown box label
+//        dropDownCountry.setItems(countryNames);             //   Populate dropdown box items
+//
+//        dropDownDivision.setValue("Division");              //   Set dropdown box label
+//        dropDownDivision.setItems(divisionNames);           //   Populate dropdown box items
 
     }
-
 
 
 
@@ -141,11 +207,11 @@ public class CustomerScreenController implements Initializable {
             ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
             ObservableList<String> divisionNames = FXCollections.observableArrayList();
 
-            //  --->   LAMBDA expression   <---
-            allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
-
             ObservableList<Country> allCountries = DBCountries.getAllCountries();
             ObservableList<String> countryNames = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression   <---
+            allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
 
             //  --->   LAMBDA expression   <---
             allCountries.forEach(country -> countryNames.add(country.getCountryName()));

@@ -28,9 +28,6 @@ public class DBCustomers {
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            // test counter
-            int counter = 1;
-
             while (rs.next())
             {
                 int customerID = rs.getInt("Customer_ID");

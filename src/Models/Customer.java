@@ -12,6 +12,7 @@ public class Customer {
     private String customerName;
     private String customerAddress;
     private int divisionID;
+    private String divisionName;
     private String customerCountry;
     private String customerPostalCode;
     private String customerPhone;
@@ -31,6 +32,7 @@ public class Customer {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.divisionID = divisionID;
+        this.divisionName = getDivisionName();
         this.customerCountry = getCountryName(divisionID);
         this.customerPostalCode = customerPostalCode;
         this.customerPhone = customerPhone;
@@ -172,5 +174,29 @@ public class Customer {
 
         return countryName;
     }
+
+
+    /**
+     * gets name of customer division
+     * @return name of division
+     */
+    public String getDivisionName()
+    {
+        String divisionName = "";
+
+        try
+        {
+            Division d = DBDivisions.getDivision(divisionID);
+            divisionName = d.getDivisionName();
+        }
+
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+
+        return divisionName;
+    }
+
 
 }
