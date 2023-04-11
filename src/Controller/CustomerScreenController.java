@@ -42,6 +42,9 @@ public class CustomerScreenController implements Initializable {
     private ChoiceBox<String> dropDownDivision;
 
     @FXML
+    private Button applyFilterButton;
+
+    @FXML
     private TableColumn<?, ?> columnCustomerID;
 
     @FXML
@@ -77,6 +80,28 @@ public class CustomerScreenController implements Initializable {
     @FXML
     private Button deleteCustomerButton;
 
+
+
+
+
+
+
+    @FXML
+    void onActionApplyFilter(ActionEvent event) {
+        System.out.println("Apply filter button pressed");
+        String countryFilter = dropDownCountry.getValue();
+        String divisionFilter = dropDownDivision.getValue();
+
+
+    }
+
+
+
+
+
+
+
+
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -88,17 +113,17 @@ public class CustomerScreenController implements Initializable {
 
     @FXML
     void onActionAddCustomer(ActionEvent event) {
-
+        System.out.println("Add Customer Button pressed");
     }
 
     @FXML
     void onActionModifyCustomer(ActionEvent event) {
-
+        System.out.println("Modify Customer button pressed");
     }
 
     @FXML
     void onActionDeleteCustomer(ActionEvent event) {
-
+        System.out.println("Delete Customer button pressed");
     }
 
     /**
@@ -136,8 +161,11 @@ public class CustomerScreenController implements Initializable {
             columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
             columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
 
-            dropDownDivision.setItems(divisionNames);
-            dropDownCountry.setItems(countryNames);
+            dropDownCountry.setValue("Country");                //   Set dropdown box label
+            dropDownCountry.setItems(countryNames);             //   Populate dropdown box items
+
+            dropDownDivision.setValue("Division");              //   Set dropdown box label
+            dropDownDivision.setItems(divisionNames);           //   Populate dropdown box items
         }
 
         catch (Exception e)
