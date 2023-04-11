@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,11 +16,27 @@
    <children>
       <VBox alignment="CENTER" layoutY="-2.0" prefHeight="600.0" prefWidth="800.0" spacing="10.0">
          <children>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="All Customers">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+               <children>
+                  <ButtonBar layoutX="364.0" layoutY="10.0" prefHeight="35.0" prefWidth="240.0">
+                     <buttons>
+                        <Label text="Filter by division:" />
+                        <ChoiceBox fx:id="dropDownDivision" prefWidth="150.0" />
+                     </buttons>
+                  </ButtonBar>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="309.0" text="All Customers">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ButtonBar prefHeight="30.0" prefWidth="240.0">
+                     <buttons>
+                        <Label text="Filter by country:" />
+                        <ChoiceBox fx:id="dropDownCountry" prefWidth="150.0" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </HBox>
             <TableView fx:id="customersTableView" prefHeight="490.0" prefWidth="800.0">
               <columns>
                 <TableColumn fx:id="columnCustomerID" text="Customer ID" />

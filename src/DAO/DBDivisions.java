@@ -1,7 +1,6 @@
 package DAO;
 
 import Helper.DBConnection;
-import Models.Country;
 import Models.Division;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -84,40 +83,5 @@ public class DBDivisions {
 
         return null;
     }
-
-//  ----------------------------------   IS THIS NEEDED?   ------------------------------------
-//    /**
-//     * This method outputs date country was created in database
-//     */
-//    public static void checkDateConversions()
-//    {
-//        System.out.println("Countries Date test\n");
-//
-//        String sql = "SELECT Create_Date FROM countries";
-//
-//        try
-//        {
-//            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next())
-//            {
-//                Timestamp ts = rs.getTimestamp("Create_Date");
-//                System.out.println("CD: " + ts.toLocalDateTime().toString());
-//            }
-//            System.out.println();
-//        }
-//
-//        catch (SQLException throwables)
-//        {
-//            throwables.printStackTrace();
-//        }
-//    }
-//  ---------------------------------------------------------------------------------------------
-
-
-
-
-
 
 }

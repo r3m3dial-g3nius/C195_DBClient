@@ -6,6 +6,7 @@ import DAO.DBDivisions;
 import Models.Country;
 import Models.Customer;
 import Models.Division;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +34,12 @@ public class CustomerScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
+
+    @FXML
+    private ChoiceBox<String> dropDownCountry;
+
+    @FXML
+    private ChoiceBox<String> dropDownDivision;
 
     @FXML
     private TableColumn<?, ?> columnCustomerID;
@@ -104,6 +112,16 @@ public class CustomerScreenController implements Initializable {
     {
         try
         {
+            //  ------   Creates observable list of string values to populate drop down boxes to filter customer table   ------
+            ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
+            ObservableList<String> divisionNames = FXCollections.observableArrayList();
+            allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
+
+            ObservableList<Country> allCountries = DBCountries.getAllCountries();
+            ObservableList<String> countryNames = FXCollections.observableArrayList();
+            allCountries.forEach(country -> countryNames.add(country.getCountryName()));
+
+
             customersTableView.setItems(DBCustomers.getAllCustomers());
 
             columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
@@ -113,6 +131,9 @@ public class CustomerScreenController implements Initializable {
             columnCountry.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
             columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
             columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+
+            dropDownDivision.setItems(divisionNames);
+            dropDownCountry.setItems(countryNames);
         }
 
         catch (Exception e)

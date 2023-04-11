@@ -70,7 +70,4 @@ public class Division {
         this.countryID = countryID;
     }
 
-
-
-
 }
