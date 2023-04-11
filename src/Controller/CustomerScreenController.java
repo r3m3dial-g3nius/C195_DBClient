@@ -44,6 +44,9 @@ public class CustomerScreenController implements Initializable {
     private ChoiceBox<String> dropDownDivision;
 
     @FXML
+    private Button resetFilterButton;
+
+    @FXML
     private Button applyFilterButton;
 
     @FXML
@@ -83,7 +86,21 @@ public class CustomerScreenController implements Initializable {
     private Button deleteCustomerButton;
 
     @FXML
-    void onActionApplyFilter(ActionEvent event) {
+    void onActionResetFilter(ActionEvent event) throws IOException
+    {
+        System.out.println("Reset filter button pressed");
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/Customers.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
+
+    }
+
+    @FXML
+    void onActionApplyFilter(ActionEvent event)
+    {
         System.out.println("Apply filter button pressed");
 
         String countryFilter = dropDownCountry.getValue();
@@ -153,23 +170,11 @@ public class CustomerScreenController implements Initializable {
         columnCountry.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
         columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-
-//        dropDownCountry.setValue("Country");                //   Set dropdown box label
-//        dropDownCountry.setItems(countryNames);             //   Populate dropdown box items
-//
-//        dropDownDivision.setValue("Division");              //   Set dropdown box label
-//        dropDownDivision.setItems(divisionNames);           //   Populate dropdown box items
-
     }
 
-
-
-
-
-
-
     @FXML
-    void onActionMainMenu(ActionEvent event) throws IOException {
+    void onActionMainMenu(ActionEvent event) throws IOException
+    {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
         stage.setScene(new Scene(scene));
@@ -178,17 +183,20 @@ public class CustomerScreenController implements Initializable {
     }
 
     @FXML
-    void onActionAddCustomer(ActionEvent event) {
+    void onActionAddCustomer(ActionEvent event)
+    {
         System.out.println("Add Customer Button pressed");
     }
 
     @FXML
-    void onActionModifyCustomer(ActionEvent event) {
+    void onActionModifyCustomer(ActionEvent event)
+    {
         System.out.println("Modify Customer button pressed");
     }
 
     @FXML
-    void onActionDeleteCustomer(ActionEvent event) {
+    void onActionDeleteCustomer(ActionEvent event)
+    {
         System.out.println("Delete Customer button pressed");
     }
 
