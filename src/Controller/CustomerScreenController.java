@@ -85,6 +85,11 @@ public class CustomerScreenController implements Initializable {
     @FXML
     private Button deleteCustomerButton;
 
+    /**
+     * fires when the Reset button is pressed; reloads table without filters
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionResetFilter(ActionEvent event) throws IOException
     {
@@ -98,6 +103,10 @@ public class CustomerScreenController implements Initializable {
 
     }
 
+    /**
+     * fires when the Apply button is pressed; applies user selected filters from Country and Division combobox
+     * @param event
+     */
     @FXML
     void onActionApplyFilter(ActionEvent event)
     {
@@ -172,6 +181,11 @@ public class CustomerScreenController implements Initializable {
         columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
     }
 
+    /**
+     * fires when the Main Menu button is selected; returns user to Main Menu
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException
     {
@@ -182,18 +196,30 @@ public class CustomerScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * fires when Add button is selected; opens Add Customer screen
+     * @param event
+     */
     @FXML
     void onActionAddCustomer(ActionEvent event)
     {
         System.out.println("Add Customer Button pressed");
     }
 
+    /**
+     * fires when Modify button is selected; opens Modify Customer screen
+     * @param event
+     */
     @FXML
     void onActionModifyCustomer(ActionEvent event)
     {
         System.out.println("Modify Customer button pressed");
     }
 
+    /**
+     * fires when Delete button is pressed; deletes all appointments associated w/ selected Customer, then deletes Customer
+     * @param event
+     */
     @FXML
     void onActionDeleteCustomer(ActionEvent event)
     {
