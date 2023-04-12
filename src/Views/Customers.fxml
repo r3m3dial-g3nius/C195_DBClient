@@ -36,14 +36,18 @@
                   <TableColumn fx:id="columnPhone" prefWidth="100.0" text="Phone Number" />
               </columns>
             </TableView>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="25.0">
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="750.0" spacing="25.0">
                <children>
                   <ButtonBar prefHeight="30.0" prefWidth="400.0">
                      <buttons>
                         <Label text="Filter by" />
-                        <ComboBox fx:id="dropDownCountry" onAction="#onActionApplyFilter" prefWidth="150.0" />
-                        <Label text="Filter by" />
-                        <ComboBox fx:id="dropDownDivision" onAction="#onActionApplyFilter" prefWidth="150.0" />
+                        <ComboBox fx:id="dropDownCountry" onAction="#onActionApplyFilter" prefWidth="180.0" />
+                     </buttons>
+                  </ButtonBar>
+                  <ButtonBar layoutX="43.0" layoutY="10.0" prefHeight="30.0" prefWidth="400.0">
+                     <buttons>
+                        <Label prefWidth="70.0" text="Filter by" />
+                        <ComboBox fx:id="dropDownDivision" onAction="#onActionApplyFilter" prefWidth="180.0" />
                      </buttons>
                   </ButtonBar>
                   <ButtonBar buttonMinWidth="100.0" prefHeight="40.0" prefWidth="290.0">
@@ -60,7 +64,7 @@
                       <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onActionMainMenu" prefWidth="100.0" text="Main Menu" />
                      </buttons>
                   </ButtonBar>
-                  <ButtonBar layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="650.0">
+                  <ButtonBar layoutX="90.0" layoutY="10.0" prefHeight="35.0" prefWidth="680.0">
                      <buttons>
                         <Button fx:id="addCustomerButton" layoutX="735.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionAddCustomer" prefWidth="100.0" text="Add" />
                         <Button fx:id="modifyCustomerButton" layoutX="735.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionModifyCustomer" prefWidth="100.0" text="Modify" />

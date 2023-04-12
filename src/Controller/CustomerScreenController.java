@@ -288,9 +288,11 @@ public class CustomerScreenController implements Initializable {
 
             dropDownCountry.setValue("Country");                //   Set dropdown box label
             dropDownCountry.setItems(countryNames);             //   Populate dropdown box items
+            dropDownCountry.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
 
             dropDownDivision.setValue("Division");              //   Set dropdown box label
             dropDownDivision.setItems(divisionNames);           //   Populate dropdown box items
+            dropDownDivision.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
         }
 
         catch (Exception e)
