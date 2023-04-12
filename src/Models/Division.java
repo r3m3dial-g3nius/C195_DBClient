@@ -1,5 +1,7 @@
 package Models;
 
+import DAO.DBCountries;
+
 /**
  * this class manages first class divisions data
  */
@@ -70,4 +72,26 @@ public class Division {
         this.countryID = countryID;
     }
 
+    /**
+     * gets name of country where division is located
+     * @param countryID ID number of country
+     * @return name of country
+     */
+    public String getCountryName(int countryID)
+    {
+        String countryName = "";
+
+        try
+        {
+            Country c = DBCountries.getCountry(countryID);
+            countryName = c.getCountryName();
+        }
+
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+
+        return countryName;
+    }
 }

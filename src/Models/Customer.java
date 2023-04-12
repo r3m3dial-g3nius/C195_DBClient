@@ -198,5 +198,4 @@ public class Customer {
         return divisionName;
     }
 
-
 }

@@ -38,16 +38,13 @@ public class CustomerScreenController implements Initializable {
     Parent scene;
 
     @FXML
-    private ChoiceBox<String> dropDownCountry;
+    private ComboBox<String> dropDownCountry;
 
     @FXML
-    private ChoiceBox<String> dropDownDivision;
+    private ComboBox<String> dropDownDivision;
 
     @FXML
     private Button resetFilterButton;
-
-    @FXML
-    private Button applyFilterButton;
 
     @FXML
     private TableColumn<?, ?> columnCustomerID;
@@ -104,7 +101,7 @@ public class CustomerScreenController implements Initializable {
     }
 
     /**
-     * fires when the Apply button is pressed; applies user selected filters from Country and Division combobox
+     * fires when the either combobox receives a new selection; applies user selected filters from Country and Division to tableview
      * @param event
      */
     @FXML
@@ -118,6 +115,7 @@ public class CustomerScreenController implements Initializable {
         ObservableList<Customer> customerList = DBCustomers.getAllCustomers();
         ObservableList<Customer> filteredCustomerList = FXCollections.observableArrayList();
 
+
         //   -----   if either dropdown has a selection   -----
         if (!countryFilter.equals("Country") || !divisionFilter.equals("Division"))
         {
@@ -125,6 +123,20 @@ public class CustomerScreenController implements Initializable {
             if (!countryFilter.equals("Country") && divisionFilter.equals("Division"))
             {
                 System.out.println(countryFilter);          // test
+
+                //  -----   update dropDownDivision to reflect divisions in selected country   -----
+                ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
+                ObservableList<String> filteredDivisionNames = FXCollections.observableArrayList();
+
+                for (Division division : allDivisions)
+                {
+                    if (division.getCountryName(division.getCountryID()).equals(countryFilter))
+                    {
+                        filteredDivisionNames.add(division.getDivisionName());
+                    }
+                }
+
+                dropDownDivision.setItems(filteredDivisionNames);
 
                 for (Customer customer : customerList)
                 {
