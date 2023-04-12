@@ -118,67 +118,77 @@ public class CustomerScreenController implements Initializable {
         ObservableList<Customer> customerList = DBCustomers.getAllCustomers();
         ObservableList<Customer> filteredCustomerList = FXCollections.observableArrayList();
 
-        //  -----   if only country drop down is selected   -----
-        if (!countryFilter.equals("Country") && divisionFilter.equals("Division"))
+        //   -----   if either dropdown has a selection   -----
+        if (!countryFilter.equals("Country") || !divisionFilter.equals("Division"))
         {
-            System.out.println(countryFilter);          // test
-
-            for (Customer customer : customerList)
+            //  -----   if only country drop down is selected   -----
+            if (!countryFilter.equals("Country") && divisionFilter.equals("Division"))
             {
-                if (customer.getCustomerCountry().equals(countryFilter))
+                System.out.println(countryFilter);          // test
+
+                for (Customer customer : customerList)
                 {
-                    filteredCustomerList.add(customer);
+                    if (customer.getCustomerCountry().equals(countryFilter))
+                    {
+                        filteredCustomerList.add(customer);
+                    }
                 }
             }
-        }
 
-        //  -----   if only division drop down is selected   -----
-        else if (countryFilter.equals("Country") && !divisionFilter.equals("Division"))
-        {
-            for (Customer customer : customerList)
+            //  -----   if only division drop down is selected   -----
+            else if (countryFilter.equals("Country") && !divisionFilter.equals("Division"))
             {
-                if (customer.getDivisionName().equals(divisionFilter))
+                for (Customer customer : customerList)
                 {
-                    filteredCustomerList.add(customer);
+                    if (customer.getDivisionName().equals(divisionFilter))
+                    {
+                        filteredCustomerList.add(customer);
+                    }
                 }
             }
-        }
 
-        //  -----   if country & division drop down are selected   -----
-        else if (!countryFilter.equals("Country") && !divisionFilter.equals("Division"))
-        {
-            for (Customer customer : customerList)
+            //  -----   if country & division drop down are selected   -----
+            else if (!countryFilter.equals("Country") && !divisionFilter.equals("Division"))
             {
-                if (customer.getCustomerCountry().equals(countryFilter) && customer.getDivisionName().equals(divisionFilter))
+                for (Customer customer : customerList)
                 {
-                    filteredCustomerList.add(customer);
+                    if (customer.getCustomerCountry().equals(countryFilter) && customer.getDivisionName().equals(divisionFilter))
+                    {
+                        filteredCustomerList.add(customer);
+                    }
                 }
             }
+
+            //  ------------------------   VVVVV   update tableview   VVVVV   ------------------------
+            //  ------   Creates observable list of string values to populate drop down boxes to filter customer table   ------
+            ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
+            ObservableList<String> divisionNames = FXCollections.observableArrayList();
+
+            ObservableList<Country> allCountries = DBCountries.getAllCountries();
+            ObservableList<String> countryNames = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression   <---
+            allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
+
+            //  --->   LAMBDA expression   <---
+            allCountries.forEach(country -> countryNames.add(country.getCountryName()));
+
+            customersTableView.setItems(filteredCustomerList);
+
+            columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+            columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+            column1stLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+            columnCountry.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
+            columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+            columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         }
 
-        //  ------------------------   VVVVV   update tableview   VVVVV   ------------------------
-        //  ------   Creates observable list of string values to populate drop down boxes to filter customer table   ------
-        ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
-        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-
-        ObservableList<Country> allCountries = DBCountries.getAllCountries();
-        ObservableList<String> countryNames = FXCollections.observableArrayList();
-
-        //  --->   LAMBDA expression   <---
-        allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
-
-        //  --->   LAMBDA expression   <---
-        allCountries.forEach(country -> countryNames.add(country.getCountryName()));
-
-        customersTableView.setItems(filteredCustomerList);
-
-        columnCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        columnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        columnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-        column1stLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
-        columnCountry.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
-        columnPostalCode.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
-        columnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        else
+        {
+            //   do nothing
+            System.out.println("No filter selected");
+        }
     }
 
     /**
