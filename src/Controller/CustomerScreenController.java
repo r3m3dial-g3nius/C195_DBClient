@@ -251,6 +251,9 @@ public class CustomerScreenController implements Initializable {
     /**
      * Initializes the Customer screen
      *
+     * Lambda expression #1 - populates ObservableList with String values of division names
+     * Lambda expression #2 - populates ObservableList with String values of country names
+     *
      * @param url the location
      * @param resourceBundle the resources
      */
@@ -266,10 +269,10 @@ public class CustomerScreenController implements Initializable {
             ObservableList<Country> allCountries = DBCountries.getAllCountries();
             ObservableList<String> countryNames = FXCollections.observableArrayList();
 
-            //  --->   LAMBDA expression   <---
+            //  --->   LAMBDA expression #1  <---
             allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
 
-            //  --->   LAMBDA expression   <---
+            //  --->   LAMBDA expression #2  <---
             allCountries.forEach(country -> countryNames.add(country.getCountryName()));
 
 
