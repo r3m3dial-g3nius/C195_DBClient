@@ -58,9 +58,14 @@ public class AddCustomerScreenController implements Initializable {
     @FXML
     private TextField textFieldPhone;
 
+
+
+
+
+
     @FXML
     void onActionAddNewCustomer(ActionEvent event) {
-//        int customerID = Integer.parseInt(textFieldCustomerID.getText());
+//        int customerID = Integer.parseInt(textFieldCustomerID.getText());     //   DO I NEED THIS FOR UNIQUE ID VIA SQL?
         String customerName = textFieldCustomerName.getText();
         String customerAddress = textFieldAddress.getText();
         String postalCode = textFieldPostalCode.getText();
@@ -72,8 +77,17 @@ public class AddCustomerScreenController implements Initializable {
         if (!customerName.isEmpty() || !customerAddress.isEmpty() || !postalCode.isEmpty() || !phoneNumber.isEmpty() || !countryName.isEmpty() || !divisionName.isEmpty())
         {
             System.out.println("Adding " + customerName);
+            //  ----->   NEED TO INSERT NEW CUSTOMER VIA SQL   <-----
         }
     }
+
+
+
+
+
+
+
+
 
     @FXML
     void onActionCountrySelect(ActionEvent event) {
@@ -122,6 +136,7 @@ public class AddCustomerScreenController implements Initializable {
 
         dropDownCountry.setItems(allCountriesString);
         dropDownDivision.getSelectionModel().clearSelection();
+        textFieldCustomerID.setPromptText("Auto Generated");
     }
 
 
