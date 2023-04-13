@@ -223,9 +223,14 @@ public class CustomerScreenController implements Initializable {
      * @param event
      */
     @FXML
-    void onActionAddCustomer(ActionEvent event)
-    {
+    void onActionAddCustomer(ActionEvent event) throws IOException {
         System.out.println("Add Customer Button pressed");
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/AddCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
     }
 
     /**
