@@ -92,6 +92,9 @@ public class CustomerScreenController implements Initializable {
     {
         System.out.println("Reset filter button pressed");
 
+//        dropDownCountry.getSelectionModel().clearSelection();
+//        dropDownDivision.getSelectionModel().clearSelection();
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/Views/Customers.fxml"));
         stage.setScene(new Scene(scene));

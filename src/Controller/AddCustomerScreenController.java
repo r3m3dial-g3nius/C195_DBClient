@@ -32,7 +32,7 @@ public class AddCustomerScreenController implements Initializable {
     Parent scene;
 
     @FXML
-    private ComboBox<Country> dropDownCountry;
+    private ComboBox<String> dropDownCountry;
 
     @FXML
     private ComboBox<String> dropDownDivision;
@@ -60,7 +60,19 @@ public class AddCustomerScreenController implements Initializable {
 
     @FXML
     void onActionAddNewCustomer(ActionEvent event) {
+//        int customerID = Integer.parseInt(textFieldCustomerID.getText());
+        String customerName = textFieldCustomerName.getText();
+        String customerAddress = textFieldAddress.getText();
+        String postalCode = textFieldPostalCode.getText();
+        String phoneNumber = textFieldPhone.getText();
 
+        String countryName = dropDownCountry.getValue();
+        String divisionName = dropDownDivision.getValue();
+
+        if (!customerName.isEmpty() || !customerAddress.isEmpty() || !postalCode.isEmpty() || !phoneNumber.isEmpty() || !countryName.isEmpty() || !divisionName.isEmpty())
+        {
+            System.out.println("Adding " + customerName);
+        }
     }
 
     @FXML
@@ -102,10 +114,14 @@ public class AddCustomerScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        // initialize screen
+        // initialize screen, populate dropDownCountry box w string values
         ObservableList<Country> allCountries = DBCountries.getAllCountries();
+        ObservableList<String> allCountriesString = FXCollections.observableArrayList();
 
-        dropDownCountry.setItems(allCountries);
+        allCountries.forEach(country -> allCountriesString.add(country.toString()));
+
+        dropDownCountry.setItems(allCountriesString);
+        dropDownDivision.getSelectionModel().clearSelection();
     }
 
 
