@@ -59,13 +59,9 @@ public class Country {
         this.countryName = countryName;
     }
 
-    /**
-     * Returns the name of country as string for use in GUI
-     *
-     * @return name of country
-     */
+    @Override
     public String toString()
     {
-        return countryName;
+        return this.getCountryName();
     }
 }

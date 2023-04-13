@@ -94,4 +94,12 @@ public class Division {
 
         return countryName;
     }
+
+    @Override
+    public String toString()
+    {
+//        return super.toString();
+        return divisionName;
+    }
+
 }
