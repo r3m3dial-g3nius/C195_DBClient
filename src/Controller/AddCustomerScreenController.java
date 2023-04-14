@@ -73,7 +73,8 @@ public class AddCustomerScreenController implements Initializable {
      * @throws IOException
      */
     @FXML
-    void onActionAddNewCustomer(ActionEvent event) throws SQLException, IOException {
+    void onActionAddNewCustomer(ActionEvent event) throws SQLException, IOException
+    {
         String customerName = textFieldCustomerName.getText();
         String customerAddress = textFieldAddress.getText();
         String postalCode = textFieldPostalCode.getText();
@@ -105,7 +106,8 @@ public class AddCustomerScreenController implements Initializable {
      * @param event
      */
     @FXML
-    void onActionCountrySelect(ActionEvent event) {
+    void onActionCountrySelect(ActionEvent event)
+    {
         ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
         ObservableList<String> filteredDivisionNames = FXCollections.observableArrayList();
 
@@ -145,7 +147,8 @@ public class AddCustomerScreenController implements Initializable {
      * @throws IOException
      */
     @FXML
-    void onActionReturnPreviousScreen(ActionEvent event) throws IOException {
+    void onActionReturnPreviousScreen(ActionEvent event) throws IOException
+    {
         System.out.println("Cancel button pressed");
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
