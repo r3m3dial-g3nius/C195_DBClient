@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.DBCountries;
+import DAO.DBCustomers;
 import DAO.DBDivisions;
 import Models.Country;
 import Models.Division;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -64,8 +66,7 @@ public class AddCustomerScreenController implements Initializable {
 
 
     @FXML
-    void onActionAddNewCustomer(ActionEvent event) {
-//        int customerID = Integer.parseInt(textFieldCustomerID.getText());     //   DO I NEED THIS FOR UNIQUE ID VIA SQL?
+    void onActionAddNewCustomer(ActionEvent event) throws SQLException, IOException {
         String customerName = textFieldCustomerName.getText();
         String customerAddress = textFieldAddress.getText();
         String postalCode = textFieldPostalCode.getText();
@@ -77,7 +78,16 @@ public class AddCustomerScreenController implements Initializable {
         if (!customerName.isEmpty() || !customerAddress.isEmpty() || !postalCode.isEmpty() || !phoneNumber.isEmpty() || !countryName.isEmpty() || !divisionName.isEmpty())
         {
             System.out.println("Adding " + customerName);
-            //  ----->   NEED TO INSERT NEW CUSTOMER VIA SQL   <-----
+
+            //  ----->   ADD NEW CUSTOMER VIA SQL   <-----
+            DBCustomers.addNewCustomer(customerName, customerAddress, postalCode, phoneNumber, divisionName);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/Views/Customers.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.centerOnScreen();                 //  ----------------   Center Screen
+            stage.show();
+
         }
     }
 

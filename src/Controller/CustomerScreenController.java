@@ -105,6 +105,9 @@ public class CustomerScreenController implements Initializable {
 
     /**
      * fires when the either combobox receives a new selection; applies user selected filters from Country and Division to tableview
+     *
+     * Lambda expressions #1 - populates string list of division names from list of division objects
+     * Lambda expressions #1 - populates string list of country names from list of country objects
      * @param event
      */
     @FXML
@@ -182,10 +185,10 @@ public class CustomerScreenController implements Initializable {
             ObservableList<Country> allCountries = DBCountries.getAllCountries();
             ObservableList<String> countryNames = FXCollections.observableArrayList();
 
-            //  --->   LAMBDA expression   <---
+            //  --->   LAMBDA expression #1   <---
             allDivisions.forEach(division -> divisionNames.add(division.getDivisionName()));
 
-            //  --->   LAMBDA expression   <---
+            //  --->   LAMBDA expression #2   <---
             allCountries.forEach(country -> countryNames.add(country.getCountryName()));
 
             customersTableView.setItems(filteredCustomerList);
