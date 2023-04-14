@@ -30,9 +30,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException
     {
         //  ----------   Temp bypass for testing purposes   ----------
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/MainMenu.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/MainMenu.fxml"));
 
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Client Scheduler");          //   --------------------   CHANGE THIS LATER  ----------------
         primaryStage.setScene(scene);

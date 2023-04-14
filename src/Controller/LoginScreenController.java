@@ -1,19 +1,14 @@
 package Controller;
 
-import DAO.DBCountries;
 import DAO.DBUsers;
-import Models.Country;
 import Models.User;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -22,14 +17,11 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.Scanner;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 /**
  * Controls the Login screen of the app.
@@ -38,6 +30,7 @@ public class LoginScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
+    public static User authorizedUser;        //   -------  static var to use in createdby updatedby cols
 
     /**
      * "Login" label at top of window
@@ -140,6 +133,8 @@ public class LoginScreenController implements Initializable {
 
             else                                        //  ----------------   else Valid login
             {
+                authorizedUser = newUser;                     //   -------  static var to use in createdby updatedby cols
+
                 System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()));
                 System.out.println();
 

@@ -40,7 +40,7 @@ public class AddCustomerScreenController implements Initializable {
     private ComboBox<String> dropDownDivision;
 
     @FXML
-    private Button okButton;
+    private Button addButton;
 
     @FXML
     private Button cancelButton;
@@ -61,10 +61,13 @@ public class AddCustomerScreenController implements Initializable {
     private TextField textFieldPhone;
 
 
-
-
-
-
+    /**
+     * Fires when Add button is pressed
+     *
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void onActionAddNewCustomer(ActionEvent event) throws SQLException, IOException {
         String customerName = textFieldCustomerName.getText();
@@ -92,13 +95,11 @@ public class AddCustomerScreenController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
+    /**
+     * fires when user selects country from country drop down, populates division drop down w appropriate divisions based on country selection
+     *
+     * @param event
+     */
     @FXML
     void onActionCountrySelect(ActionEvent event) {
         ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
@@ -117,6 +118,13 @@ public class AddCustomerScreenController implements Initializable {
         dropDownDivision.setItems(filteredDivisionNames);
     }
 
+
+    /**
+     * fires when Cancel button is pressed
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException {
         System.out.println("Cancel button pressed");

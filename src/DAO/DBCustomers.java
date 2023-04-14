@@ -1,16 +1,15 @@
 package DAO;
 
 import Helper.DBConnection;
-import Models.Country;
 import Models.Customer;
 import Models.Division;
+import Controller.LoginScreenController;        //   -------  static var authorizedUser to use in Created_by Last_updated_by cols
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 /**
  * This class handles database interactions with customers.
@@ -54,11 +53,19 @@ public class DBCustomers {
         return customerList;
     }
 
-
+    /**
+     * Adds new user to database
+     *
+     * @param customerName name of customer
+     * @param customerAddress address of customer
+     * @param postalCode postal code of customer
+     * @param phone phone number of customer
+     * @param divisionName name of division
+     * @throws SQLException
+     */
     public static void addNewCustomer(String customerName, String customerAddress, String postalCode, String phone, String divisionName) throws SQLException
     {
         ObservableList<Division> divisionList = DBDivisions.getAllDivisions();
-
 
         int divisionID = 0;
 
@@ -70,8 +77,19 @@ public class DBCustomers {
             }
         }
 
-        String sql = "INSERT INTO customers VALUES (NULL, '" + customerName + "', '" + customerAddress + "', '" + postalCode + "', '" + phone + "', NOW(), 'TEST', NOW(), 'TEST', " + divisionID + ")";
+//        String sql = "INSERT INTO customers VALUES (NULL, '" + customerName + "', '" + customerAddress + "', '" + postalCode + "', '" + phone + "', NOW(), 'TEST', NOW(), 'TEST', " + divisionID + ")";
+        String sql = "INSERT INTO customers VALUES (NULL, ?, ?, ?, ?, NOW(), ?, NOW(), ?, ?)";
+
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setString(1, customerName);
+        ps.setString(2, customerAddress);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setString(5, LoginScreenController.authorizedUser.getUserName());
+        ps.setString(6, LoginScreenController.authorizedUser.getUserName());
+        ps.setInt(7, divisionID);
+
         System.out.println(sql);        //  TEST PRINT
 
         ps.execute();
