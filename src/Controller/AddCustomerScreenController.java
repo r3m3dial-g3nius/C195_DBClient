@@ -141,7 +141,7 @@ public class AddCustomerScreenController implements Initializable {
 
 
     /**
-     * fires when Cancel button is pressed
+     * fires when Cancel button is pressed, returns user to previous screen
      *
      * @param event
      * @throws IOException
@@ -175,7 +175,11 @@ public class AddCustomerScreenController implements Initializable {
         allCountries.forEach(country -> allCountriesString.add(country.toString()));
 
         dropDownCountry.setItems(allCountriesString);
+        dropDownCountry.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
+
         dropDownDivision.getSelectionModel().clearSelection();
+        dropDownDivision.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
+
         textFieldCustomerID.setPromptText("Auto Generated");
     }
 

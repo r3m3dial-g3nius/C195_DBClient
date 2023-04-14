@@ -4,7 +4,9 @@ import DAO.DBCountries;
 import DAO.DBCustomers;
 import DAO.DBDivisions;
 import Models.Country;
+import Models.Customer;
 import Models.Division;
+import Controller.LoginScreenController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,10 +26,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This class controls the Modify Customer screen
+ */
 public class ModifyCustomerScreenController implements Initializable{
 
     Stage stage;
     Parent scene;
+    Customer selectedCustomer;
 
     @FXML
     private Button cancelButton;
@@ -59,28 +65,38 @@ public class ModifyCustomerScreenController implements Initializable{
     @FXML
     private Button updateButton;
 
+    /**
+     * fires when user selects country from country drop down, populates division drop down w appropriate divisions based on country selection
+     *
+     * @param event
+     */
     @FXML
-    void onActionCountrySelect(ActionEvent event)
+    void onActionCountrySelect(ActionEvent event) throws NullPointerException
     {
+        dropDownDivision.setValue("");
+//        dropDownDivision.setPromptText("Please make a selection");
+
         ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
         ObservableList<String> filteredDivisionNames = FXCollections.observableArrayList();
 
         String countryName = dropDownCountry.getValue().toString();
 
-        if (countryName.equals("U.S"))
-        {
-            labelDivision.setText("State");
-        }
+        System.out.println(countryName + " selected");          //  ----- TEST PRINT
 
-        else if (countryName.equals("Canada"))
-        {
-            labelDivision.setText("Province/Territory");
-        }
-
-        else if (countryName.equals("UK"))
-        {
-            labelDivision.setText("Country/Province");
-        }
+//        if (countryName.equals("U.S"))
+//        {
+//            labelDivision.setText("State");
+//        }
+//
+//        else if (countryName.equals("Canada"))
+//        {
+//            labelDivision.setText("Province/Territory");
+//        }
+//
+//        else if (countryName.equals("UK"))
+//        {
+//            labelDivision.setText("Country/Province");
+//        }
 
         for (Division d : allDivisions)
         {
@@ -94,6 +110,12 @@ public class ModifyCustomerScreenController implements Initializable{
 
     }
 
+    /**
+     * fires when Cancel button is pressed, returns user to previous screen
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException {
         System.out.println("Cancel button pressed");
@@ -106,6 +128,11 @@ public class ModifyCustomerScreenController implements Initializable{
 
     }
 
+    /**
+     * fires when Update button is pressed, updates Customer data in database
+     *
+     * @param event
+     */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) {
 
@@ -114,7 +141,52 @@ public class ModifyCustomerScreenController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        ObservableList<Country> allCountries = DBCountries.getAllCountries();
+        ObservableList<String> allCountriesString = FXCollections.observableArrayList();
 
+//        for (Country c : allCountries)
+//        {
+//            allCountriesString.add(c.getCountryName());
+//        }
+
+        allCountries.forEach(country -> allCountriesString.add(country.toString()));
+
+        selectedCustomer = CustomerScreenController.getSelectedCustomer();
+        String countryName = selectedCustomer.getCustomerCountry();
+
+        textFieldCustomerID.setText(Integer.toString(selectedCustomer.getCustomerID()));
+        textFieldCustomerName.setText(selectedCustomer.getCustomerName());
+        textFieldAddress.setText(selectedCustomer.getCustomerAddress());
+        textFieldPostalCode.setText(selectedCustomer.getCustomerPostalCode());
+        textFieldPhone.setText(selectedCustomer.getCustomerPhone());
+
+        dropDownCountry.setItems(allCountriesString);
+
+        dropDownCountry.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
+        dropDownDivision.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
+
+
+        dropDownCountry.setValue(countryName);
+        dropDownDivision.setValue(selectedCustomer.getDivisionName());
+
+
+//        if (countryName.equals("U.S"))
+//        {
+//            labelDivision.setText("State");
+//        }
+//
+//        else if (countryName.equals("Canada"))
+//        {
+//            labelDivision.setText("Province/Territory");
+//        }
+//
+//        else if (countryName.equals("UK"))
+//        {
+//            labelDivision.setText("Country/Province");
+//        }
+
+
+        System.out.println(selectedCustomer.getCustomerName());     //   -----   TEST PRINT
     }
 
 }

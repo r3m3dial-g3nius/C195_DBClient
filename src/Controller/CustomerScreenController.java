@@ -36,6 +36,12 @@ public class CustomerScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
+    static Customer selectedCustomer;
+
+    public static Customer getSelectedCustomer()
+    {
+        return selectedCustomer;
+    }
 
     @FXML
     private ComboBox<String> dropDownCountry;
@@ -246,6 +252,17 @@ public class CustomerScreenController implements Initializable {
     @FXML
     void onActionModifyCustomer(ActionEvent event) throws IOException {
         System.out.println("Modify Customer button pressed");
+
+        selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedCustomer == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Please select a Customer");
+            alert.showAndWait();
+            return;
+        }
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/Views/ModifyCustomer.fxml"));
