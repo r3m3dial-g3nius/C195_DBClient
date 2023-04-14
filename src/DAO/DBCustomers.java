@@ -70,7 +70,7 @@ public class DBCustomers {
             }
         }
 
-        String sql = "INSERT INTO customers VALUES (NULL, " + customerName + ", " + customerAddress + ", " + postalCode + ", " + phone + ", NOW(), TEST, NOW(), " + divisionID + ")";
+        String sql = "INSERT INTO customers VALUES (NULL, '" + customerName + "', '" + customerAddress + "', '" + postalCode + "', '" + phone + "', NOW(), 'TEST', NOW(), 'TEST', " + divisionID + ")";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
         System.out.println(sql);        //  TEST PRINT
 
