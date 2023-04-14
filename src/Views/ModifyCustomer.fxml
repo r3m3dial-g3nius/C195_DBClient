@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddCustomerScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyCustomerScreenController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0">
          <children>
-            <Label text="Add New Customer">
+            <Label text="Modify Customer">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -52,7 +52,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelDivision" layoutX="10.0" layoutY="72.0" text="Division" GridPane.rowIndex="4">
+                  <Label layoutX="10.0" layoutY="72.0" text="Division" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -83,7 +83,7 @@
             </GridPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button fx:id="addButton" mnemonicParsing="false" onAction="#onActionAddNewCustomer" text="Add" />
+                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onActionUpdateCustomer" text="Update" />
                   <Button fx:id="cancelButton" layoutX="315.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionReturnPreviousScreen" text="Cancel" />
               </buttons>
             </ButtonBar>

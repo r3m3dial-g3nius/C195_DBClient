@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -38,6 +39,9 @@ public class AddCustomerScreenController implements Initializable {
 
     @FXML
     private ComboBox<String> dropDownDivision;
+
+    @FXML
+    private Label labelDivision;
 
     @FXML
     private Button addButton;
@@ -106,6 +110,21 @@ public class AddCustomerScreenController implements Initializable {
         ObservableList<String> filteredDivisionNames = FXCollections.observableArrayList();
 
         String countryName = dropDownCountry.getValue().toString();
+
+        if (countryName.equals("U.S"))
+        {
+            labelDivision.setText("State");
+        }
+
+        else if (countryName.equals("Canada"))
+        {
+            labelDivision.setText("Province/Territory");
+        }
+
+        else if (countryName.equals("UK"))
+        {
+            labelDivision.setText("Country/Province");
+        }
 
         for (Division d : allDivisions)
         {
