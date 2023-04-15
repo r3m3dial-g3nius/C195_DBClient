@@ -74,29 +74,26 @@ public class ModifyCustomerScreenController implements Initializable{
     void onActionCountrySelect(ActionEvent event) throws NullPointerException
     {
         dropDownDivision.setValue("");
-//        dropDownDivision.setPromptText("Please make a selection");
 
         ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
         ObservableList<String> filteredDivisionNames = FXCollections.observableArrayList();
 
-        String countryName = dropDownCountry.getValue().toString();
+        String countryName = dropDownCountry.getValue();
 
-        System.out.println(countryName + " selected");          //  ----- TEST PRINT
+        if (countryName.equals("U.S"))
+        {
+            labelDivision.setText("State");
+        }
 
-//        if (countryName.equals("U.S"))
-//        {
-//            labelDivision.setText("State");
-//        }
-//
-//        else if (countryName.equals("Canada"))
-//        {
-//            labelDivision.setText("Province/Territory");
-//        }
-//
-//        else if (countryName.equals("UK"))
-//        {
-//            labelDivision.setText("Country/Province");
-//        }
+        else if (countryName.equals("Canada"))
+        {
+            labelDivision.setText("Province/Territory");
+        }
+
+        else if (countryName.equals("UK"))
+        {
+            labelDivision.setText("Country/Province");
+        }
 
         for (Division d : allDivisions)
         {
@@ -144,11 +141,6 @@ public class ModifyCustomerScreenController implements Initializable{
         ObservableList<Country> allCountries = DBCountries.getAllCountries();
         ObservableList<String> allCountriesString = FXCollections.observableArrayList();
 
-//        for (Country c : allCountries)
-//        {
-//            allCountriesString.add(c.getCountryName());
-//        }
-
         allCountries.forEach(country -> allCountriesString.add(country.toString()));
 
         selectedCustomer = CustomerScreenController.getSelectedCustomer();
@@ -170,23 +162,21 @@ public class ModifyCustomerScreenController implements Initializable{
         dropDownDivision.setValue(selectedCustomer.getDivisionName());
 
 
-//        if (countryName.equals("U.S"))
-//        {
-//            labelDivision.setText("State");
-//        }
-//
-//        else if (countryName.equals("Canada"))
-//        {
-//            labelDivision.setText("Province/Territory");
-//        }
-//
-//        else if (countryName.equals("UK"))
-//        {
-//            labelDivision.setText("Country/Province");
-//        }
+        if (countryName.equals("U.S"))
+        {
+            labelDivision.setText("State");
+        }
 
+        else if (countryName.equals("Canada"))
+        {
+            labelDivision.setText("Province/Territory");
+        }
 
-        System.out.println(selectedCustomer.getCustomerName());     //   -----   TEST PRINT
+        else if (countryName.equals("UK"))
+        {
+            labelDivision.setText("Country/Province");
+        }
+
     }
 
 }
