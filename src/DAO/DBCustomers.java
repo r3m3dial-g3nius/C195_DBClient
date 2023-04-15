@@ -100,7 +100,7 @@ public class DBCustomers {
     /**
      * Updates customer info in database
      *
-     * @param custID customer ID number
+     * @param customerID customer ID number
      * @param name customer name
      * @param address customer address
      * @param postalCode customer postal code
@@ -109,12 +109,10 @@ public class DBCustomers {
      *
      * @throws SQLException
      */
-    public static void modifyCustomer(int custID, String name, String address, String postalCode, String phone, int divisionID) throws SQLException
+    public static void modifyCustomer(int customerID, String name, String address, String postalCode, String phone, int divisionID) throws SQLException
     {
         ObservableList<Division> divisionList = DBDivisions.getAllDivisions();
 
-
-//        String sql = "INSERT INTO customers VALUES (NULL, ?, ?, ?, ?, NOW(), ?, NOW(), ?, ?)";
         String sql = ("UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?");
 
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -125,7 +123,7 @@ public class DBCustomers {
         ps.setString(4, phone);
         ps.setString(5, LoginScreenController.authorizedUser.getUserName());
         ps.setInt(6, divisionID);
-        ps.setInt(7, custID);
+        ps.setInt(7, customerID);
 
         System.out.println(sql);        //  TEST PRINT
 
@@ -134,6 +132,13 @@ public class DBCustomers {
     }
 
 
+
+
+    //      ------------------------------------------------------------------
+    public static void deleteCustomer()
+    {
+        // code
+    }
 
 
 

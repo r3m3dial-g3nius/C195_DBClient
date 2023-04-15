@@ -25,6 +25,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -272,6 +273,16 @@ public class CustomerScreenController implements Initializable {
 
     }
 
+
+
+
+
+
+
+
+
+
+
     /**
      * fires when Delete button is pressed; deletes all appointments associated w/ selected Customer, then deletes Customer
      * @param event
@@ -280,7 +291,51 @@ public class CustomerScreenController implements Initializable {
     void onActionDeleteCustomer(ActionEvent event)
     {
         System.out.println("Delete Customer button pressed");
+
+        selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+
+        //  -------------------------------   Check for selection   ---------------------------------------
+        if (selectedCustomer == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Please select a Customer");
+            alert.showAndWait();
+            return;
+        }
+
+        //  -------------------------------   Confirm delete   ---------------------------------------
+
+        if (selectedCustomer != null)
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Customer Confirmation");
+            alert.setContentText("Are you sure you want to delete this customer?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK)
+            {
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                System.out.println("Insert code to delete all of selected customer's appointments then delete customer");
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+                //      ---------------------------------------------    FIX ME   -------------------------------------
+            }
+
+            else if (result.isPresent() && result.get() != ButtonType.OK)
+            {
+                System.out.println("Deletion cancelled");
+
+            }
+        }
     }
+
 
     /**
      * Initializes the Customer screen

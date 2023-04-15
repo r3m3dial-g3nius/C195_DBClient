@@ -126,9 +126,6 @@ public class ModifyCustomerScreenController implements Initializable{
     }
 
 
-
-
-
     /**
      * fires when Update button is pressed, updates Customer data in database
      *
