@@ -66,7 +66,7 @@ public class AddCustomerScreenController implements Initializable {
 
 
     /**
-     * Fires when Add button is pressed
+     * Fires when Add button is pressed, adds new customer to database
      *
      * @param event
      * @throws SQLException

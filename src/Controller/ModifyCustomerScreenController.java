@@ -125,23 +125,72 @@ public class ModifyCustomerScreenController implements Initializable{
 
     }
 
+
+
+
+
     /**
      * fires when Update button is pressed, updates Customer data in database
      *
      * @param event
      */
     @FXML
-    void onActionUpdateCustomer(ActionEvent event) {
+    void onActionUpdateCustomer(ActionEvent event) throws SQLException, IOException {
+        int customerID = selectedCustomer.getCustomerID();
+        String updatedCustomerName = textFieldCustomerName.getText();
+        String updatedCustomerAddress = textFieldAddress.getText();
+        String updatedPostalCode = textFieldPostalCode.getText();
+        String updatedCustomerPhone = textFieldPhone.getText();
+        String updatedCustomerDivision = dropDownDivision.getValue();
+
+        int updatedDivisionID = 0;
+
+        ObservableList<Division> divisionList = DBDivisions.getAllDivisions();
+
+        for (Division division : divisionList)
+        {
+            if (division.getDivisionName().equals(updatedCustomerDivision))
+            {
+                updatedDivisionID = division.getDivisionID();
+            }
+        }
+
+        DBCustomers.modifyCustomer(customerID, updatedCustomerName, updatedCustomerAddress, updatedPostalCode,
+                                    updatedCustomerPhone, updatedDivisionID);
+
+        //      --------------------   RETURN TO CUSTOMER SCREEN   ------------------------------------
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/Customers.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
 
     }
 
+
+    /**
+     * initializes the Modify Customer screen
+     *
+     * Lambda expression #1 - populates ObservableList with String values of division names
+     * Lambda expression #2 - populates ObservableList with String values of country names
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         ObservableList<Country> allCountries = DBCountries.getAllCountries();
         ObservableList<String> allCountriesString = FXCollections.observableArrayList();
 
+        ObservableList<Division> allDivisions = DBDivisions.getAllDivisions();
+        ObservableList<String> allDivisionsString = FXCollections.observableArrayList();
+
+        //  --->   LAMBDA expression #1  <---
         allCountries.forEach(country -> allCountriesString.add(country.toString()));
+
+        //  --->   LAMBDA expression #2  <---
+        allDivisions.forEach(division -> allDivisionsString.add(division.toString()));
 
         selectedCustomer = CustomerScreenController.getSelectedCustomer();
         String countryName = selectedCustomer.getCustomerCountry();
@@ -153,6 +202,7 @@ public class ModifyCustomerScreenController implements Initializable{
         textFieldPhone.setText(selectedCustomer.getCustomerPhone());
 
         dropDownCountry.setItems(allCountriesString);
+        dropDownDivision.setItems(allDivisionsString);
 
         dropDownCountry.setVisibleRowCount(5);              //   Limit dropdown box row count to 5
         dropDownDivision.setVisibleRowCount(5);              //   Limit dropdown box row count to 5

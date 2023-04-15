@@ -54,7 +54,7 @@ public class DBCustomers {
     }
 
     /**
-     * Adds new user to database
+     * Adds new customer to database
      *
      * @param customerName name of customer
      * @param customerAddress address of customer
@@ -96,6 +96,42 @@ public class DBCustomers {
 
     }
 
+
+    /**
+     * Updates customer info in database
+     *
+     * @param custID customer ID number
+     * @param name customer name
+     * @param address customer address
+     * @param postalCode customer postal code
+     * @param phone customer phone
+     * @param divisionID customer division ID number
+     *
+     * @throws SQLException
+     */
+    public static void modifyCustomer(int custID, String name, String address, String postalCode, String phone, int divisionID) throws SQLException
+    {
+        ObservableList<Division> divisionList = DBDivisions.getAllDivisions();
+
+
+//        String sql = "INSERT INTO customers VALUES (NULL, ?, ?, ?, ?, NOW(), ?, NOW(), ?, ?)";
+        String sql = ("UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?");
+
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setString(1, name);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setString(5, LoginScreenController.authorizedUser.getUserName());
+        ps.setInt(6, divisionID);
+        ps.setInt(7, custID);
+
+        System.out.println(sql);        //  TEST PRINT
+
+        ps.execute();
+
+    }
 
 
 
