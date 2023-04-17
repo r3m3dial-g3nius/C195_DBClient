@@ -1,5 +1,13 @@
 package Models;
 
+import DAO.DBContacts;
+import DAO.DBCustomers;
+import DAO.DBUsers;
+import javafx.collections.ObservableList;
+
+/**
+ * This class manages Appointment data
+ */
 public class Appointment {
 
     private int appointmentID;
@@ -12,9 +20,26 @@ public class Appointment {
     private int customerID;
     private int userID;
     private int contactID;
+    private String customerName;
+    private String userName;
+    private String contactName;
 
-
-    public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, String appointmentStart, String appointmentEnd, int customerID, int userID, int contactID) {
+    /**
+     * Contructor for Appointment class
+     *
+     * @param appointmentID Appointment ID number
+     * @param appointmentTitle Title of appointment
+     * @param appointmentDescription Description of appointment
+     * @param appointmentLocation Location of appointment
+     * @param appointmentType Type of appointment
+     * @param appointmentStart Start time of appointment
+     * @param appointmentEnd End time of appointment
+     * @param customerID Customer ID number
+     * @param userID User ID number
+     * @param contactID Contact ID number
+     */
+    public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, String appointmentStart, String appointmentEnd, int customerID, int userID, int contactID)
+    {
         this.appointmentID = appointmentID;
         this.appointmentTitle = appointmentTitle;
         this.appointmentDescription = appointmentDescription;
@@ -25,6 +50,10 @@ public class Appointment {
         this.customerID = customerID;
         this.userID = userID;
         this.contactID = contactID;
+
+        this.customerName = getCustomerName(customerID);
+        this.userName = getUserName(userID);
+        this.contactName = getContactName(contactID);
     }
 
     public int getAppointmentID() {
@@ -107,12 +136,71 @@ public class Appointment {
         this.contactID = contactID;
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString();
-//    }
+
+    public String getCustomerName(int customerID)
+    {
+        ObservableList<Customer> allCustomers = DBCustomers.getAllCustomers();
+        String customerName = "";
+
+        try
+        {
+            for (Customer c : allCustomers)
+            {
+                if (c.getCustomerID() == customerID)
+                {
+                    customerName = c.getCustomerName();
+                }
+            }
+        }
+
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+
+        return customerName;
+    }
 
 
+    public String getUserName(int userID)
+    {
+        ObservableList<User> allUsers = DBUsers.getAllUsers();
+        String user_Name = "";
 
+        try
+        {
+            for (User u : allUsers)
+            {
+                if (u.getUserID() == userID)
+                {
+                    user_Name = u.getUserName();
+                }
+            }
+        }
+
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+
+        return user_Name;
+    }
+
+
+    public String getContactName(int contactID)
+    {
+        ObservableList<Contact> allContacts = DBContacts.getAllContacts();
+        String contact_Name = "";
+
+        for (Contact c : allContacts)
+        {
+            if (c.getContactID() == contactID)
+            {
+                contact_Name = c.getContactName();
+            }
+        }
+
+        return contact_Name;
+    }
 
 }

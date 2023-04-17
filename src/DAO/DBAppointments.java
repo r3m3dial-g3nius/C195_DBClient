@@ -13,6 +13,7 @@ public class DBAppointments {
 
     /**
      * Returns list of all appointments in database
+     *
      * @return list of Appointment objects
      */
     public static ObservableList<Appointment> getAllAppointments()
@@ -41,8 +42,6 @@ public class DBAppointments {
                 Appointment newAppointment = new Appointment(apptID, title, description, location, type, start, end, customerID, userID, contactID);
 
                 appointmentsList.add(newAppointment);
-
-
             }
 
         }
@@ -134,7 +133,7 @@ public class DBAppointments {
 
 
     //      ------------------------------------------------------------------
-    public static void deleteCustomer()
+    public static void deleteAppointment()
     {
         // code
     }
