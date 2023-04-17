@@ -1,7 +1,24 @@
 package Controller;
 
+import DAO.DBAppointments;
+import DAO.DBContacts;
+import DAO.DBCountries;
+import Models.Appointment;
+import Models.Contact;
+import Models.Country;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,7 +29,140 @@ import java.util.ResourceBundle;
  */
 public class AppointmentScreenController implements Initializable {
 
+    Stage stage;
+    Parent scene;
+    static Appointment selectedAppointment;
 
+
+    @FXML
+    private TableView<Appointment> appointmentTableView;
+
+    @FXML
+    private TableColumn<?, ?> columnAppointmentID;
+
+    @FXML
+    private TableColumn<?, ?> columnContact;
+
+    @FXML
+    private TableColumn<?, ?> columnCustomer;
+
+    @FXML
+    private TableColumn<?, ?> columnDescription;
+
+    @FXML
+    private TableColumn<?, ?> columnEnd;
+
+    @FXML
+    private TableColumn<?, ?> columnLocation;
+
+    @FXML
+    private TableColumn<?, ?> columnStart;
+
+    @FXML
+    private TableColumn<?, ?> columnTitle;
+
+    @FXML
+    private TableColumn<?, ?> columnType;
+
+    @FXML
+    private TableColumn<?, ?> columnUser;
+
+    @FXML
+    private ComboBox<String> dropDownContact;
+
+    @FXML
+    private RadioButton radioAll;
+
+    @FXML
+    private RadioButton radioWeek;
+
+    @FXML
+    private RadioButton radioMonth;
+
+    @FXML
+    private Button mainMenuButton;
+
+    @FXML
+    private Button addAppointmentButton;
+
+    @FXML
+    private Button modifyAppointmentButton;
+
+    @FXML
+    private Button deleteAppointmentButton;
+
+    @FXML
+    void onActionShowAll(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionFilterByMonth(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionFilterByWeek(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionFilterContact(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionMainMenu(ActionEvent event) throws IOException
+    {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
+
+    }
+
+    @FXML
+    void onActionAddAppointment(ActionEvent event) throws IOException
+    {
+        System.out.println("Add appointment selected");
+    }
+
+    @FXML
+    void onActionModifyAppointment(ActionEvent event) throws IOException
+    {
+        System.out.println("Modify appointment selected");
+
+        selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedAppointment == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Please select an Appointment");
+            alert.showAndWait();
+            return;
+        }
+
+
+    }
+
+    @FXML
+    void onActionDeleteAppointment(ActionEvent event) throws IOException
+    {
+        System.out.println("Delete appointment selected");
+
+        if (selectedAppointment == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Please select an Appointment");
+            alert.showAndWait();
+            return;
+        }
+
+        System.out.println("Deleting appointment with " + selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
+    }
 
 
     /**
@@ -25,6 +175,36 @@ public class AppointmentScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         // initialize screen
+        try {
+            ObservableList<Contact> allContacts = DBContacts.getAllContacts();
+            ObservableList<String> contactNames = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression #1  <---
+            allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
+            dropDownContact.setItems(contactNames);
+            dropDownContact.setPromptText("ALL");
+            dropDownContact.setVisibleRowCount(5);
+
+
+            appointmentTableView.setItems(DBAppointments.getAllAppointments());
+
+            columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+            columnTitle.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+            columnDescription.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
+            columnLocation.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+            columnType.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+            columnStart.setCellValueFactory(new PropertyValueFactory<>("appointmentStart"));
+            columnEnd.setCellValueFactory(new PropertyValueFactory<>("appointmentEnd"));
+            columnCustomer.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            columnUser.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            columnContact.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
 
