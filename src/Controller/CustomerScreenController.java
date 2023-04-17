@@ -274,15 +274,6 @@ public class CustomerScreenController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
     /**
      * fires when Delete button is pressed; deletes all appointments associated w/ selected Customer, then deletes Customer
      * @param event
