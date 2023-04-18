@@ -5,6 +5,8 @@ import DAO.DBCustomers;
 import DAO.DBUsers;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDateTime;
+
 /**
  * This class manages Appointment data
  */
@@ -15,8 +17,10 @@ public class Appointment {
     private String appointmentDescription;
     private String appointmentLocation;
     private String appointmentType;
-    private String appointmentStart;
-    private String appointmentEnd;
+
+    private LocalDateTime appointmentStart;
+    private LocalDateTime appointmentEnd;
+
     private int customerID;
     private int userID;
     private int contactID;
@@ -38,7 +42,7 @@ public class Appointment {
      * @param userID User ID number
      * @param contactID Contact ID number
      */
-    public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, String appointmentStart, String appointmentEnd, int customerID, int userID, int contactID)
+    public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd, int customerID, int userID, int contactID)
     {
         this.appointmentID = appointmentID;
         this.appointmentTitle = appointmentTitle;
@@ -96,19 +100,19 @@ public class Appointment {
         this.appointmentType = appointmentType;
     }
 
-    public String getAppointmentStart() {
+    public LocalDateTime getAppointmentStart() {
         return appointmentStart;
     }
 
-    public void setAppointmentStart(String appointmentStart) {
+    public void setAppointmentStart(LocalDateTime appointmentStart) {
         this.appointmentStart = appointmentStart;
     }
 
-    public String getAppointmentEnd() {
+    public LocalDateTime getAppointmentEnd() {
         return appointmentEnd;
     }
 
-    public void setAppointmentEnd(String appointmentEnd) {
+    public void setAppointmentEnd(LocalDateTime appointmentEnd) {
         this.appointmentEnd = appointmentEnd;
     }
 
