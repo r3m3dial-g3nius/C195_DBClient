@@ -40,6 +40,7 @@ public class DBAppointments {
                 int userID = rs.getInt("User_ID");
                 int contactID = rs.getInt("Contact_ID");
 
+
                 Appointment newAppointment = new Appointment(apptID, title, description, location, type, start, end, customerID, userID, contactID);
 
                 appointmentsList.add(newAppointment);

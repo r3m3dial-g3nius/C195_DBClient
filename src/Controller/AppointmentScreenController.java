@@ -93,7 +93,7 @@ public class AppointmentScreenController implements Initializable {
 
     @FXML
     void onActionShowAll(ActionEvent event) {
-
+        appointmentTableView.setItems(DBAppointments.getAllAppointments());
     }
 
     @FXML
@@ -138,6 +138,13 @@ public class AppointmentScreenController implements Initializable {
     void onActionAddAppointment(ActionEvent event) throws IOException
     {
         System.out.println("Add appointment selected");
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/AddAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
+
     }
 
     @FXML

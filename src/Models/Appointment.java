@@ -6,6 +6,7 @@ import DAO.DBUsers;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * This class manages Appointment data
@@ -49,8 +50,10 @@ public class Appointment {
         this.appointmentDescription = appointmentDescription;
         this.appointmentLocation = appointmentLocation;
         this.appointmentType = appointmentType;
-        this.appointmentStart = appointmentStart;
+
+        this.appointmentStart = appointmentStart;       //  Time vars - type LocalDateTime
         this.appointmentEnd = appointmentEnd;
+
         this.customerID = customerID;
         this.userID = userID;
         this.contactID = contactID;
