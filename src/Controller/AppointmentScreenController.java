@@ -112,6 +112,18 @@ public class AppointmentScreenController implements Initializable {
     }
 
     @FXML
+    void onActionResetFilter(ActionEvent event) throws IOException
+    {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/Appointments.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
+
+    }
+
+
+    @FXML
     void onActionMainMenu(ActionEvent event) throws IOException
     {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -206,7 +218,6 @@ public class AppointmentScreenController implements Initializable {
         }
 
     }
-
 
 
 }
