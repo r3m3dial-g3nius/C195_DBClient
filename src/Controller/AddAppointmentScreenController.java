@@ -1,5 +1,6 @@
 package Controller;
 
+import Utility.TimeTraveller;
 import DAO.DBContacts;
 import DAO.DBCustomers;
 import DAO.DBUsers;
@@ -19,6 +20,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -44,10 +49,10 @@ public class AddAppointmentScreenController implements Initializable {
     private DatePicker datePickerEnd;
 
     @FXML
-    private ComboBox<?> dropDownStartTime;
+    private ComboBox<String> dropDownStartTime;
 
     @FXML
-    private ComboBox<?> dropDownEndTime;
+    private ComboBox<String> dropDownEndTime;
 
     @FXML
     private ComboBox<String> dropDownContact;
@@ -123,10 +128,83 @@ public class AddAppointmentScreenController implements Initializable {
         textFieldUserName.setText(userName);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @FXML
     void onActionAddNewCustomer(ActionEvent event) {
         System.out.println("Adding new customer");
+
+        DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
+
+        String title = textFieldTitle.getText();
+        String description = textFieldDescription.getText();
+        String location = textFieldLocation.getText();
+        String contact = dropDownContact.getValue();
+        String type = textFieldType.getText();
+        int customerID = Integer.parseInt(dropDownCustomer.getValue());
+        int userID = Integer.parseInt(dropDownUser.getValue());
+
+        //   -----   start/end time   -----                                  *** String?
+        String startTime = dropDownStartTime.getValue();
+        String endTime = dropDownEndTime.getValue();
+        LocalTime startingTime = LocalTime.parse(dropDownStartTime.getValue(), hourMinFormatter);
+        LocalTime endingTime = LocalTime.parse(dropDownEndTime.getValue(), hourMinFormatter);
+
+        //   -----   start/end date   -----                                  *** String?
+        String startDate = datePickerStart.getValue().format(dateFormatter);
+        String endDate = datePickerEnd.getValue().format(dateFormatter);
+        LocalDate startingDate = datePickerStart.getValue();
+        LocalDate endingDate = datePickerEnd.getValue();
+
+
+
+
+
+
+        //   -----------------------------   Test input data   ---------------------------------------
+        System.out.println(title);
+        System.out.println(description);
+        System.out.println(location);
+        System.out.println(contact);
+        System.out.println(type);
+        System.out.println(startTime);
+        System.out.println(endTime);
+        System.out.println(startDate);
+        System.out.println(endDate);
+        System.out.println(customerID);
+        System.out.println(userID);
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException
@@ -137,13 +215,6 @@ public class AddAppointmentScreenController implements Initializable {
         stage.centerOnScreen();                 //  ----------------   Center Screen
         stage.show();
     }
-
-
-
-
-
-
-
 
     /**
      * Initializes the Add Appointment screen

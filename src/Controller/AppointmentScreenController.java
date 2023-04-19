@@ -122,7 +122,6 @@ public class AppointmentScreenController implements Initializable {
 
     }
 
-
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException
     {
@@ -182,7 +181,6 @@ public class AppointmentScreenController implements Initializable {
 
         System.out.println("Deleting appointment with " + selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
     }
-
 
     /**
      * Initializes the Appointment screen
