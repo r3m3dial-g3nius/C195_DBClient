@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -76,7 +77,6 @@
                   <TextField fx:id="textFieldAppointmentID" disable="true" editable="false" text="Auto Generated" GridPane.columnIndex="1" />
                   <TextField fx:id="textFieldPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <TextField fx:id="textFieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                  <ComboBox fx:id="dropDownContact" onAction="#onActionContactSelect" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label layoutX="10.0" layoutY="12.0" text="Title" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
@@ -97,26 +97,41 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="textFieldTitle" disable="true" editable="false" layoutX="200.0" layoutY="13.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="textFieldDescription" disable="true" editable="false" layoutX="200.0" layoutY="53.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="textFieldLocation" disable="true" editable="false" layoutX="200.0" layoutY="93.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="textFieldType" disable="true" editable="false" layoutX="200.0" layoutY="133.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="textFieldTitle" layoutX="200.0" layoutY="13.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="textFieldDescription" layoutX="200.0" layoutY="53.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textFieldLocation" layoutX="200.0" layoutY="93.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="textFieldType" layoutX="200.0" layoutY="133.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <DatePicker fx:id="datePickerStart" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label layoutX="10.0" layoutY="268.0" text="Start Time" GridPane.rowIndex="7">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="dropDownCustomer" layoutX="200.0" layoutY="195.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <ComboBox fx:id="dropDownUser" layoutX="200.0" layoutY="417.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <Label layoutX="10.0" layoutY="342.0" text="End Time" GridPane.rowIndex="9">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="dropDownStartTime" layoutX="200.0" layoutY="207.0" onAction="#onActionCountrySelect" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="dropDownStartTime" layoutX="200.0" layoutY="207.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <ComboBox fx:id="dropDownEndTime" layoutX="200.0" layoutY="286.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <DatePicker fx:id="datePickerEnd" layoutX="200.0" layoutY="246.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <children>
+                        <ComboBox fx:id="dropDownContact" prefWidth="370.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                     <children>
+                        <ComboBox fx:id="dropDownCustomer" onAction="#onActionSetCustomerTextField" prefWidth="70.0" />
+                        <TextField fx:id="textFieldCustomerName" disable="true" editable="false" prefHeight="25.0" prefWidth="230.0" promptText="Select Customer ID from drop down" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                     <children>
+                        <ComboBox fx:id="dropDownUser" onAction="#onActionSetUserTextField" prefWidth="70.0" />
+                        <TextField fx:id="textFieldUserName" disable="true" editable="false" prefHeight="25.0" prefWidth="230.0" promptText="Select User ID from drop down" />
+                     </children>
+                  </HBox>
                </children>
             </GridPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">

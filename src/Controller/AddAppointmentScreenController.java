@@ -80,13 +80,47 @@ public class AddAppointmentScreenController implements Initializable {
     private TextField textFieldType;
 
     @FXML
-    void onActionContactSelect(ActionEvent event) {
+    private TextField textFieldCustomerName;
 
+    @FXML
+    void onActionSetCustomerTextField(ActionEvent actionEvent)
+    {
+        ObservableList<Customer> allCustomers = DBCustomers.getAllCustomers();
+
+        int customerID = Integer.parseInt(dropDownCustomer.getSelectionModel().getSelectedItem());
+        String customerName = "";
+
+        for (Customer c : allCustomers)
+        {
+            if (customerID == c.getCustomerID())
+            {
+                customerName = c.getCustomerName();
+            }
+        }
+
+        textFieldCustomerName.setText(customerName);
     }
 
     @FXML
-    void onActionCountrySelect(ActionEvent event) {
+    private TextField textFieldUserName;
 
+    @FXML
+    void onActionSetUserTextField(ActionEvent actionEvent)
+    {
+        ObservableList<User> allUsers = DBUsers.getAllUsers();
+
+        int userID = Integer.parseInt(dropDownUser.getSelectionModel().getSelectedItem());
+        String userName = "";
+
+        for (User u : allUsers)
+        {
+            if (userID == u.getUserID())
+            {
+                userName = u.getUserName();
+            }
+        }
+
+        textFieldUserName.setText(userName);
     }
 
     @FXML
@@ -120,7 +154,6 @@ public class AddAppointmentScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        // initialize screen
         try {
 
             //   ---------->   populate dropDownContact   <----------
@@ -155,18 +188,12 @@ public class AddAppointmentScreenController implements Initializable {
             dropDownUser.setItems(userIDs);
             dropDownUser.setVisibleRowCount(5);
 
-
-
-
-
-
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
     }
-
 
 
 }
