@@ -125,7 +125,7 @@ public class AddAppointmentScreenController implements Initializable {
 
     @FXML
     void onActionAddNewCustomer(ActionEvent event) {
-
+        System.out.println("Adding new customer");
     }
 
     @FXML
