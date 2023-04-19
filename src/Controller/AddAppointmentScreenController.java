@@ -1,7 +1,11 @@
 package Controller;
 
 import DAO.DBContacts;
+import DAO.DBCustomers;
+import DAO.DBUsers;
 import Models.Contact;
+import Models.Customer;
+import Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,10 +53,10 @@ public class AddAppointmentScreenController implements Initializable {
     private ComboBox<String> dropDownContact;
 
     @FXML
-    private ComboBox<?> dropDownCustomer;
+    private ComboBox<String> dropDownCustomer;
 
     @FXML
-    private ComboBox<?> dropDownUser;
+    private ComboBox<String> dropDownUser;
 
     @FXML
     private TextField textFieldAppointmentID;
@@ -125,16 +129,34 @@ public class AddAppointmentScreenController implements Initializable {
 
             //  --->   LAMBDA expression #1  <---
             allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
+
             dropDownContact.setItems(contactNames);
-            dropDownContact.setPromptText("ALL");
             dropDownContact.setVisibleRowCount(5);
 
+
             //   ---------->   populate dropDownCustomer   <----------
+            ObservableList<Customer> allCustomers = DBCustomers.getAllCustomers();
+            ObservableList<String> customerIDs = FXCollections.observableArrayList();
 
+            //  --->   LAMBDA expression #2  <---
+            allCustomers.forEach(customer -> customerIDs.add(String.valueOf(customer.getCustomerID())));
 
+            dropDownCustomer.setItems(customerIDs);
+            dropDownCustomer.setVisibleRowCount(5);
 
 
             //   ---------->   populate dropDownUser   <----------
+            ObservableList<User> allUsers = DBUsers.getAllUsers();
+            ObservableList<String> userIDs = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression #3  <---
+            allUsers.forEach(user -> userIDs.add(String.valueOf(user.getUserID())));
+
+            dropDownUser.setItems(userIDs);
+            dropDownUser.setVisibleRowCount(5);
+
+
+
 
 
 
