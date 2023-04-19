@@ -30,7 +30,7 @@ public class LoginScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
-    public static User authorizedUser;        //   -------  static var to use in createdby updatedby cols
+    public static User authorizedUser;          //   -------  static var to use in createdby updatedby cols
 
     /**
      * "Login" label at top of window

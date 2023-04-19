@@ -1,5 +1,9 @@
 package Controller;
 
+import DAO.DBContacts;
+import Models.Contact;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +46,7 @@ public class AddAppointmentScreenController implements Initializable {
     private ComboBox<?> dropDownEndTime;
 
     @FXML
-    private ComboBox<?> dropDownContact;
+    private ComboBox<String> dropDownContact;
 
     @FXML
     private ComboBox<?> dropDownCustomer;
@@ -94,7 +98,6 @@ public class AddAppointmentScreenController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.centerOnScreen();                 //  ----------------   Center Screen
         stage.show();
-
     }
 
 
@@ -114,6 +117,32 @@ public class AddAppointmentScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         // initialize screen
+        try {
+
+            //   ---------->   populate dropDownContact   <----------
+            ObservableList<Contact> allContacts = DBContacts.getAllContacts();
+            ObservableList<String> contactNames = FXCollections.observableArrayList();
+
+            //  --->   LAMBDA expression #1  <---
+            allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
+            dropDownContact.setItems(contactNames);
+            dropDownContact.setPromptText("ALL");
+            dropDownContact.setVisibleRowCount(5);
+
+            //   ---------->   populate dropDownCustomer   <----------
+
+
+
+
+            //   ---------->   populate dropDownUser   <----------
+
+
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
