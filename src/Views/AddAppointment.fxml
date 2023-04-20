@@ -136,7 +136,7 @@
             </GridPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button fx:id="addButton" mnemonicParsing="false" onAction="#onActionAddNewCustomer" text="Add" />
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#onActionAddNewAppointment" text="Add" />
                   <Button fx:id="cancelButton" layoutX="315.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionReturnPreviousScreen" text="Cancel" />
               </buttons>
             </ButtonBar>

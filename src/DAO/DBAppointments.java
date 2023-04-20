@@ -1,5 +1,6 @@
 package DAO;
 
+import Controller.LoginScreenController;
 import Helper.DBConnection;
 import Models.Appointment;
 import javafx.collections.FXCollections;
@@ -8,6 +9,7 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class DBAppointments {
@@ -59,55 +61,49 @@ public class DBAppointments {
         return appointmentsList;
     }
 
-    public static void addNewAppointment() throws SQLException
+    public static void addNewAppointment(String title, String description, String location,
+                                         String type, Timestamp start, Timestamp end, int customer_ID, int user_ID,
+                                         int contact_ID) throws SQLException
     {
-//        ObservableList<Division> divisionList = DBDivisions.getAllDivisions();
-//
-//        int divisionID = 0;
-//
-//        for (Division d : divisionList)
-//        {
-//            if (d.getDivisionName().equals(divisionName))
-//            {
-//                divisionID = d.getDivisionID();
-//            }
-//        }
 
-//        String sql = "INSERT INTO customers VALUES (NULL, '" + customerName + "', '" + customerAddress + "', '" + postalCode + "', '" + phone + "', NOW(), 'TEST', NOW(), 'TEST', " + divisionID + ")";
+        // Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
+        String sql = "INSERT INTO appointments VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
+        // 1 Appointment_ID - NULL
+        // 2 Title
+        // 3 Description
+        // 4 Location
+        // 5 Type
+        // 6 Start
+        // 7 End
+        // 8 Create_Date
+        // 9 Created_By
+        // 10 Last_Update
+        // 11 Last_Updated_By
+        // 12 Customer_ID
+        // 13 User_ID
+        // 14 Contact_ID
 
+//        ps.setString(1, String.valueOf(appointment_ID));
+        ps.setString(1, title);
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setTimestamp(5, start);
+        ps.setTimestamp(6, end);
+        ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setString(8, LoginScreenController.authorizedUser.getUserName());
+        ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setString(10, LoginScreenController.authorizedUser.getUserName());
+        ps.setInt(11, customer_ID);
+        ps.setInt(12, user_ID);
+        ps.setInt(13, contact_ID);
 
+        System.out.println(sql);        //  TEST PRINT
 
+        ps.execute();
 
-
-
-//        String sql = "INSERT INTO customers VALUES (NULL, ?, ?, ?, ?, NOW(), ?, NOW(), ?, ?)";
-//
-//        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
-
-
-
-
-
-        //        ps.setString(1, customerName);
-//        ps.setString(2, customerAddress);
-//        ps.setString(3, postalCode);
-//        ps.setString(4, phone);
-//        ps.setString(5, LoginScreenController.authorizedUser.getUserName());
-//        ps.setString(6, LoginScreenController.authorizedUser.getUserName());
-//        ps.setInt(7, divisionID);
-
-
-
-
-
-
-
-
-//        System.out.println(sql);        //  TEST PRINT
-//
-//        ps.execute();
 
     }
 

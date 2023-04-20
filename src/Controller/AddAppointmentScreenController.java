@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.DBAppointments;
+import Helper.DBConnection;
 import Utility.TimeTraveller;
 import DAO.DBContacts;
 import DAO.DBCustomers;
@@ -20,6 +22,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -143,10 +148,11 @@ public class AddAppointmentScreenController implements Initializable {
 
 
     @FXML
-    void onActionAddNewCustomer(ActionEvent event) {
+    void onActionAddNewAppointment(ActionEvent event) throws SQLException, IOException {
         System.out.println("Adding new customer");
 
-        DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");      //  this is in convertStringTimeDate2UTCTimeStamp
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
 
         String title = textFieldTitle.getText();
@@ -156,6 +162,19 @@ public class AddAppointmentScreenController implements Initializable {
         String type = textFieldType.getText();
         int customerID = Integer.parseInt(dropDownCustomer.getValue());
         int userID = Integer.parseInt(dropDownUser.getValue());
+
+        //  get contact ID from contact string
+        ObservableList<Contact> allContacts = DBContacts.getAllContacts();
+        int contactID = 0;
+
+        for (Contact c : allContacts)
+        {
+            if (c.getContactName().equals(contact))
+            {
+                contactID = c.getContactID();
+            }
+        }
+
 
         //   -----   start/end time   -----                                  *** String?
         String startTime = dropDownStartTime.getValue();
@@ -169,16 +188,15 @@ public class AddAppointmentScreenController implements Initializable {
         LocalDate startingDate = datePickerStart.getValue();
         LocalDate endingDate = datePickerEnd.getValue();
 
-
-
-
-
+        //   -----   convert to Timestamp   -----
+        Timestamp startTS = TimeTraveller.convertStringTimeDate2UTCTimeStamp(startTime, startDate);
+        Timestamp endTS = TimeTraveller.convertStringTimeDate2UTCTimeStamp(endTime, endDate);
 
         //   -----------------------------   Test input data   ---------------------------------------
         System.out.println(title);
         System.out.println(description);
         System.out.println(location);
-        System.out.println(contact);
+        System.out.println(contactID);
         System.out.println(type);
         System.out.println(startTime);
         System.out.println(endTime);
@@ -186,6 +204,18 @@ public class AddAppointmentScreenController implements Initializable {
         System.out.println(endDate);
         System.out.println(customerID);
         System.out.println(userID);
+
+        //  SQL Cols for reference VVV
+        //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
+
+        DBAppointments.addNewAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID);
+
+        //  reload screen after adding new appointment
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/AddAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
 
     }
 
@@ -258,6 +288,15 @@ public class AddAppointmentScreenController implements Initializable {
 
             dropDownUser.setItems(userIDs);
             dropDownUser.setVisibleRowCount(5);
+
+
+            //   ---------->   populate dropDownStart and dropDownEnd   <----------
+
+            // FIXME
+
+
+
+
 
         }
         catch (Exception e)

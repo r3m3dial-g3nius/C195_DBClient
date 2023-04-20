@@ -138,6 +138,7 @@ public class AppointmentScreenController implements Initializable {
     {
         System.out.println("Add appointment selected");
 
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/Views/AddAppointment.fxml"));
         stage.setScene(new Scene(scene));
@@ -153,6 +154,7 @@ public class AppointmentScreenController implements Initializable {
 
         selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
 
+        //   confirm there is an appointment selected
         if (selectedAppointment == null)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -162,6 +164,9 @@ public class AppointmentScreenController implements Initializable {
             return;
         }
 
+        //   code to modify appointment
+
+        System.out.println("Modifying appointment with " + selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
 
     }
 
@@ -170,6 +175,7 @@ public class AppointmentScreenController implements Initializable {
     {
         System.out.println("Delete appointment selected");
 
+        //   confirm there is an appointment selected
         if (selectedAppointment == null)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -178,6 +184,8 @@ public class AppointmentScreenController implements Initializable {
             alert.showAndWait();
             return;
         }
+
+        //   code to delete appointment
 
         System.out.println("Deleting appointment with " + selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
     }
