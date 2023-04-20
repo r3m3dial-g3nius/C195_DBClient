@@ -25,9 +25,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -134,23 +132,9 @@ public class AddAppointmentScreenController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     @FXML
     void onActionAddNewAppointment(ActionEvent event) throws SQLException, IOException {
         System.out.println("Adding new customer");
-
 
         DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");      //  this is in convertStringTimeDate2UTCTimeStamp
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
@@ -179,14 +163,16 @@ public class AddAppointmentScreenController implements Initializable {
         //   -----   start/end time   -----                                  *** String?
         String startTime = dropDownStartTime.getValue();
         String endTime = dropDownEndTime.getValue();
-        LocalTime startingTime = LocalTime.parse(dropDownStartTime.getValue(), hourMinFormatter);
-        LocalTime endingTime = LocalTime.parse(dropDownEndTime.getValue(), hourMinFormatter);
+        //   DO I NEED THESE?  VVV
+//        LocalTime startingTime = LocalTime.parse(dropDownStartTime.getValue(), hourMinFormatter);
+//        LocalTime endingTime = LocalTime.parse(dropDownEndTime.getValue(), hourMinFormatter);
 
         //   -----   start/end date   -----                                  *** String?
         String startDate = datePickerStart.getValue().format(dateFormatter);
         String endDate = datePickerEnd.getValue().format(dateFormatter);
-        LocalDate startingDate = datePickerStart.getValue();
-        LocalDate endingDate = datePickerEnd.getValue();
+        //   DO I NEED THESE?  VVV
+//        LocalDate startingDate = datePickerStart.getValue();
+//        LocalDate endingDate = datePickerEnd.getValue();
 
         //   -----   convert to Timestamp   -----
         Timestamp startTS = TimeTraveller.convertStringTimeDate2UTCTimeStamp(startTime, startDate);
@@ -212,7 +198,7 @@ public class AddAppointmentScreenController implements Initializable {
 
         //  reload screen after adding new appointment
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/Views/AddAppointment.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/Views/Appointments.fxml"));
         stage.setScene(new Scene(scene));
         stage.centerOnScreen();                 //  ----------------   Center Screen
         stage.show();
@@ -290,15 +276,47 @@ public class AddAppointmentScreenController implements Initializable {
             dropDownUser.setVisibleRowCount(5);
 
 
-            //   ---------->   populate dropDownStart and dropDownEnd   <----------
+            //   ---------->   populate dropDownStart   <----------
+            //   ---------->   appointment time range is 8am to 10pm EST   <----------
+            ObservableList<String> startTimes = FXCollections.observableArrayList();
 
-            // FIXME
+            LocalDateTime earliestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));   // ---   8:00 am
+//            ZonedDateTime startZDT = startEST.atZone(ZoneId.of("America/New_York"));
+//            ZonedDateTime localStartZDT = startZDT.withZoneSameInstant(ZoneId.systemDefault());
+//            LocalDateTime apptStartTime = localStartZDT.toLocalDateTime();
+            LocalDateTime appointmentEarliestStart = TimeTraveller.timeZoneFormatter(earliestStartEST, ZoneId.of("America/New_York"));
+
+            LocalDateTime latestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 45));   // ---   9:45 pm
+            LocalDateTime appointmentLatestStart = TimeTraveller.timeZoneFormatter(latestStartEST, ZoneId.of("America/New_York"));
+
+            while (appointmentEarliestStart.isBefore(appointmentLatestStart.plusMinutes(1)))
+            {
+                startTimes.add(appointmentEarliestStart.toLocalTime().toString());
+                appointmentEarliestStart = appointmentEarliestStart.plusMinutes(15);
+            }
+
+            dropDownStartTime.setItems(startTimes);
 
 
+            //   ---------->   populate dropDownEnd   <----------
+            //   ---------->   appointment time range is 8am to 10pm EST   <----------
+            ObservableList<String> endTimes = FXCollections.observableArrayList();
 
+            LocalDateTime earliestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 15));   // ---   8:15 am
+            LocalDateTime appointmentEarliestEnd = TimeTraveller.timeZoneFormatter(earliestEndEST, ZoneId.of("America/New_York"));
 
+            LocalDateTime latestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 00));   // ---   9:45 pm
+            LocalDateTime appointmentLatestEnd = TimeTraveller.timeZoneFormatter(latestEndEST, ZoneId.of("America/New_York"));
 
+            while (appointmentEarliestEnd.isBefore(appointmentLatestEnd.plusMinutes(1)))
+            {
+                endTimes.add(appointmentEarliestEnd.toLocalTime().toString());
+                appointmentEarliestEnd = appointmentEarliestEnd.plusMinutes(15);
+            }
+
+            dropDownEndTime.setItems(endTimes);
         }
+
         catch (Exception e)
         {
             e.printStackTrace();
