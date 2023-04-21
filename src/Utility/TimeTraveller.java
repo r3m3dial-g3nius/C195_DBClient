@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TimeTraveller {
 
-    public static Timestamp convertStringTimeDate2UTCTimeStamp(String time, String date)
+    public static Timestamp convertStringTimeDate2TimeStamp(String time, String date)        // not UTC
     {
         // code
         DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -21,8 +21,9 @@ public class TimeTraveller {
 
     public static LocalDateTime timeZoneFormatter(LocalDateTime dateTime, ZoneId zoneId)
     {
-        ZonedDateTime zdt = dateTime.atZone(ZoneId.systemDefault());
-        zdt = zdt.withZoneSameInstant(zoneId);
+        ZonedDateTime zdt = dateTime.atZone(zoneId);
+        zdt = zdt.withZoneSameInstant(ZoneId.systemDefault());
+//        LocalDateTime test = zdt.toLocalDateTime();
 
         return zdt.toLocalDateTime();
     }

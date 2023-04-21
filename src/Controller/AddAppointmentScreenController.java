@@ -1,7 +1,6 @@
 package Controller;
 
 import DAO.DBAppointments;
-import Helper.DBConnection;
 import Utility.TimeTraveller;
 import DAO.DBContacts;
 import DAO.DBCustomers;
@@ -22,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
@@ -163,20 +161,14 @@ public class AddAppointmentScreenController implements Initializable {
         //   -----   start/end time   -----                                  *** String?
         String startTime = dropDownStartTime.getValue();
         String endTime = dropDownEndTime.getValue();
-        //   DO I NEED THESE?  VVV
-//        LocalTime startingTime = LocalTime.parse(dropDownStartTime.getValue(), hourMinFormatter);
-//        LocalTime endingTime = LocalTime.parse(dropDownEndTime.getValue(), hourMinFormatter);
 
         //   -----   start/end date   -----                                  *** String?
         String startDate = datePickerStart.getValue().format(dateFormatter);
         String endDate = datePickerEnd.getValue().format(dateFormatter);
-        //   DO I NEED THESE?  VVV
-//        LocalDate startingDate = datePickerStart.getValue();
-//        LocalDate endingDate = datePickerEnd.getValue();
 
         //   -----   convert to Timestamp   -----
-        Timestamp startTS = TimeTraveller.convertStringTimeDate2UTCTimeStamp(startTime, startDate);
-        Timestamp endTS = TimeTraveller.convertStringTimeDate2UTCTimeStamp(endTime, endDate);
+        Timestamp startTS = TimeTraveller.convertStringTimeDate2TimeStamp(startTime, startDate);
+        Timestamp endTS = TimeTraveller.convertStringTimeDate2TimeStamp(endTime, endDate);
 
         //   -----------------------------   Test input data   ---------------------------------------
         System.out.println(title);
@@ -232,8 +224,18 @@ public class AddAppointmentScreenController implements Initializable {
         stage.show();
     }
 
+
+
+
+
+
+
     /**
      * Initializes the Add Appointment screen
+     *
+     * lambda #1 - populates Observable list contactNames with String values of contact name
+     * lambda #2 - populates Observable list customerIDs with String values of customer ID numbers.
+     * lambda #3 - populates Observable list userIDs with String values of user ID numbers.
      *
      * @param url the location
      * @param resourceBundle the resources
@@ -281,9 +283,6 @@ public class AddAppointmentScreenController implements Initializable {
             ObservableList<String> startTimes = FXCollections.observableArrayList();
 
             LocalDateTime earliestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));   // ---   8:00 am
-//            ZonedDateTime startZDT = startEST.atZone(ZoneId.of("America/New_York"));
-//            ZonedDateTime localStartZDT = startZDT.withZoneSameInstant(ZoneId.systemDefault());
-//            LocalDateTime apptStartTime = localStartZDT.toLocalDateTime();
             LocalDateTime appointmentEarliestStart = TimeTraveller.timeZoneFormatter(earliestStartEST, ZoneId.of("America/New_York"));
 
             LocalDateTime latestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 45));   // ---   9:45 pm
