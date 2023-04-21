@@ -50,7 +50,6 @@ public class DBAppointments {
 
                 appointmentsList.add(newAppointment);
             }
-
         }
 
         catch (SQLException throwables)
@@ -82,8 +81,11 @@ public class DBAppointments {
         LocalDateTime startCurrentWeek = LocalDateTime.now().minusWeeks(1);
         LocalDateTime endCurrentWeek = LocalDateTime.now().plusWeeks(1);
 
+        System.out.println(time);           // -----   test
+        System.out.println(contact);
+
         //   ----->   no filters selected   <-----
-        if ((time == null && contact == null))
+        if (time == null && contact == null)
         {
             return allAppointments;
         }
@@ -137,6 +139,8 @@ public class DBAppointments {
         //   ----->   if both filters selected   <-----
         else if (time != null && contact != null)
         {
+            tempAppointments.clear();           //    -----   test
+
             // -----   add appointments with contact name to tempAppointments   -----
             for (Appointment a : allAppointments)
             {
@@ -146,42 +150,42 @@ public class DBAppointments {
                 }
             }
 
+            System.out.println("tempAppointments size = " + tempAppointments.size());       //   ----  test
+
             //  -----   filter tempAppointments for current week   -----
-            for (Appointment a : tempAppointments)
+            if (time.equals("Current Week"))
             {
-                if (time.equals("Current Week"))
+                for (Appointment a : tempAppointments)
                 {
                     if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek))
                     {
                         filteredAppointments.add(a);
                     }
-
-                    return filteredAppointments;
                 }
 
-                //  -----   filter tempAppointments for current month   -----
+                return filteredAppointments;
+            }
 
-                else if (time.equals("Current Month"))
+            //  -----   filter tempAppointments for current month   -----
+            else if (time.equals("Current Month"))
+            {
+                for (Appointment a : tempAppointments)
                 {
                     if (a.getAppointmentStart().isAfter(startCurrentMonth) && a.getAppointmentStart().isBefore(endCurrentMonth))
                     {
                         filteredAppointments.add(a);
                     }
-
-                    return filteredAppointments;
                 }
 
-                //  -----   if dropDownTime is "All"   -----
-                else
-                {
-                    return tempAppointments;
-                }
-
+                return filteredAppointments;
             }
+
         }
 
         return filteredAppointments;        //  errors if not present
     }
+
+
 
 
     /**

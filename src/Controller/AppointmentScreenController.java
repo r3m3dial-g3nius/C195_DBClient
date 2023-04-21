@@ -99,8 +99,8 @@ public class AppointmentScreenController implements Initializable {
         String contactFilter = dropDownContact.getValue();
 
         //  ----------------   test drop down inputs  -----------------------
-        System.out.println(timeFilter);
-        System.out.println(contactFilter);
+//        System.out.println(timeFilter);
+//        System.out.println(contactFilter);
 
         appointmentTableView.setItems(DBAppointments.getFilteredAppointments(timeFilter, contactFilter));
 
@@ -202,12 +202,11 @@ public class AppointmentScreenController implements Initializable {
             //  --->   LAMBDA expression #1  <---
             allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
             dropDownContact.setItems(contactNames);
-//            dropDownContact.setPromptText("ALL");
             dropDownContact.setVisibleRowCount(5);
 
             //  --->   Populate dropDownTime  <---
             ObservableList<String> timeFilters = FXCollections.observableArrayList();
-            timeFilters.add("All");
+//            timeFilters.add("All");
             timeFilters.add("Current Week");
             timeFilters.add("Current Month");
             dropDownTime.setItems(timeFilters);
