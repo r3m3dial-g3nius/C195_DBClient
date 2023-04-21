@@ -88,6 +88,10 @@ public class AddAppointmentScreenController implements Initializable {
     @FXML
     private TextField textFieldCustomerName;
 
+    /**
+     * fires when user selects customer id from dropDownCustomer, updates textFieldCustomerName with name of customer
+     * @param actionEvent
+     */
     @FXML
     void onActionSetCustomerTextField(ActionEvent actionEvent)
     {
@@ -110,6 +114,10 @@ public class AddAppointmentScreenController implements Initializable {
     @FXML
     private TextField textFieldUserName;
 
+    /**
+     * fires when user selects user id from dropDownUser, updates textFieldUserName with name of user
+     * @param actionEvent
+     */
     @FXML
     void onActionSetUserTextField(ActionEvent actionEvent)
     {
@@ -130,6 +138,14 @@ public class AddAppointmentScreenController implements Initializable {
     }
 
 
+    /**
+     * fires when user presses Add button, pulls new appointment data from user input, calls
+     * DBAppointments.addNewAppointment to insert appointment into appointments table in database
+     *
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void onActionAddNewAppointment(ActionEvent event) throws SQLException, IOException {
         System.out.println("Adding new customer");
@@ -156,7 +172,6 @@ public class AddAppointmentScreenController implements Initializable {
                 contactID = c.getContactID();
             }
         }
-
 
         //   -----   start/end time   -----                                  *** String?
         String startTime = dropDownStartTime.getValue();
@@ -197,23 +212,12 @@ public class AddAppointmentScreenController implements Initializable {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * fires when Cancel button is pressed, returns user to Appointments screen
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException
     {
@@ -223,11 +227,6 @@ public class AddAppointmentScreenController implements Initializable {
         stage.centerOnScreen();                 //  ----------------   Center Screen
         stage.show();
     }
-
-
-
-
-
 
 
     /**

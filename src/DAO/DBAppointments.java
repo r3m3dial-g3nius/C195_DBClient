@@ -61,6 +61,144 @@ public class DBAppointments {
         return appointmentsList;
     }
 
+
+    /**
+     * filters appointments in tableview based on user input drop down values for time and contact
+     *
+     * @param time time specification - All, Current Week, or Current Month
+     * @param contact name of contact
+     * @return Observable list of filtered appointments based on user input from drop down boxes
+     * @throws NullPointerException
+     */
+    public static ObservableList<Appointment> getFilteredAppointments(String time, String contact) throws NullPointerException
+    {
+        ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
+        ObservableList<Appointment> tempAppointments = FXCollections.observableArrayList();
+        ObservableList<Appointment> filteredAppointments = FXCollections.observableArrayList();
+
+        LocalDateTime startCurrentMonth = LocalDateTime.now().minusMonths(1);
+        LocalDateTime endCurrentMonth = LocalDateTime.now().plusMonths(1);
+
+        LocalDateTime startCurrentWeek = LocalDateTime.now().minusWeeks(1);
+        LocalDateTime endCurrentWeek = LocalDateTime.now().plusWeeks(1);
+
+        //   ----->   no filters selected   <-----
+        if ((time == null && contact == null))
+        {
+            return allAppointments;
+        }
+
+        //   ----->   only contact filter selected   <-----
+        else if (time == null && contact != null)
+        {
+            for (Appointment a : allAppointments)
+            {
+                if (a.getContactName(a.getContactID()).equals(contact))
+                {
+                    filteredAppointments.add(a);
+                }
+            }
+
+            return filteredAppointments;
+        }
+
+        //   ----->   only time filter selected   <-----
+        else if (time != null && contact == null)
+        {
+            if (time.equals("Current Week"))
+            {
+                for (Appointment a : allAppointments)
+                {
+                    if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek)) {
+                        filteredAppointments.add(a);
+                    }
+                }
+                return filteredAppointments;
+            }
+
+            else if (time.equals("Current Month"))
+            {
+                for (Appointment a : allAppointments)
+                {
+                    if (a.getAppointmentStart().isAfter(startCurrentMonth) && a.getAppointmentStart().isBefore(endCurrentMonth))
+                    {
+                        filteredAppointments.add(a);
+                    }
+                }
+                return filteredAppointments;
+            }
+
+            else
+            {
+                return allAppointments;
+            }
+        }
+
+        //   ----->   if both filters selected   <-----
+        else if (time != null && contact != null)
+        {
+            // -----   add appointments with contact name to tempAppointments   -----
+            for (Appointment a : allAppointments)
+            {
+                if (a.getContactName(a.getContactID()).equals(contact))
+                {
+                    tempAppointments.add(a);
+                }
+            }
+
+            //  -----   filter tempAppointments for current week   -----
+            for (Appointment a : tempAppointments)
+            {
+                if (time.equals("Current Week"))
+                {
+                    if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek))
+                    {
+                        filteredAppointments.add(a);
+                    }
+
+                    return filteredAppointments;
+                }
+
+                //  -----   filter tempAppointments for current month   -----
+
+                else if (time.equals("Current Month"))
+                {
+                    if (a.getAppointmentStart().isAfter(startCurrentMonth) && a.getAppointmentStart().isBefore(endCurrentMonth))
+                    {
+                        filteredAppointments.add(a);
+                    }
+
+                    return filteredAppointments;
+                }
+
+                //  -----   if dropDownTime is "All"   -----
+                else
+                {
+                    return tempAppointments;
+                }
+
+            }
+        }
+
+        return filteredAppointments;        //  errors if not present
+    }
+
+
+    /**
+     * inserts new appointment into appointments table in database
+     *
+     * @param title title of appointment
+     * @param description description of appointment
+     * @param location location of appointment
+     * @param type type of appointment
+     * @param start starting time of appointment
+     * @param end ending time of appointment
+     * @param customer_ID customer ID number
+     * @param user_ID user ID number
+     * @param contact_ID contact ID number
+     *
+     * @throws SQLException
+     */
     public static void addNewAppointment(String title, String description, String location,
                                          String type, Timestamp start, Timestamp end, int customer_ID, int user_ID,
                                          int contact_ID) throws SQLException

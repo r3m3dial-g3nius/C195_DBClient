@@ -5,10 +5,8 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -27,53 +25,37 @@
                   </Label>
                </children>
             </HBox>
-            <TableView fx:id="appointmentTableView" prefHeight="400.0" prefWidth="780.0">
+            <TableView fx:id="appointmentTableView" prefHeight="450.0" prefWidth="780.0">
               <columns>
-                <TableColumn fx:id="columnAppointmentID" prefWidth="78.0" text="Appointment ID" />
-                <TableColumn fx:id="columnTitle" prefWidth="78.0" text="Title" />
+                <TableColumn fx:id="columnAppointmentID" prefWidth="100.0" text="Appointment ID" />
+                <TableColumn fx:id="columnTitle" prefWidth="70.0" text="Title" />
                   <TableColumn fx:id="columnDescription" prefWidth="78.0" text="Description" />
                   <TableColumn fx:id="columnLocation" prefWidth="78.0" text="Location" />
                   <TableColumn fx:id="columnType" prefWidth="78.0" text="Type" />
-                  <TableColumn fx:id="columnContact" prefWidth="78.0" text="Contact" />
-                  <TableColumn fx:id="columnStart" prefWidth="78.0" text="Start" />
-                  <TableColumn fx:id="columnEnd" prefWidth="78.0" text="End" />
-                  <TableColumn fx:id="columnCustomer" prefWidth="70.0" text="Customer" />
+                  <TableColumn fx:id="columnContact" prefWidth="60.0" text="Contact" />
+                  <TableColumn fx:id="columnStart" prefWidth="100.0" text="Start" />
+                  <TableColumn fx:id="columnEnd" prefWidth="100.0" text="End" />
+                  <TableColumn fx:id="columnCustomer" prefWidth="65.0" text="Customer" />
                   <TableColumn fx:id="columnUser" prefWidth="50.0" text="User" />
               </columns>
             </TableView>
-            <HBox alignment="CENTER" layoutX="20.0" layoutY="520.0" prefHeight="40.0" prefWidth="750.0" spacing="25.0">
+            <HBox alignment="CENTER" layoutX="20.0" layoutY="520.0" prefHeight="40.0" prefWidth="800.0" spacing="10.0">
                <children>
-                  <ButtonBar layoutX="43.0" layoutY="10.0" prefHeight="39.0" prefWidth="384.0">
-                     <buttons>
-                        <Label prefHeight="18.0" prefWidth="174.0" text="Showing Appointments for" />
-                        <ComboBox fx:id="dropDownContact" onAction="#onActionFilterContact" prefWidth="150.0" />
-                     </buttons>
-                  </ButtonBar>
-                  <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onActionResetFilter" prefWidth="100.0" text="Reset" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="750.0" spacing="25.0">
-               <children>
-                  <ButtonBar prefHeight="36.0" prefWidth="610.0">
-                     <buttons>
-                        <Label prefHeight="30.0" prefWidth="180.0" text="Show appointments" />
-                        <RadioButton fx:id="radioAll" layoutX="210.0" layoutY="13.0" minWidth="64.0" mnemonicParsing="false" onAction="#onActionShowAll" selected="true" text="All">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="toggleTimeFilter" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton fx:id="radioWeek" mnemonicParsing="false" onAction="#onActionFilterByWeek" text="Current Week" toggleGroup="$toggleTimeFilter" />
-                        <RadioButton fx:id="radioMonth" layoutX="180.0" layoutY="13.0" mnemonicParsing="false" onAction="#onActionFilterByMonth" text="Current Month" toggleGroup="$toggleTimeFilter" />
-                     </buttons>
+                  <Label minWidth="30.0" prefHeight="30.0" prefWidth="62.0" text="Showing" />
+                  <ComboBox fx:id="dropDownTime" prefWidth="170.0" promptText="All" />
+                  <Label minWidth="50.0" prefHeight="30.0" prefWidth="128.0" text="Appointments for" />
+                  <ComboBox fx:id="dropDownContact" prefWidth="170.0" promptText="All Contacts" />
+                  <ButtonBar prefHeight="35.0" prefWidth="265.0">
+                    <buttons>
+                        <Button fx:id="applyButton" mnemonicParsing="false" onAction="#onActionApplyFilters" prefWidth="100.0" text="Apply" />
+                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onActionResetFilter" prefWidth="100.0" text="Reset" />
+                    </buttons>
                   </ButtonBar>
                </children>
             </HBox>
-            <HBox prefHeight="40.0" prefWidth="300.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="300.0">
                <children>
-                  <ButtonBar prefHeight="40.0" prefWidth="100.0">
-                     <buttons>
-                      <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onActionMainMenu" prefWidth="100.0" text="Main Menu" />
-                     </buttons>
-                  </ButtonBar>
+                <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onActionMainMenu" prefHeight="30.0" prefWidth="110.0" text="Main Menu" />
                   <ButtonBar layoutX="90.0" layoutY="10.0" prefHeight="35.0" prefWidth="680.0">
                      <buttons>
                         <Button fx:id="addAppointmentButton" layoutX="735.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionAddAppointment" prefWidth="100.0" text="Add" />

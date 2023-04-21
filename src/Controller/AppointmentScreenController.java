@@ -71,13 +71,10 @@ public class AppointmentScreenController implements Initializable {
     private ComboBox<String> dropDownContact;
 
     @FXML
-    private RadioButton radioAll;
+    private ComboBox<String> dropDownTime;
 
     @FXML
-    private RadioButton radioWeek;
-
-    @FXML
-    private RadioButton radioMonth;
+    private Button applyButton;
 
     @FXML
     private Button mainMenuButton;
@@ -91,23 +88,21 @@ public class AppointmentScreenController implements Initializable {
     @FXML
     private Button deleteAppointmentButton;
 
-    @FXML
-    void onActionShowAll(ActionEvent event) {
-        appointmentTableView.setItems(DBAppointments.getAllAppointments());
-    }
+//    @FXML
+//    void onActionShowAll(ActionEvent event) {
+//        appointmentTableView.setItems(DBAppointments.getAllAppointments());
+//    }
 
     @FXML
-    void onActionFilterByMonth(ActionEvent event) {
+    void onActionApplyFilters(ActionEvent event) {
+        String timeFilter = dropDownTime.getValue();
+        String contactFilter = dropDownContact.getValue();
 
-    }
+        //  ----------------   test drop down inputs  -----------------------
+        System.out.println(timeFilter);
+        System.out.println(contactFilter);
 
-    @FXML
-    void onActionFilterByWeek(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionFilterContact(ActionEvent event) {
+        appointmentTableView.setItems(DBAppointments.getFilteredAppointments(timeFilter, contactFilter));
 
     }
 
@@ -207,10 +202,17 @@ public class AppointmentScreenController implements Initializable {
             //  --->   LAMBDA expression #1  <---
             allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
             dropDownContact.setItems(contactNames);
-            dropDownContact.setPromptText("ALL");
+//            dropDownContact.setPromptText("ALL");
             dropDownContact.setVisibleRowCount(5);
 
+            //  --->   Populate dropDownTime  <---
+            ObservableList<String> timeFilters = FXCollections.observableArrayList();
+            timeFilters.add("All");
+            timeFilters.add("Current Week");
+            timeFilters.add("Current Month");
+            dropDownTime.setItems(timeFilters);
 
+            //  --->   Populate appointmentTableView and columns  <---
             appointmentTableView.setItems(DBAppointments.getAllAppointments());
 
             columnAppointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
