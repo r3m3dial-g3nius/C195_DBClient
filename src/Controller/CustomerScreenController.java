@@ -295,9 +295,10 @@ public class CustomerScreenController implements Initializable {
             return;
         }
 
+
         //  -------------------------------   Confirm delete   ---------------------------------------
 
-        if (selectedCustomer != null)
+        else
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Customer Confirmation");
@@ -308,12 +309,17 @@ public class CustomerScreenController implements Initializable {
             {
                 //      ---------------------------------------------    FIX ME   -------------------------------------
                 //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                System.out.println("Insert code to delete all of selected customer's appointments then delete customer");
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
+                if (!selectedCustomer.hasAppointments())
+                {
+                    System.out.println("Customer has no appointments, deleting customer");
+                }
+                else if (selectedCustomer.hasAppointments())
+                {
+                    System.out.println("Customer has appointments, deleting appointments first, then customer");
+
+                }
+
+
                 //      ---------------------------------------------    FIX ME   -------------------------------------
                 //      ---------------------------------------------    FIX ME   -------------------------------------
                 //      ---------------------------------------------    FIX ME   -------------------------------------
