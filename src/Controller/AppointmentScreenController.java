@@ -159,9 +159,11 @@ public class AppointmentScreenController implements Initializable {
             return;
         }
 
-        //   code to modify appointment
-
-        System.out.println("Modifying appointment with " + selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/ModifyAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
 
     }
 
