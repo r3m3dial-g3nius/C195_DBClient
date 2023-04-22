@@ -145,7 +145,12 @@ public class ModifyAppointmentScreenController implements Initializable {
         textFieldUserName.setText(userName);
     }
 
-
+    /**
+     * Fires when user selects an appointment and presses the Save button. Extracts data from Modify Appointment screen and updates the appropriate Appointment in appointments table in database
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void onActionSaveChanges(ActionEvent event) throws SQLException, IOException {
         System.out.println("Saving changes to Appointment");
@@ -314,9 +319,6 @@ public class ModifyAppointmentScreenController implements Initializable {
             }
 
             dropDownEndTime.setItems(endTimes);
-
-
-
 
 
             //   ---------->   populate text fields with selectedAppointment data   <----------

@@ -186,8 +186,6 @@ public class DBAppointments {
     }
 
 
-
-
     /**
      * inserts new appointment into appointments table in database
      *
@@ -227,7 +225,6 @@ public class DBAppointments {
         // 13 User_ID
         // 14 Contact_ID
 
-//        ps.setString(1, String.valueOf(appointment_ID));
         ps.setString(1, title);
         ps.setString(2, description);
         ps.setString(3, location);
@@ -249,7 +246,21 @@ public class DBAppointments {
 
     }
 
-
+    /**
+     * Modifies existing Appointment in appointments table per user input
+     *
+     * @param title title of appointment
+     * @param description description of appointment
+     * @param location location of appointment
+     * @param type type of appointment
+     * @param startTS start date/time of appointment
+     * @param endTS end date/time of appointment
+     * @param customerID customer ID number
+     * @param userID user ID number
+     * @param contactID contact ID number
+     * @param appointmentID appointment ID number (unique)
+     * @throws SQLException
+     */
     public static void modifyAppointment(String title, String description, String location, String type, Timestamp startTS, Timestamp endTS, int customerID, int userID, int contactID, int appointmentID) throws SQLException
     {
         //  SQL Cols for reference VVV
@@ -277,10 +288,11 @@ public class DBAppointments {
 
     }
 
-
-
-
-    //      ------------------------------------------------------------------
+    /**
+     * Deletes Appointment specified by appointment ID number from appointments table in database
+     * @param appointmentID unique ID number of appointment
+     * @throws SQLException
+     */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
 

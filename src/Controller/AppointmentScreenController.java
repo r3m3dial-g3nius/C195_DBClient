@@ -90,6 +90,10 @@ public class AppointmentScreenController implements Initializable {
     @FXML
     private Button deleteAppointmentButton;
 
+    /**
+     * Applies user selected filters to data displayed in tableview
+     * @param event
+     */
     @FXML
     void onActionApplyFilters(ActionEvent event) {
         String timeFilter = dropDownTime.getValue();
@@ -103,6 +107,12 @@ public class AppointmentScreenController implements Initializable {
 
     }
 
+    /**
+     * fires when user presses Reset button...reloads the Appointment screen without filters
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionResetFilter(ActionEvent event) throws IOException
     {
@@ -114,6 +124,11 @@ public class AppointmentScreenController implements Initializable {
 
     }
 
+    /**
+     * fires when user presses Main Menu button, returns user to Main Menu
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException
     {
@@ -125,6 +140,11 @@ public class AppointmentScreenController implements Initializable {
 
     }
 
+    /**
+     * fires when user selects Add button; loads Add Appointment screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException
     {
@@ -139,6 +159,11 @@ public class AppointmentScreenController implements Initializable {
 
     }
 
+    /**
+     * fires when user presses Modify button; loads Modify Appointment screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException
     {
@@ -164,6 +189,12 @@ public class AppointmentScreenController implements Initializable {
 
     }
 
+    /**
+     * fires when user pressed Delete button; deletes selected Appointment from appointments table in database
+     * @param event
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) throws IOException, SQLException {
         System.out.println("Delete appointment selected");
