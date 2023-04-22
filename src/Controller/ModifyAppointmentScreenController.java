@@ -148,7 +148,7 @@ public class ModifyAppointmentScreenController implements Initializable {
 
     @FXML
     void onActionSaveChanges(ActionEvent event) throws SQLException, IOException {
-        System.out.println("Adding new customer");
+        System.out.println("Saving changes to Appointment");
 
         DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");      //  this is in convertStringTimeDate2UTCTimeStamp
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
@@ -201,7 +201,7 @@ public class ModifyAppointmentScreenController implements Initializable {
         //  SQL Cols for reference VVV
         //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
 
-        DBAppointments.addNewAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID);
+        DBAppointments.modifyAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID, selectedAppointment.getAppointmentID());
 
         //  reload screen after adding new appointment
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -230,7 +230,7 @@ public class ModifyAppointmentScreenController implements Initializable {
 
 
     /**
-     * Initializes the Add Appointment screen
+     * Initializes the Modify Appointment screen
      *
      * lambda #1 - populates Observable list contactNames with String values of contact name
      * lambda #2 - populates Observable list customerIDs with String values of customer ID numbers.
@@ -319,13 +319,6 @@ public class ModifyAppointmentScreenController implements Initializable {
 
 
 
-
-
-
-
-
-
-
             //   ---------->   populate text fields with selectedAppointment data   <----------
             LocalDateTime start = selectedAppointment.getAppointmentStart();
             LocalDateTime end = selectedAppointment.getAppointmentEnd();
@@ -334,7 +327,6 @@ public class ModifyAppointmentScreenController implements Initializable {
             LocalTime endTime = end.toLocalTime();
             LocalDate startDate = start.toLocalDate();
             LocalDate endDate = end.toLocalDate();
-
 
             textFieldAppointmentID.setText(Integer.toString(selectedAppointment.getAppointmentID()));
             textFieldTitle.setText(selectedAppointment.getAppointmentTitle());
@@ -352,24 +344,6 @@ public class ModifyAppointmentScreenController implements Initializable {
             dropDownUser.setValue(Integer.toString(selectedAppointment.getUserID()));
             textFieldCustomerName.setText(selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
             textFieldUserName.setText(selectedAppointment.getUserName(selectedAppointment.getUserID()));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

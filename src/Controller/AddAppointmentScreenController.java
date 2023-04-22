@@ -148,7 +148,7 @@ public class AddAppointmentScreenController implements Initializable {
      */
     @FXML
     void onActionAddNewAppointment(ActionEvent event) throws SQLException, IOException {
-        System.out.println("Adding new customer");
+        System.out.println("Adding new appointment");
 
         DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");      //  this is in convertStringTimeDate2UTCTimeStamp
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");

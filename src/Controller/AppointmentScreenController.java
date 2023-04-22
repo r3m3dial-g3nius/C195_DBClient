@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -87,11 +89,6 @@ public class AppointmentScreenController implements Initializable {
 
     @FXML
     private Button deleteAppointmentButton;
-
-//    @FXML
-//    void onActionShowAll(ActionEvent event) {
-//        appointmentTableView.setItems(DBAppointments.getAllAppointments());
-//    }
 
     @FXML
     void onActionApplyFilters(ActionEvent event) {
@@ -168,21 +165,40 @@ public class AppointmentScreenController implements Initializable {
     }
 
     @FXML
-    void onActionDeleteAppointment(ActionEvent event) throws IOException
-    {
+    void onActionDeleteAppointment(ActionEvent event) throws IOException, SQLException {
         System.out.println("Delete appointment selected");
+        selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
 
-        //   confirm there is an appointment selected
-        if (selectedAppointment == null)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setContentText("Please select an Appointment");
-            alert.showAndWait();
-            return;
+
+        try {
+            //   confirm there is an appointment selected
+            if (selectedAppointment == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR");
+                alert.setContentText("Please select an Appointment");
+                alert.showAndWait();
+                return;
+            }
+
+            //   confirm deletion
+            else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("CONFIRM DELETE");
+                alert.setContentText("Are you sure you want to delete?");
+                Optional<ButtonType> confirmation = alert.showAndWait();
+
+                if (confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
+                    DBAppointments.deleteAppointment(selectedAppointment.getAppointmentID());
+
+                    ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
+                    appointmentTableView.setItems(allAppointments);
+                }
+            }
         }
-
-        //   code to delete appointment
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         System.out.println("Deleting appointment with " + selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
     }

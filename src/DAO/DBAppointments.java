@@ -250,25 +250,30 @@ public class DBAppointments {
     }
 
 
-    public static void modifyAppointment() throws SQLException
+    public static void modifyAppointment(String title, String description, String location, String type, Timestamp startTS, Timestamp endTS, int customerID, int userID, int contactID, int appointmentID) throws SQLException
     {
-//        ObservableList<Division> divisionList = DBDivisions.getAllDivisions();
-//
-//        String sql = ("UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?");
-//
-//        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-//
-//        ps.setString(1, name);
-//        ps.setString(2, address);
-//        ps.setString(3, postalCode);
-//        ps.setString(4, phone);
-//        ps.setString(5, LoginScreenController.authorizedUser.getUserName());
-//        ps.setInt(6, divisionID);
-//        ps.setInt(7, customerID);
-//
-//        System.out.println(sql);        //  TEST PRINT
-//
-//        ps.execute();
+        //  SQL Cols for reference VVV
+        //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
+
+        String sql = ("UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = NOW(), Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?");
+
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setString(1, title);
+        ps.setString(2, description);
+        ps.setString(3, location);
+        ps.setString(4, type);
+        ps.setTimestamp(5, startTS);
+        ps.setTimestamp(6, endTS);
+        ps.setString(7, LoginScreenController.authorizedUser.getUserName());
+        ps.setInt(8, customerID);
+        ps.setInt(9, userID);
+        ps.setInt(10, contactID);
+        ps.setInt(11, appointmentID);
+
+        System.out.println(sql);        //  TEST PRINT
+
+        ps.execute();
 
     }
 
@@ -276,9 +281,14 @@ public class DBAppointments {
 
 
     //      ------------------------------------------------------------------
-    public static void deleteAppointment()
-    {
-        // code
+    public static void deleteAppointment(int appointmentID) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setInt(1, appointmentID);
+
+        ps.execute();
     }
 
 
