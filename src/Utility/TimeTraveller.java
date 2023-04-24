@@ -44,4 +44,89 @@ public class TimeTraveller {
         return zdt.toLocalDateTime();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static boolean inBusinessHours(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT) throws DateTimeException
+    {
+        //  -----------------   FIXME   ----------------------
+
+
+        //   >>----->   establish user requested LDT in Zone ID system.default()   <-----<<
+        requestedStartLDT = TimeTraveller.timeZoneFormatter(requestedStartLDT, ZoneId.systemDefault());
+        requestedEndLDT = TimeTraveller.timeZoneFormatter(requestedEndLDT, ZoneId.systemDefault());
+
+        //   >>----->   extract local time values   <-----<<
+        LocalTime requestedStartTime = requestedStartLDT.toLocalTime();
+        LocalTime requestedEndTime = requestedEndLDT.toLocalTime();
+
+        //   >>----->   establish business hours in Zone ID "America/New_York"   <-----<<
+        LocalTime workdayStartTime = LocalTime.of(8, 0);
+        LocalDateTime workdayStartTimeLDT = LocalDateTime.of(LocalDate.now(), workdayStartTime);
+        workdayStartTimeLDT = TimeTraveller.timeZoneFormatter(workdayStartTimeLDT, ZoneId.of("America/New_York"));
+        workdayStartTime = workdayStartTimeLDT.toLocalTime();
+
+        LocalTime workdayEndTime = LocalTime.of(22,0);
+        LocalDateTime workdayEndTimeLDT = LocalDateTime.of(LocalDate.now(), workdayEndTime);
+        workdayEndTimeLDT = TimeTraveller.timeZoneFormatter(workdayEndTimeLDT, ZoneId.of("America/New_York"));
+        workdayEndTime = workdayEndTimeLDT.toLocalTime();
+
+        if ((requestedStartTime.isBefore(workdayStartTime)) ||
+                requestedStartTime.isAfter(workdayEndTime) ||
+                (requestedEndTime.isBefore(workdayStartTime)) ||
+                (requestedEndTime.isAfter(workdayEndTime)))
+        {
+            return false;
+        }
+
+        return true;
+        //  -----------------   FIXME   ----------------------
+
+    }
+
+    public static boolean isMondayThruFriday(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
+    {
+        DayOfWeek workWeekStartDay = DayOfWeek.MONDAY;
+        DayOfWeek workWeekEndDay = DayOfWeek.FRIDAY;
+
+        if ((workWeekEndDay.getValue() < requestedStartLDT.getDayOfWeek().getValue()) ||
+                (requestedStartLDT.getDayOfWeek().getValue() < workWeekStartDay.getValue()) ||
+                ((workWeekEndDay.getValue() < requestedEndLDT.getDayOfWeek().getValue()) ||
+                        (requestedEndLDT.getDayOfWeek().getValue() < workWeekStartDay.getValue())))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isOverlappingTimes(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
+    {
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+        //  -----------------   FIXME   ----------------------
+
+        return false;
+    }
 }

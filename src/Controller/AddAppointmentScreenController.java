@@ -173,44 +173,149 @@ public class AddAppointmentScreenController implements Initializable {
             }
         }
 
-        //   -----   start/end time   -----                                  *** String?
+        //   >>---------->  start/end time   <----------<<                                  *** String?
         String startTime = dropDownStartTime.getValue();
         String endTime = dropDownEndTime.getValue();
 
-        //   -----   start/end date   -----                                  *** String?
+        //   >>---------->   start/end date   <----------<<                                  *** String?
         String startDate = datePickerStart.getValue().format(dateFormatter);
         String endDate = datePickerEnd.getValue().format(dateFormatter);
 
-        //   -----   convert to Timestamp   -----
+        //   >>---------->   convert to Timestamp   <----------<<
         Timestamp startTS = TimeTraveller.convertStringTimeDate2TimeStamp(startTime, startDate);
         Timestamp endTS = TimeTraveller.convertStringTimeDate2TimeStamp(endTime, endDate);
 
         //   -----------------------------   Test input data   ---------------------------------------
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(location);
-        System.out.println(contactID);
-        System.out.println(type);
-        System.out.println(startTime);
-        System.out.println(endTime);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println(customerID);
-        System.out.println(userID);
+//        System.out.println(title);
+//        System.out.println(description);
+//        System.out.println(location);
+//        System.out.println(contactID);
+//        System.out.println(type);
+//        System.out.println(startTime);
+//        System.out.println(endTime);
+//        System.out.println(startDate);
+//        System.out.println(endDate);
+//        System.out.println(customerID);
+//        System.out.println(userID);
 
-        //  SQL Cols for reference VVV
-        //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
 
-        DBAppointments.addNewAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID);
 
-        //  reload screen after adding new appointment
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/Views/Appointments.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.centerOnScreen();                 //  ----------------   Center Screen
-        stage.show();
+
+
+
+
+
+
+
+//   ----------------------------------------------------------------------------------------------------------------------
+
+        //   >>---------->   convert Timestamp to LDT  <----------<<
+        LocalDateTime userRequestedStartDT = startTS.toLocalDateTime();
+        LocalDateTime userRequestedEndDT = endTS.toLocalDateTime();
+
+        //  >>>----->   Confirm appointment start time is not before now()   <-----<<<
+        if (startTS.before(Timestamp.valueOf(LocalDateTime.now())))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Chronological error. Appointment cannot be scheduled before current date.");
+            alert.showAndWait();
+            return;
+        }
+
+        //  >>>----->   Confirm end time is not before start time   <-----<<<
+        else if (endTS.before(startTS) || endTS.equals(startTS))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Chronological error. End time/date must be after start time/date.");
+            alert.showAndWait();
+            return;
+        }
+
+        //  >>>----->   Confirm appointment time values are valid and within business hours   <-----<<<
+        else if (!TimeTraveller.inBusinessHours(userRequestedStartDT, userRequestedEndDT))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Business hours are 8:00 AM EST to 10:00 PM EST.");
+            alert.showAndWait();
+            return;
+        }
+        //  >>>----->   Confirm appointment time values are Monday - Friday   <-----<<<
+        else if (!TimeTraveller.isMondayThruFriday(userRequestedStartDT, userRequestedEndDT)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Business week is Monday Through Friday.");
+            alert.showAndWait();
+            return;
+        }
+        //  >>>----->   Confirm appointment time do not overlap existing appointments with user   <-----<<<
+        else if (TimeTraveller.isOverlappingTimes(userRequestedStartDT, userRequestedEndDT)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SCHEDULING CONFLICT");
+            alert.setContentText("Requested appointment times conflict with existing appointment.");
+            alert.showAndWait();
+            return;
+        }
+        //   >>----->   no overlapping appointments found   <-----<<
+        else
+        {
+            System.out.println("No chronological errors or scheduling conflicts detected. Adding appointment.");
+
+            //  SQL Cols for reference VVV
+            //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
+
+            //   >>----->   ADD the new appointment to database (add values to database)   <-----<<
+            DBAppointments.addNewAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID);
+
+            //  >>----->   reload screen after adding new appointment      <-----<<
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/Views/Appointments.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.centerOnScreen();                 //  ----------------   Center Screen
+            stage.show();
+            //  -----------------   FIXME   ----------------------
+            //  -----------------   FIXME   ----------------------
+            //  -----------------   FIXME   ----------------------
+            //  -----------------   FIXME   ----------------------
+            //  -----------------   FIXME   ----------------------
+            //  -----------------   FIXME   ----------------------
+            //  -----------------   FIXME   ----------------------
+        }
+
+
+
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * fires when Cancel button is pressed, returns user to Appointments screen
@@ -244,41 +349,41 @@ public class AddAppointmentScreenController implements Initializable {
     {
         try {
 
-            //   ---------->   populate dropDownContact   <----------
+            //   >>---------->   populate dropDownContact   <----------
             ObservableList<Contact> allContacts = DBContacts.getAllContacts();
             ObservableList<String> contactNames = FXCollections.observableArrayList();
 
-            //  --->   LAMBDA expression #1  <---
+            //  >>---------->   LAMBDA expression #1  <----------<<
             allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
 
             dropDownContact.setItems(contactNames);
             dropDownContact.setVisibleRowCount(5);
 
 
-            //   ---------->   populate dropDownCustomer   <----------
+            //   >>---------->   populate dropDownCustomer   <----------<<
             ObservableList<Customer> allCustomers = DBCustomers.getAllCustomers();
             ObservableList<String> customerIDs = FXCollections.observableArrayList();
 
-            //  --->   LAMBDA expression #2  <---
+            //  >>-------->   LAMBDA expression #2  <--------<<
             allCustomers.forEach(customer -> customerIDs.add(String.valueOf(customer.getCustomerID())));
 
             dropDownCustomer.setItems(customerIDs);
             dropDownCustomer.setVisibleRowCount(5);
 
 
-            //   ---------->   populate dropDownUser   <----------
+            //   >>---------->   populate dropDownUser   <----------<<
             ObservableList<User> allUsers = DBUsers.getAllUsers();
             ObservableList<String> userIDs = FXCollections.observableArrayList();
 
-            //  --->   LAMBDA expression #3  <---
+            //  >>-------->   LAMBDA expression #3  <--------<<
             allUsers.forEach(user -> userIDs.add(String.valueOf(user.getUserID())));
 
             dropDownUser.setItems(userIDs);
             dropDownUser.setVisibleRowCount(5);
 
 
-            //   ---------->   populate dropDownStart   <----------
-            //   ---------->   appointment time range is 8am to 10pm EST   <----------
+            //   >>---------->   populate dropDownStart   <----------<<
+            //   >>---------->   appointment time range is 8am to 10pm EST   <----------<<
             ObservableList<String> startTimes = FXCollections.observableArrayList();
 
             LocalDateTime earliestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));   // ---   8:00 am
@@ -296,8 +401,8 @@ public class AddAppointmentScreenController implements Initializable {
             dropDownStartTime.setItems(startTimes);
 
 
-            //   ---------->   populate dropDownEnd   <----------
-            //   ---------->   appointment time range is 8am to 10pm EST   <----------
+            //   >>---------->   populate dropDownEnd   <----------<<
+            //   >>---------->   appointment time range is 8am to 10pm EST   <----------<<
             ObservableList<String> endTimes = FXCollections.observableArrayList();
 
             LocalDateTime earliestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 15));   // ---   8:15 am

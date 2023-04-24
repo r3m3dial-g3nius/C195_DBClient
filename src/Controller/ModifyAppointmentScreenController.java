@@ -206,6 +206,7 @@ public class ModifyAppointmentScreenController implements Initializable {
         //  SQL Cols for reference VVV
         //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
 
+        //   ----->   Modify the selected appointment in database (update values in database)   <-----
         DBAppointments.modifyAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID, selectedAppointment.getAppointmentID());
 
         //  reload screen after adding new appointment
