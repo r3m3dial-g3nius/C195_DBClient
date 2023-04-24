@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.DBAppointments;
 import DAO.DBCountries;
 import DAO.DBCustomers;
 import DAO.DBDivisions;
@@ -282,54 +283,59 @@ public class CustomerScreenController implements Initializable {
     void onActionDeleteCustomer(ActionEvent event)
     {
         System.out.println("Delete Customer button pressed");
-
         selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
 
-        //  -------------------------------   Check for selection   ---------------------------------------
-        if (selectedCustomer == null)
+        try
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setContentText("Please select a Customer");
-            alert.showAndWait();
-            return;
+            //  -------------------------------   Check for selection   ---------------------------------------
+            if (selectedCustomer == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR");
+                alert.setContentText("Please select a Customer");
+                alert.showAndWait();
+                return;
+            }
+
+
+            //  -------------------------------   Confirm delete   ---------------------------------------
+
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Customer Confirmation");
+                alert.setContentText("Are you sure you want to delete the customer " + selectedCustomer.getCustomerName() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK)
+                {
+                    //      ---------------------------------------------    FIX ME   -------------------------------------
+                    //      ---------------------------------------------    FIX ME   -------------------------------------
+                    if (!selectedCustomer.hasAppointments()) {
+                        System.out.println("Customer has no appointments, deleting customer");
+
+                        DBCustomers.deleteCustomer(selectedCustomer.getCustomerID());
+
+                        customersTableView.setItems(DBCustomers.getAllCustomers());
+                    }
+                    else if (selectedCustomer.hasAppointments())
+                    {
+                        System.out.println("Customer has appointments, deleting appointments first, then customer");
+
+                        DBAppointments.deleteCustomerAppointments(selectedCustomer.getCustomerID());
+                        DBCustomers.deleteCustomer(selectedCustomer.getCustomerID());
+
+                        customersTableView.setItems(DBCustomers.getAllCustomers());
+                    }
+                } else if (result.isPresent() && result.get() != ButtonType.OK) {
+                    System.out.println("Deletion cancelled");
+                    return;
+
+                }
+            }
         }
-
-
-        //  -------------------------------   Confirm delete   ---------------------------------------
-
-        else
+        catch (Exception e)
         {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Customer Confirmation");
-            alert.setContentText("Are you sure you want to delete this customer?");
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.OK)
-            {
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                if (!selectedCustomer.hasAppointments())
-                {
-                    System.out.println("Customer has no appointments, deleting customer");
-                }
-                else if (selectedCustomer.hasAppointments())
-                {
-                    System.out.println("Customer has appointments, deleting appointments first, then customer");
-
-                }
-
-
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-                //      ---------------------------------------------    FIX ME   -------------------------------------
-            }
-
-            else if (result.isPresent() && result.get() != ButtonType.OK)
-            {
-                System.out.println("Deletion cancelled");
-
-            }
+            e.printStackTrace();
         }
     }
 

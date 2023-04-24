@@ -136,9 +136,15 @@ public class DBCustomers {
 
 
     //      ------------------------------------------------------------------
-    public static void deleteCustomer()
-    {
-        // code
+    public static void deleteCustomer(int customerID) throws SQLException {
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setInt(1, customerID);
+
+        ps.execute();
+
     }
 
 

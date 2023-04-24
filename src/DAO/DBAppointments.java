@@ -303,6 +303,15 @@ public class DBAppointments {
         ps.execute();
     }
 
+    public static void deleteCustomerAppointments(int customerID) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Customer_ID = ?";
+
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setInt(1, customerID);
+
+        ps.execute();
+    }
 
 
 
