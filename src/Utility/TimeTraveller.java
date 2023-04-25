@@ -1,5 +1,12 @@
 package Utility;
 
+import DAO.DBCustomers;
+import Models.Appointment;
+import Models.Customer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -118,17 +125,64 @@ public class TimeTraveller {
         return true;
     }
 
-    public static boolean isOverlappingTimes(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
+    public static int isOverlappingTimes(Customer customer, LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
     {
         //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
-        //  -----------------   FIXME   ----------------------
+        ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
+        System.out.println(customer.getCustomerName());
 
-        return false;
+        if (customer.hasAppointments()) {
+            customerAppointments = customer.getCustomerAppointmentList();
+            System.out.println(customer.getCustomerName() + " has " + customerAppointments.size() + " appointments");
+
+            for (Appointment a : customerAppointments)
+            {
+                // >>----->  get appointment start/end times   <-----<<
+                LocalDateTime thisAppointmentStart = a.getAppointmentStart();
+                LocalDateTime thisAppointmentEnd = a.getAppointmentEnd();
+
+                System.out.println("This appointment start/end : " + thisAppointmentStart + " - " + thisAppointmentEnd);
+                System.out.println("Requested start/end : " + requestedStartLDT + " - " + requestedEndLDT);
+
+//                if (requestedStartLDT.equals(thisAppointmentStart) ||
+//                        requestedEndLDT.equals(thisAppointmentEnd) ||
+//                        (requestedStartLDT.isAfter(thisAppointmentStart) && requestedStartLDT.isBefore(thisAppointmentEnd))
+//                        || ((requestedEndLDT.isAfter(thisAppointmentStart) && requestedEndLDT.isBefore(thisAppointmentEnd))))
+//                {
+//                    System.out.println("This appointment conflicts with existing appointment ID" + a.getAppointmentID());
+//                    return true;
+//                }
+
+                if (requestedStartLDT.equals(thisAppointmentStart) || (requestedStartLDT.equals(thisAppointmentEnd)) ||
+                        (requestedStartLDT.isAfter(thisAppointmentStart) && requestedStartLDT.isBefore(thisAppointmentEnd)))
+                {
+                    System.out.println("This appointment start time/date conflicts with existing appointment ID " + a.getAppointmentID());
+                    return 1;
+                }
+
+                else if (requestedEndLDT.equals(thisAppointmentEnd) || (requestedEndLDT.equals(thisAppointmentStart)) ||
+                        ((requestedEndLDT.isAfter(thisAppointmentStart) && requestedEndLDT.isBefore(thisAppointmentEnd))))
+                {
+                    System.out.println("This appointment end time/date conflicts with existing appointment ID " + a.getAppointmentID());
+                    return 2;
+                }
+
+                else if (requestedStartLDT.isBefore(thisAppointmentStart) && requestedEndLDT.isAfter(thisAppointmentEnd))
+                {
+                    System.out.println("Appointment ID " + a.getAppointmentID() + " is during the requested start/end time.");
+                    return 3;
+                }
+
+            }
+            System.out.println(customer.getCustomerName() + " has appointments today, but no conflicts detected.");
+            return 4;
+        }
+
+        else    //  customer has no appointments
+        {
+            System.out.println(customer.getCustomerName() + " has no appointments. Adding this appointment.");
+            return 3;
+        }
     }
+
 }

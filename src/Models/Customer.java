@@ -3,6 +3,7 @@ package Models;
 import DAO.DBAppointments;
 import DAO.DBCountries;
 import DAO.DBDivisions;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -222,5 +223,21 @@ public class Customer {
         }
         return false;
     }
+
+    public ObservableList<Appointment> getCustomerAppointmentList()
+    {
+        ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
+        ObservableList<Appointment> thisCustomersAppointments = FXCollections.observableArrayList();
+
+        for (Appointment a : allAppointments)
+        {
+            if (a.getCustomerID() == this.customerID)
+            {
+                thisCustomersAppointments.add(a);
+            }
+        }
+        return thisCustomersAppointments;
+    }
+
 
 }

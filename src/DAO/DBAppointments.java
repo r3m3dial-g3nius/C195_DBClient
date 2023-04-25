@@ -239,7 +239,7 @@ public class DBAppointments {
         ps.setInt(12, user_ID);
         ps.setInt(13, contact_ID);
 
-        System.out.println(sql);        //  TEST PRINT
+//        System.out.println(sql);        //  TEST PRINT
 
         ps.execute();
 

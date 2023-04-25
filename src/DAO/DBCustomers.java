@@ -54,6 +54,55 @@ public class DBCustomers {
     }
 
 
+
+//   -----------------------------------------------------------------------------------------------------
+//   -----------------------------------------------------------------------------------------------------
+//   -----------------------------------------------------------------------------------------------------
+//   -----------------------------------------------------------------------------------------------------
+    public static Customer getCustomer(int customer_ID)
+    {
+        ObservableList<Customer> customerList = FXCollections.observableArrayList();
+
+        Customer newCustomer = null;
+        try
+        {
+            String sql = "SELECT * FROM customers WHERE Customer_ID = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, customer_ID);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                int customerID = rs.getInt("Customer_ID");
+                String customerName = rs.getString("Customer_Name");
+                String customerAddress = rs.getString("Address");
+                int divisionID = rs.getInt("Division_ID");
+                String customerPostalCode = rs.getString("Postal_Code");
+                String customerPhone = rs.getString("Phone");
+
+                newCustomer = new Customer(customerID, customerName, customerAddress, divisionID, customerPostalCode, customerPhone);
+
+            }
+
+        }
+
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return newCustomer;
+
+    }
+
+
+
+
+
+
+
+
     /**
      * Adds new customer to database
      *

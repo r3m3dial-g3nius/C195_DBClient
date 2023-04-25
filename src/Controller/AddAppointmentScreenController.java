@@ -161,6 +161,9 @@ public class AddAppointmentScreenController implements Initializable {
         int customerID = Integer.parseInt(dropDownCustomer.getValue());
         int userID = Integer.parseInt(dropDownUser.getValue());
 
+        //  get customer from database
+        Customer customer = DBCustomers.getCustomer(customerID);
+
         //  get contact ID from contact string
         ObservableList<Contact> allContacts = DBContacts.getAllContacts();
         int contactID = 0;
@@ -229,6 +232,7 @@ public class AddAppointmentScreenController implements Initializable {
         }
 
         //  >>>----->   Confirm appointment time values are valid and within business hours   <-----<<<
+        //  >>>----->   NOTE - This should never execute due to comboBoxes only allowing valid time entry   <-----<<<
         else if (!TimeTraveller.inBusinessHours(userRequestedStartDT, userRequestedEndDT))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -237,24 +241,46 @@ public class AddAppointmentScreenController implements Initializable {
             alert.showAndWait();
             return;
         }
+
         //  >>>----->   Confirm appointment time values are Monday - Friday   <-----<<<
-        else if (!TimeTraveller.isMondayThruFriday(userRequestedStartDT, userRequestedEndDT)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("INVALID ENTRY");
-            alert.setContentText("Business week is Monday Through Friday.");
-            alert.showAndWait();
-            return;
-        }
-        //  >>>----->   Confirm appointment time do not overlap existing appointments with user   <-----<<<
-        else if (TimeTraveller.isOverlappingTimes(userRequestedStartDT, userRequestedEndDT)) {
+        //  >>>----->   Per instructor, business is operational 7 days/week   <-----<<<
+//        else if (!TimeTraveller.isMondayThruFriday(userRequestedStartDT, userRequestedEndDT))
+//        {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("INVALID ENTRY");
+//            alert.setContentText("Business week is Monday Through Friday.");
+//            alert.showAndWait();
+//            return;
+//        }
+
+        //  >>>----->   Confirm proposed appointment times do not overlap existing customer appointments   <-----<<<
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 1)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SCHEDULING CONFLICT");
-            alert.setContentText("Requested appointment times conflict with existing appointment.");
+            alert.setContentText("Requested appointment start time overlaps existing appointment.");
             alert.showAndWait();
             return;
         }
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 2)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SCHEDULING CONFLICT");
+            alert.setContentText("Requested appointment end time overlaps existing appointment.");
+            alert.showAndWait();
+            return;
+        }
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 3)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SCHEDULING CONFLICT");
+            alert.setContentText("Appointment already scheduled between the requested start/end time.");
+            alert.showAndWait();
+            return;
+        }
+
         //   >>----->   no overlapping appointments found   <-----<<
-        else
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 4)
         {
             System.out.println("No chronological errors or scheduling conflicts detected. Adding appointment.");
 
@@ -270,50 +296,9 @@ public class AddAppointmentScreenController implements Initializable {
             stage.setScene(new Scene(scene));
             stage.centerOnScreen();                 //  ----------------   Center Screen
             stage.show();
-            //  -----------------   FIXME   ----------------------
-            //  -----------------   FIXME   ----------------------
-            //  -----------------   FIXME   ----------------------
-            //  -----------------   FIXME   ----------------------
-            //  -----------------   FIXME   ----------------------
-            //  -----------------   FIXME   ----------------------
-            //  -----------------   FIXME   ----------------------
         }
 
-
-
-
     }
-//   ----------------------------------------------------------------------------------------------------------------------
-//   ----------------------------------------------------------------------------------------------------------------------
-//   ----------------------------------------------------------------------------------------------------------------------
-//   ----------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * fires when Cancel button is pressed, returns user to Appointments screen

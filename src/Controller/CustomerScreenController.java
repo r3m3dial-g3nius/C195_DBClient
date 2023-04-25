@@ -308,8 +308,6 @@ public class CustomerScreenController implements Initializable {
 
                 if (result.isPresent() && result.get() == ButtonType.OK)
                 {
-                    //      ---------------------------------------------    FIX ME   -------------------------------------
-                    //      ---------------------------------------------    FIX ME   -------------------------------------
                     if (!selectedCustomer.hasAppointments()) {
                         System.out.println("Customer has no appointments, deleting customer");
 
