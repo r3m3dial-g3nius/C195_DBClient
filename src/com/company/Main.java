@@ -50,13 +50,8 @@ public class Main extends Application {
     {
         DBConnection.openConnection();      //  ------------------   start
 
-
-//        DBCountries.checkDateConversions();             //  ------------------   TEST
-//        System.out.println(DBUsers.getAllUsers());      //  ------------------   TEST
-//        System.out.println();                           //  ------------------   TEST
-
-
         launch(args);
+
         DBConnection.closeConnection();     //  ------------------   end
     }
 

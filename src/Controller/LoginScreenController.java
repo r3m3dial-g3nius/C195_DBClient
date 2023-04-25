@@ -188,7 +188,7 @@ public class LoginScreenController implements Initializable {
         ResourceBundle rb = ResourceBundle.getBundle("language", Locale.getDefault());
         System.out.println(rb.getString("welcome"));
 
-        //   --------------------   set GUI labels/buttons here   --------------------------
+        //   --------------------   set GUI labels/buttons to french here   --------------------------
         if (Locale.getDefault().getLanguage().equals("fr"))
         {
             System.out.println("Language set to French");
