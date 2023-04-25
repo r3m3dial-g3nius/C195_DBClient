@@ -391,7 +391,7 @@ public class AddAppointmentScreenController implements Initializable {
             LocalDateTime earliestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 15));   // ---   8:15 am
             LocalDateTime appointmentEarliestEnd = TimeTraveller.timeZoneFormatter(earliestEndEST, ZoneId.of("America/New_York"));
 
-            LocalDateTime latestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 00));   // ---   9:45 pm
+            LocalDateTime latestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 0));   // ---   9:45 pm
             LocalDateTime appointmentLatestEnd = TimeTraveller.timeZoneFormatter(latestEndEST, ZoneId.of("America/New_York"));
 
             while (appointmentEarliestEnd.isBefore(appointmentLatestEnd.plusMinutes(1)))

@@ -153,14 +153,16 @@ public class TimeTraveller {
 //                    return true;
 //                }
 
-                if (requestedStartLDT.equals(thisAppointmentStart) || (requestedStartLDT.equals(thisAppointmentEnd)) ||
+                if (requestedStartLDT.equals(thisAppointmentStart) ||
+//                        (requestedStartLDT.equals(thisAppointmentEnd)) ||
                         (requestedStartLDT.isAfter(thisAppointmentStart) && requestedStartLDT.isBefore(thisAppointmentEnd)))
                 {
                     System.out.println("This appointment start time/date conflicts with existing appointment ID " + a.getAppointmentID());
                     return 1;
                 }
 
-                else if (requestedEndLDT.equals(thisAppointmentEnd) || (requestedEndLDT.equals(thisAppointmentStart)) ||
+                else if (requestedEndLDT.equals(thisAppointmentEnd) ||
+                        (requestedEndLDT.equals(thisAppointmentStart)) ||
                         ((requestedEndLDT.isAfter(thisAppointmentStart) && requestedEndLDT.isBefore(thisAppointmentEnd))))
                 {
                     System.out.println("This appointment end time/date conflicts with existing appointment ID " + a.getAppointmentID());
