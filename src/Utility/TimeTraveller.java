@@ -52,25 +52,13 @@ public class TimeTraveller {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * This method evaluates if the requested appointment start/end times are during business hours (8:00AM - 10:00PM EST)
+     * @param requestedStartLDT user requested appointment start time
+     * @param requestedEndLDT user requested appointment end time
+     * @return true if appointment start/end times are within business hours, false if not
+     * @throws DateTimeException
+     */
     public static boolean inBusinessHours(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT) throws DateTimeException
     {
         //  -----------------   FIXME   ----------------------
@@ -104,27 +92,43 @@ public class TimeTraveller {
         }
 
         return true;
-        //  -----------------   FIXME   ----------------------
 
     }
 
 
-    //  -----------  don't need this
-    public static boolean isMondayThruFriday(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
-    {
-        DayOfWeek workWeekStartDay = DayOfWeek.MONDAY;
-        DayOfWeek workWeekEndDay = DayOfWeek.FRIDAY;
+    //   >>----->   This is commented out. Per program instructor, appointments can be scheduled 7 days/week   <-----<<
+    //   >>----->   It is commented out on AddAppointmentScreenController and ModifyScreenController as well.   <-----<<
+    //   >>----->   I chose not to delete the code in case it was a traditional 5 day workweek.   <-----<<
+//    /**
+//     * This method evaluates if user requested appointment dates are during a Monday - Friday workweek
+//     * @param requestedStartLDT user requested start date
+//     * @param requestedEndLDT user requested end date
+//     * @return true if start/end dates are Monday - Friday, false if not
+//     */
+//    public static boolean isMondayThruFriday(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
+//    {
+//        DayOfWeek workWeekStartDay = DayOfWeek.MONDAY;
+//        DayOfWeek workWeekEndDay = DayOfWeek.FRIDAY;
+//
+//        if ((workWeekEndDay.getValue() < requestedStartLDT.getDayOfWeek().getValue()) ||
+//                (requestedStartLDT.getDayOfWeek().getValue() < workWeekStartDay.getValue()) ||
+//                ((workWeekEndDay.getValue() < requestedEndLDT.getDayOfWeek().getValue()) ||
+//                        (requestedEndLDT.getDayOfWeek().getValue() < workWeekStartDay.getValue())))
+//        {
+//            return false;
+//        }
+//        return true;
+//    }
 
-        if ((workWeekEndDay.getValue() < requestedStartLDT.getDayOfWeek().getValue()) ||
-                (requestedStartLDT.getDayOfWeek().getValue() < workWeekStartDay.getValue()) ||
-                ((workWeekEndDay.getValue() < requestedEndLDT.getDayOfWeek().getValue()) ||
-                        (requestedEndLDT.getDayOfWeek().getValue() < workWeekStartDay.getValue())))
-        {
-            return false;
-        }
-        return true;
-    }
-
+    /**
+     * This method evaluates if user requested appointment date/time will overlap any existing appointments.
+     * @param customer Customer in which appointment is being scheduled
+     * @param requestedStartLDT user requested appointment start date/time
+     * @param requestedEndLDT user requested appointment end date/time
+     * @return returns 1 if overlap is found for user requested start date/time, returns 2 if overlap is found for user
+     * requested end date/time, returns 3 if an appointment is already scheduled  between user requested start/end
+     * date/time, returns 4 if no overlap or no appointments are found for customer
+     */
     public static int isOverlappingTimes(Customer customer, LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
     {
         //  -----------------   FIXME   ----------------------
@@ -144,31 +148,23 @@ public class TimeTraveller {
                 System.out.println("This appointment start/end : " + thisAppointmentStart + " - " + thisAppointmentEnd);
                 System.out.println("Requested start/end : " + requestedStartLDT + " - " + requestedEndLDT);
 
-//                if (requestedStartLDT.equals(thisAppointmentStart) ||
-//                        requestedEndLDT.equals(thisAppointmentEnd) ||
-//                        (requestedStartLDT.isAfter(thisAppointmentStart) && requestedStartLDT.isBefore(thisAppointmentEnd))
-//                        || ((requestedEndLDT.isAfter(thisAppointmentStart) && requestedEndLDT.isBefore(thisAppointmentEnd))))
-//                {
-//                    System.out.println("This appointment conflicts with existing appointment ID" + a.getAppointmentID());
-//                    return true;
-//                }
-
+                // >>----->  check start times   <-----<<
                 if (requestedStartLDT.equals(thisAppointmentStart) ||
-//                        (requestedStartLDT.equals(thisAppointmentEnd)) ||
+//                        (requestedStartLDT.equals(thisAppointmentEnd)) ||         //   commented out if back to back appointments not allowed
                         (requestedStartLDT.isAfter(thisAppointmentStart) && requestedStartLDT.isBefore(thisAppointmentEnd)))
                 {
                     System.out.println("This appointment start time/date conflicts with existing appointment ID " + a.getAppointmentID());
                     return 1;
                 }
-
+                // >>----->  check end times   <-----<<
                 else if (requestedEndLDT.equals(thisAppointmentEnd) ||
-                        (requestedEndLDT.equals(thisAppointmentStart)) ||
+//                        (requestedEndLDT.equals(thisAppointmentStart)) ||         //   commented out if back to back appointments not allowed
                         ((requestedEndLDT.isAfter(thisAppointmentStart) && requestedEndLDT.isBefore(thisAppointmentEnd))))
                 {
                     System.out.println("This appointment end time/date conflicts with existing appointment ID " + a.getAppointmentID());
                     return 2;
                 }
-
+                // >>----->  check if requested times encompass an existing appointment  <-----<<
                 else if (requestedStartLDT.isBefore(thisAppointmentStart) && requestedEndLDT.isAfter(thisAppointmentEnd))
                 {
                     System.out.println("Appointment ID " + a.getAppointmentID() + " is during the requested start/end time.");
@@ -176,14 +172,16 @@ public class TimeTraveller {
                 }
 
             }
+            // >>----->  customer has appointments but no conflicts found   <-----<<
             System.out.println(customer.getCustomerName() + " has appointments today, but no conflicts detected.");
             return 4;
         }
 
-        else    //  customer has no appointments
+        // >>----->  customer has no appointments   <-----<<
+        else
         {
             System.out.println(customer.getCustomerName() + " has no appointments. Adding this appointment.");
-            return 3;
+            return 4;
         }
     }
 

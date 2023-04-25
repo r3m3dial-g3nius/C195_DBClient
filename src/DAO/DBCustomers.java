@@ -53,12 +53,11 @@ public class DBCustomers {
         return customerList;
     }
 
-
-
-//   -----------------------------------------------------------------------------------------------------
-//   -----------------------------------------------------------------------------------------------------
-//   -----------------------------------------------------------------------------------------------------
-//   -----------------------------------------------------------------------------------------------------
+    /**
+     * This method gets Customer object from database that matches user specified customer ID number
+     * @param customer_ID ID number of customer
+     * @return Customer object identified by customer_ID
+     */
     public static Customer getCustomer(int customer_ID)
     {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -95,12 +94,6 @@ public class DBCustomers {
         return newCustomer;
 
     }
-
-
-
-
-
-
 
 
     /**
@@ -182,8 +175,11 @@ public class DBCustomers {
     }
 
 
-
-
+    /**
+     * Deletes customer info assigned to customerID in customers table in database
+     * @param customerID ID number of customer
+     * @throws SQLException
+     */
     //      ------------------------------------------------------------------
     public static void deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";

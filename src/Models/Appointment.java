@@ -143,7 +143,11 @@ public class Appointment {
         this.contactID = contactID;
     }
 
-
+    /**
+     * gets name of customer assigned to customerID
+     * @param customerID ID number of customer
+     * @return String value name of customer
+     */
     public String getCustomerName(int customerID)
     {
         ObservableList<Customer> allCustomers = DBCustomers.getAllCustomers();
@@ -168,7 +172,11 @@ public class Appointment {
         return customerName;
     }
 
-
+    /**
+     * gets name of user assigned to userID
+     * @param userID ID number of user
+     * @return String value name of user
+     */
     public String getUserName(int userID)
     {
         ObservableList<User> allUsers = DBUsers.getAllUsers();
@@ -193,7 +201,11 @@ public class Appointment {
         return user_Name;
     }
 
-
+    /**
+     * gets name of contact assigned to contactID
+     * @param contactID ID number of contact
+     * @return String value of contact
+     */
     public String getContactName(int contactID)
     {
         ObservableList<Contact> allContacts = DBContacts.getAllContacts();

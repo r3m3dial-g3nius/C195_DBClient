@@ -201,11 +201,6 @@ public class Customer {
         return divisionName;
     }
 
-
-
-
-
-
     //---------------------------------------    FOR DELETE APPOINTMENT on CUSTOMER SCREEN?   ---------------------------------
     /**
      * checks all appointments, returns true if this customer ID is listed in appointments table under Customer_ID
@@ -224,6 +219,10 @@ public class Customer {
         return false;
     }
 
+    /**
+     * this method compiles a list of all appointments with this customer
+     * @return list of Appointment objects where customer ID matches this customer ID
+     */
     public ObservableList<Appointment> getCustomerAppointmentList()
     {
         ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
