@@ -88,31 +88,4 @@ public class DBUsers {
         return null;
     }
 
-
-    /**
-     * This method prints the date the user was created in database.
-     */
-    public static void checkDateConversions()
-    {
-        System.out.println("User Create Date test");
-
-        String sql = "SELECT Create_Date FROM users";
-
-        try
-        {
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next())
-            {
-                Timestamp ts = rs.getTimestamp("Create_Date");
-                System.out.println("CD: " + ts.toLocalDateTime().toString());
-            }
-        }
-
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
-        }
-    }
 }

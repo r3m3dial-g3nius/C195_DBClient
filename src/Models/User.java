@@ -90,6 +90,7 @@ public class User {
 
     /**
      * gets list of Appointment objects with matching user ID
+     *
      * @return list of Appointment objects, (all of this user's appointments)
      */
     public ObservableList<Appointment> getUserAppointmentList()
@@ -111,6 +112,7 @@ public class User {
 
     /**
      * determines if this user has an appointment scheduled to start in the next 15 min from current time
+     *
      * @return Appointment object with start time in 15 min or less from current time, null if next Appointment start
      * time is > 15 min away
      */
