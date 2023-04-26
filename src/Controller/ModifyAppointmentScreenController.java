@@ -17,10 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -146,7 +143,8 @@ public class ModifyAppointmentScreenController implements Initializable {
     }
 
     /**
-     * Fires when user selects an appointment and presses the Save button. Extracts data from Modify Appointment screen and updates the appropriate Appointment in appointments table in database
+     * Fires when user presses the Save button. Extracts data from Modify Appointment screen and updates the appropriate
+     * Appointment in appointments table in database after evaluating any scheduling conflicts.
      * @param event
      * @throws SQLException
      * @throws IOException
@@ -165,6 +163,9 @@ public class ModifyAppointmentScreenController implements Initializable {
         String type = textFieldType.getText();
         int customerID = Integer.parseInt(dropDownCustomer.getValue());
         int userID = Integer.parseInt(dropDownUser.getValue());
+
+        //  get customer from database
+        Customer customer = DBCustomers.getCustomer(customerID);
 
         //  get contact ID from contact string
         ObservableList<Contact> allContacts = DBContacts.getAllContacts();
@@ -203,18 +204,98 @@ public class ModifyAppointmentScreenController implements Initializable {
 //        System.out.println(customerID);
 //        System.out.println(userID);
 
-        //  SQL Cols for reference VVV
-        //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
 
-        //   ----->   Modify the selected appointment in database (update values in database)   <-----
-        DBAppointments.modifyAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID, selectedAppointment.getAppointmentID());
+        //   >>---------->   convert Timestamp to LDT  <----------<<
+        LocalDateTime userRequestedStartDT = startTS.toLocalDateTime();
+        LocalDateTime userRequestedEndDT = endTS.toLocalDateTime();
 
-        //  reload screen after adding new appointment
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/Views/Appointments.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.centerOnScreen();                 //  ----------------   Center Screen
-        stage.show();
+        //  >>>----->   Confirm appointment start time is not before now()   <-----<<<
+        if (startTS.before(Timestamp.valueOf(LocalDateTime.now())))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Chronological error. Appointment cannot be scheduled before current date.");
+            alert.showAndWait();
+            return;
+        }
+
+        //  >>>----->   Confirm end time is not before start time   <-----<<<
+        else if (endTS.before(startTS) || endTS.equals(startTS))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Chronological error. End time/date must be after start time/date.");
+            alert.showAndWait();
+            return;
+        }
+
+        //  >>>----->   Confirm appointment time values are valid and within business hours   <-----<<<
+        //  >>>----->   NOTE - This should never execute due to comboBoxes only allowing valid time entry   <-----<<<
+        else if (!TimeTraveller.inBusinessHours(userRequestedStartDT, userRequestedEndDT))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INVALID ENTRY");
+            alert.setContentText("Business hours are 8:00 AM EST to 10:00 PM EST.");
+            alert.showAndWait();
+            return;
+        }
+
+        //  >>>----->   Confirm appointment time values are Monday - Friday   <-----<<<
+        //  >>>----->   Per instructor, business is operational 7 days/week   <-----<<<
+//        else if (!TimeTraveller.isMondayThruFriday(userRequestedStartDT, userRequestedEndDT))
+//        {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("INVALID ENTRY");
+//            alert.setContentText("Business week is Monday Through Friday.");
+//            alert.showAndWait();
+//            return;
+//        }
+
+        //  >>>----->   Confirm proposed appointment times do not overlap existing customer appointments   <-----<<<
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 1)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SCHEDULING CONFLICT");
+            alert.setContentText("Requested appointment start time overlaps existing appointment.");
+            alert.showAndWait();
+            return;
+        }
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 2)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SCHEDULING CONFLICT");
+            alert.setContentText("Requested appointment end time overlaps existing appointment.");
+            alert.showAndWait();
+            return;
+        }
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 3)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SCHEDULING CONFLICT");
+            alert.setContentText("Appointment already scheduled between the requested start/end time.");
+            alert.showAndWait();
+            return;
+        }
+
+        //   >>----->   no overlapping appointments found   <-----<<
+        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 4)
+        {
+            System.out.println("No chronological errors or scheduling conflicts detected. Adding appointment.");
+
+            //  SQL Cols for reference VVV
+            //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID
+
+            //   >>----->   ADD the new appointment to database (add values to database)   <-----<<
+            DBAppointments.modifyAppointment(title, description, location, type, startTS, endTS, customerID, userID, contactID, selectedAppointment.getAppointmentID());
+
+
+            //  >>----->   reload screen after adding new appointment      <-----<<
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/Views/Appointments.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.centerOnScreen();                 //  ----------------   Center Screen
+            stage.show();
+        }
 
     }
 
@@ -347,8 +428,6 @@ public class ModifyAppointmentScreenController implements Initializable {
             dropDownUser.setValue(Integer.toString(selectedAppointment.getUserID()));
             textFieldCustomerName.setText(selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()));
             textFieldUserName.setText(selectedAppointment.getUserName(selectedAppointment.getUserID()));
-
-
 
         }
 
