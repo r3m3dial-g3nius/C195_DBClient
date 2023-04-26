@@ -191,17 +191,17 @@ public class ModifyAppointmentScreenController implements Initializable {
         Timestamp endTS = TimeTraveller.convertStringTimeDate2TimeStamp(endTime, endDate);
 
         //   -----------------------------   Test input data   ---------------------------------------
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(location);
-        System.out.println(contactID);
-        System.out.println(type);
-        System.out.println(startTime);
-        System.out.println(endTime);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println(customerID);
-        System.out.println(userID);
+//        System.out.println(title);
+//        System.out.println(description);
+//        System.out.println(location);
+//        System.out.println(contactID);
+//        System.out.println(type);
+//        System.out.println(startTime);
+//        System.out.println(endTime);
+//        System.out.println(startDate);
+//        System.out.println(endDate);
+//        System.out.println(customerID);
+//        System.out.println(userID);
 
         //  SQL Cols for reference VVV
         //  Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID

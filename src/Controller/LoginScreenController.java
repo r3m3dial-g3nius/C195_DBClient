@@ -166,17 +166,17 @@ public class LoginScreenController implements Initializable {
         boolean testing = false;
 
         //   VVVVVV  -----------------   TEST LOGIN TRANSLATION   -----------------------   VVVVVV
-        Locale fr = new Locale("fr", "FR");
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter 'F' for French or any other key for English: ");
-        String setLangToFrench = scanner.nextLine().toLowerCase();
-
-        if (setLangToFrench.equals("f"))
-        {
-            Locale.setDefault(fr);
-            testing = true;
-        }
+//        Locale fr = new Locale("fr", "FR");
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println("Enter 'F' for French or any other key for English: ");
+//        String setLangToFrench = scanner.nextLine().toLowerCase();
+//
+//        if (setLangToFrench.equals("f"))
+//        {
+//            Locale.setDefault(fr);
+//            testing = true;
+//        }
         //   ^^^^^^  ------------------   TEST LOGIN TRANSLATION   -----------------------   ^^^^^^
 
 
