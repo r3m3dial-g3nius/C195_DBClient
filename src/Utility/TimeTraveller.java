@@ -63,9 +63,6 @@ public class TimeTraveller {
      */
     public static boolean inBusinessHours(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT) throws DateTimeException
     {
-        //  -----------------   FIXME   ----------------------
-
-
         //   >>----->   establish user requested LDT in Zone ID system.default()   <-----<<
         requestedStartLDT = TimeTraveller.timeZoneFormatter(requestedStartLDT, ZoneId.systemDefault());
         requestedEndLDT = TimeTraveller.timeZoneFormatter(requestedEndLDT, ZoneId.systemDefault());
@@ -85,15 +82,14 @@ public class TimeTraveller {
         workdayEndTimeLDT = TimeTraveller.timeZoneFormatter(workdayEndTimeLDT, ZoneId.of("America/New_York"));
         workdayEndTime = workdayEndTimeLDT.toLocalTime();
 
-        if ((requestedStartTime.isBefore(workdayStartTime)) ||
-                requestedStartTime.isAfter(workdayEndTime) ||
-                (requestedEndTime.isBefore(workdayStartTime)) ||
-                (requestedEndTime.isAfter(workdayEndTime)))
+        //   >>----->   evaluate if start/end times are during business hours   <-----<<
+        if ((requestedStartTime.isAfter(workdayStartTime)) && requestedStartTime.isBefore(workdayEndTime) &&
+                (requestedEndTime.isAfter(workdayStartTime)) && (requestedEndTime.isBefore(workdayEndTime)))
         {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
 
     }
 
@@ -122,8 +118,10 @@ public class TimeTraveller {
 //        return true;
 //    }
 
+
     /**
      * This method evaluates if user requested appointment date/time will overlap any existing appointments.
+     * @param isNewAppointment true if this appointment is a new appointment to be added, false if modifying existing appointment
      * @param customer Customer in which appointment is being scheduled
      * @param requestedStartLDT user requested appointment start date/time
      * @param requestedEndLDT user requested appointment end date/time
@@ -133,24 +131,26 @@ public class TimeTraveller {
      */
     public static int isOverlappingTimes(boolean isNewAppointment, Customer customer, LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
     {
-        //  -----------------   FIXME   ----------------------
-        ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
+        ObservableList<Appointment> customerAppointments = customer.getCustomerAppointmentList();
+        ObservableList<Appointment> updatedCustomerAppointments = FXCollections.observableArrayList();
+
         System.out.println(customer.getCustomerName());
 
-        if (customer.hasAppointments()) {
-            customerAppointments = customer.getCustomerAppointmentList();
-
-            //   >>---------->   if modifying appointment, remove appointment to be modified from list   <----------<<
-            if (!isNewAppointment)
+        //   >>---------->   if modifying appointment, remove appointment to be modified from list   <----------<<
+        if (customer.hasAppointments() && !isNewAppointment)
+        {
+            for (Appointment a : customerAppointments)
             {
-                for (Appointment a : customerAppointments)
+                if (a.getAppointmentID() != ModifyAppointmentScreenController.selectedAppointment.getAppointmentID())
                 {
-                    if (a.getAppointmentID() == ModifyAppointmentScreenController.selectedAppointment.getAppointmentID())
-                    {
-                        customerAppointments.remove(a);
-                    }
+                    updatedCustomerAppointments.add(a);
                 }
             }
+            customerAppointments = updatedCustomerAppointments;
+        }
+
+        if (customer.hasAppointments()) {
+
 
             System.out.println(customer.getCustomerName() + " has " + customerAppointments.size() + " appointments");
 
@@ -189,15 +189,14 @@ public class TimeTraveller {
             }
             // >>----->  customer has appointments but no conflicts found   <-----<<
             System.out.println(customer.getCustomerName() + " has appointments today, but no conflicts detected.");
-            return 4;
         }
 
         // >>----->  customer has no appointments   <-----<<
-        else
+        else //if (!customer.hasAppointments())
         {
             System.out.println(customer.getCustomerName() + " has no appointments. Adding this appointment.");
-            return 4;
         }
+        return 4;
     }
 
 }
