@@ -1,5 +1,7 @@
 package Utility;
 
+import Controller.AppointmentScreenController;
+import Controller.ModifyAppointmentScreenController;
 import DAO.DBCustomers;
 import Models.Appointment;
 import Models.Customer;
@@ -129,7 +131,7 @@ public class TimeTraveller {
      * requested end date/time, returns 3 if an appointment is already scheduled  between user requested start/end
      * date/time, returns 4 if no overlap or no appointments are found for customer
      */
-    public static int isOverlappingTimes(Customer customer, LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
+    public static int isOverlappingTimes(boolean isNewAppointment, Customer customer, LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
     {
         //  -----------------   FIXME   ----------------------
         ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
@@ -137,6 +139,19 @@ public class TimeTraveller {
 
         if (customer.hasAppointments()) {
             customerAppointments = customer.getCustomerAppointmentList();
+
+            //   >>---------->   if modifying appointment, remove appointment to be modified from list   <----------<<
+            if (!isNewAppointment)
+            {
+                for (Appointment a : customerAppointments)
+                {
+                    if (a.getAppointmentID() == ModifyAppointmentScreenController.selectedAppointment.getAppointmentID())
+                    {
+                        customerAppointments.remove(a);
+                    }
+                }
+            }
+
             System.out.println(customer.getCustomerName() + " has " + customerAppointments.size() + " appointments");
 
             for (Appointment a : customerAppointments)

@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.DBUsers;
+import Models.Appointment;
 import Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -140,11 +141,16 @@ public class LoginScreenController implements Initializable {
 
 
                 //   >>---------->   15 minute appointment check   <----------<<
-                if (authorizedUser.hasAppointmentSoon())
+                if (authorizedUser.hasAppointmentSoon() != null)
                 {
+                    Appointment in15 = authorizedUser.hasAppointmentSoon();
+
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("UPCOMING APPOINTMENT");
-                    alert.setContentText("You have an appointment scheduled to start in the next 15 minutes.");
+                    alert.setContentText("Appointment ID #" + in15.getAppointmentID() + " with "
+                            + in15.getCustomerName(in15.getCustomerID()) + " scheduled to start at "
+                            + in15.getAppointmentStart().toLocalTime() + " on "
+                            + in15.getAppointmentStart().toLocalDate() + ".");
                     alert.showAndWait();
                 }
 
@@ -152,7 +158,8 @@ public class LoginScreenController implements Initializable {
                 {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Schedule Update");
-                    alert.setContentText("No upcoming appointments in the next 15 minutes. You have " + authorizedUser.getUserAppointmentList().size() + " appointment(s) total.");
+                    alert.setContentText("You have no appointments in the next 15 minutes and "
+                            + authorizedUser.getUserAppointmentList().size() + " appointment(s) total.");
                     alert.showAndWait();
                 }
 

@@ -40,7 +40,7 @@ public class ModifyAppointmentScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
-    Appointment selectedAppointment;
+    public static Appointment selectedAppointment;
 
     @FXML
     private Button saveButton;
@@ -154,8 +154,11 @@ public class ModifyAppointmentScreenController implements Initializable {
     void onActionSaveChanges(ActionEvent event) throws SQLException, IOException {
         System.out.println("Saving changes to Appointment");
 
+        boolean isNewAppointment = false;
+
         DateTimeFormatter hourMinFormatter = DateTimeFormatter.ofPattern("HH:mm");      //  this is in convertStringTimeDate2UTCTimeStamp
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
+
 
         String title = textFieldTitle.getText();
         String description = textFieldDescription.getText();
@@ -253,7 +256,7 @@ public class ModifyAppointmentScreenController implements Initializable {
 //        }
 
         //  >>>----->   Confirm proposed appointment times do not overlap existing customer appointments   <-----<<<
-        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 1)
+        else if (TimeTraveller.isOverlappingTimes(isNewAppointment, customer, userRequestedStartDT, userRequestedEndDT) == 1)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SCHEDULING CONFLICT");
@@ -261,7 +264,7 @@ public class ModifyAppointmentScreenController implements Initializable {
             alert.showAndWait();
             return;
         }
-        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 2)
+        else if (TimeTraveller.isOverlappingTimes(isNewAppointment, customer, userRequestedStartDT, userRequestedEndDT) == 2)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SCHEDULING CONFLICT");
@@ -269,7 +272,7 @@ public class ModifyAppointmentScreenController implements Initializable {
             alert.showAndWait();
             return;
         }
-        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 3)
+        else if (TimeTraveller.isOverlappingTimes(isNewAppointment, customer, userRequestedStartDT, userRequestedEndDT) == 3)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SCHEDULING CONFLICT");
@@ -279,7 +282,7 @@ public class ModifyAppointmentScreenController implements Initializable {
         }
 
         //   >>----->   no overlapping appointments found   <-----<<
-        else if (TimeTraveller.isOverlappingTimes(customer, userRequestedStartDT, userRequestedEndDT) == 4)
+        else if (TimeTraveller.isOverlappingTimes(isNewAppointment, customer, userRequestedStartDT, userRequestedEndDT) == 4)
         {
             System.out.println("No chronological errors or scheduling conflicts detected. Adding appointment.");
 

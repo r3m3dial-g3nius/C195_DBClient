@@ -111,9 +111,10 @@ public class User {
 
     /**
      * determines if this user has an appointment scheduled to start in the next 15 min from current time
-     * @return true if user has appointments in 15 min or less, false if user does not
+     * @return Appointment object with start time in 15 min or less from current time, null if next Appointment start
+     * time is > 15 min away
      */
-    public boolean hasAppointmentSoon()
+    public Appointment hasAppointmentSoon()
     {
         ObservableList<Appointment> thisUserAppointments = getUserAppointmentList();
 
@@ -121,11 +122,11 @@ public class User {
         {
             if (a.getAppointmentStart().isAfter(LocalDateTime.now()) && a.getAppointmentStart().isBefore(LocalDateTime.now().plusMinutes(15)))
             {
-                return true;
+                return a;
             }
         }
 
-        return false;
+        return null;
     }
 
 }
