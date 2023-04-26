@@ -1,5 +1,12 @@
 package Models;
 
+import DAO.DBAppointments;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * This class manages the User data
  */
@@ -51,7 +58,7 @@ public class User {
     }
 
     /**
-     * Sets user name
+     * Sets username
      *
      * @param userName name of user
      */
@@ -78,6 +85,47 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    /**
+     * gets list of Appointment objects with matching user ID
+     * @return list of Appointment objects, (all of this user's appointments)
+     */
+    public ObservableList<Appointment> getUserAppointmentList()
+    {
+        ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
+        ObservableList<Appointment> thisUserAppointments = FXCollections.observableArrayList();
+
+        for (Appointment a : allAppointments)
+        {
+            if (a.getUserID() == this.userID)
+            {
+                thisUserAppointments.add(a);
+            }
+        }
+
+        return thisUserAppointments;
+
+    }
+
+    /**
+     * determines if this user has an appointment scheduled to start in the next 15 min from current time
+     * @return true if user has appointments in 15 min or less, false if user does not
+     */
+    public boolean hasAppointmentSoon()
+    {
+        ObservableList<Appointment> thisUserAppointments = getUserAppointmentList();
+
+        for (Appointment a : thisUserAppointments)
+        {
+            if (a.getAppointmentStart().isAfter(LocalDateTime.now()) && a.getAppointmentStart().isBefore(LocalDateTime.now().plusMinutes(15)))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

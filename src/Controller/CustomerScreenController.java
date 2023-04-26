@@ -324,7 +324,19 @@ public class CustomerScreenController implements Initializable {
 
                         customersTableView.setItems(DBCustomers.getAllCustomers());
                     }
-                } else if (result.isPresent() && result.get() != ButtonType.OK) {
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("");
+                    alert2.setContentText("Customer ID #" + selectedCustomer.getCustomerID() +
+                            " (" + selectedCustomer.getCustomerName() + ") has been deleted.");
+                    alert2.showAndWait();
+                    return;
+
+
+                }
+
+                else if (result.isPresent() && result.get() != ButtonType.OK)
+                {
                     System.out.println("Deletion cancelled");
                     return;
 

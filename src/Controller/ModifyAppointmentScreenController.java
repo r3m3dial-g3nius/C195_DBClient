@@ -93,6 +93,9 @@ public class ModifyAppointmentScreenController implements Initializable {
     @FXML
     private TextField textFieldCustomerName;
 
+    @FXML
+    private TextField textFieldUserName;
+
     /**
      * fires when user selects customer id from dropDownCustomer, updates textFieldCustomerName with name of customer
      * @param actionEvent
@@ -116,8 +119,6 @@ public class ModifyAppointmentScreenController implements Initializable {
         textFieldCustomerName.setText(customerName);
     }
 
-    @FXML
-    private TextField textFieldUserName;
 
     /**
      * fires when user selects user id from dropDownUser, updates textFieldUserName with name of user
@@ -436,6 +437,5 @@ public class ModifyAppointmentScreenController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
 }

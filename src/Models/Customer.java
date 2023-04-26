@@ -201,7 +201,7 @@ public class Customer {
         return divisionName;
     }
 
-    //---------------------------------------    FOR DELETE APPOINTMENT on CUSTOMER SCREEN?   ---------------------------------
+    //   ------------------------------------    FOR DELETE APPOINTMENT on CUSTOMER SCREEN   ---------------------------------
     /**
      * checks all appointments, returns true if this customer ID is listed in appointments table under Customer_ID
      * @returns true if customer ID number is found, false if customer ID is not found in appointments table

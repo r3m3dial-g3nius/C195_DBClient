@@ -67,10 +67,6 @@ public class Appointment {
         return appointmentID;
     }
 
-    public void setAppointmentID(int appointmentID) {
-        this.appointmentID = appointmentID;
-    }
-
     public String getAppointmentTitle() {
         return appointmentTitle;
     }

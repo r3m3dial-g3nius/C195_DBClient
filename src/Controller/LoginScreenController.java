@@ -138,6 +138,26 @@ public class LoginScreenController implements Initializable {
                 System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()));
                 System.out.println();
 
+
+                //   >>---------->   15 minute appointment check   <----------<<
+                if (authorizedUser.hasAppointmentSoon())
+                {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("UPCOMING APPOINTMENT");
+                    alert.setContentText("You have an appointment scheduled to start in the next 15 minutes.");
+                    alert.showAndWait();
+                }
+
+                else
+                {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Schedule Update");
+                    alert.setContentText("No upcoming appointments in the next 15 minutes. You have " + authorizedUser.getUserAppointmentList().size() + " appointment(s) total.");
+                    alert.showAndWait();
+                }
+
+
+                //   >>---------->   proceed to Main Menu   <----------<<
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
                 stage.setScene(new Scene(scene));

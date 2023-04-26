@@ -223,6 +223,15 @@ public class AppointmentScreenController implements Initializable {
 
                     ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
                     appointmentTableView.setItems(allAppointments);
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("");
+                    alert2.setContentText("Appointment ID #" + selectedAppointment.getAppointmentID() +
+                            " (" + selectedAppointment.getAppointmentType() + ") with " +
+                            selectedAppointment.getCustomerName(selectedAppointment.getCustomerID()) + " has been deleted.");
+                    alert2.showAndWait();
+                    return;
+
                 }
             }
         }
