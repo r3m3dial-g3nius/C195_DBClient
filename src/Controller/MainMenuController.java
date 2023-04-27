@@ -88,8 +88,13 @@ public class MainMenuController implements Initializable {
      * @param event
      */
     @FXML
-    void onActionReportsButton(ActionEvent event) {
+    void onActionReportsButton(ActionEvent event) throws IOException {
         System.out.println("Reports button pressed");
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/Views/Reports.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.centerOnScreen();                 //  ----------------   Center Screen
+        stage.show();
 
     }
 

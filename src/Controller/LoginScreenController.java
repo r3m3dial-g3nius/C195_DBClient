@@ -158,7 +158,7 @@ public class LoginScreenController implements Initializable {
                 {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Schedule Update");
-                    alert.setContentText("You have no appointments in the next 15 minutes and "
+                    alert.setContentText("You have no appointments in the next 15 minutes. You are scheduled for "
                             + authorizedUser.getUserAppointmentList().size() + " appointment(s) total.");
                     alert.showAndWait();
                 }
