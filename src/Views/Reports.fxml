@@ -31,9 +31,9 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="206.0" text="All Appointments by Month and Type" />
                         <TableView fx:id="appointmentsMonthTypeTableView" maxWidth="240.0" prefHeight="220.0" prefWidth="240.0">
                           <columns>
-                            <TableColumn prefWidth="100.0" text="Month" />
-                            <TableColumn prefWidth="100.0" text="Type" />
-                              <TableColumn prefWidth="40.0" text="#" />
+                            <TableColumn fx:id="colMonth" prefWidth="100.0" text="Month" />
+                            <TableColumn fx:id="colType" prefWidth="100.0" text="Type" />
+                              <TableColumn fx:id="colCount" prefWidth="40.0" text="#" />
                           </columns>
                         </TableView>
                      </children>
@@ -43,8 +43,8 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="113.0" text="Customer Locations" />
                         <TableView fx:id="customerLocationsTableView" maxWidth="240.0" prefHeight="220.0" prefWidth="240.0">
                            <columns>
-                              <TableColumn prefWidth="200.0" text="Division/State/Province" />
-                              <TableColumn prefWidth="40.0" text="#" />
+                              <TableColumn fx:id="colDSP" prefWidth="200.0" text="Division/State/Province" />
+                              <TableColumn fx:id="colDSPCount" prefWidth="40.0" text="#" />
                            </columns>
                         </TableView>
                      </children>
@@ -57,7 +57,7 @@
             <HBox alignment="CENTER" layoutX="20.0" layoutY="520.0" prefHeight="40.0" prefWidth="800.0" spacing="10.0">
                <children>
                   <Label minWidth="50.0" prefHeight="30.0" prefWidth="150.0" text="Showing Appointments for" />
-                  <ComboBox fx:id="dropDownContact" onAction="#onActionFilterContacts" prefWidth="170.0" promptText="All Contacts" />
+                  <ComboBox fx:id="dropDownContact" onAction="#onActionFilterContacts" prefWidth="170.0" />
                </children>
             </HBox>
             <TableView fx:id="appointmentTableView" prefHeight="220.0" prefWidth="780.0">

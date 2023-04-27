@@ -3,6 +3,7 @@ package DAO;
 import Controller.LoginScreenController;
 import Helper.DBConnection;
 import Models.Appointment;
+import Models.ReportByDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -61,6 +62,91 @@ public class DBAppointments {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static ObservableList<ReportByDivision> getCustomersByDivision() throws SQLException {
+        ObservableList<ReportByDivision> customersByDivision = FXCollections.observableArrayList();
+
+        String sql = "SELECT first_level_divisions.Division, count(*) AS Number_of_Customers FROM customers " +
+                "INNER JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID " +
+                "WHERE  customers.Division_ID = first_level_divisions.Division_ID " +
+                "GROUP BY first_level_divisions.Division_ID ORDER BY first_level_divisions.Division";
+
+        try
+        {
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                String division = rs.getString(1);
+                int customerCount = rs.getInt(2);
+
+                ReportByDivision rd = new ReportByDivision(division, customerCount);
+
+                customersByDivision.add(rd);
+            }
+
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return customersByDivision;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * filters appointments in tableview based on user input drop down values for time and contact
      *
@@ -81,8 +167,8 @@ public class DBAppointments {
         LocalDateTime startCurrentWeek = LocalDateTime.now().minusWeeks(1);
         LocalDateTime endCurrentWeek = LocalDateTime.now().plusWeeks(1);
 
-        System.out.println(time);           // -----   test
-        System.out.println(contact);
+//        System.out.println(time);           // -----   test
+//        System.out.println(contact);
 
         //   ----->   no filters selected   <-----
         if (time == null && contact == null)
@@ -242,7 +328,6 @@ public class DBAppointments {
 //        System.out.println(sql);        //  TEST PRINT
 
         ps.execute();
-
 
     }
 

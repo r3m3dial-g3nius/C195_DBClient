@@ -4,6 +4,7 @@ import DAO.DBAppointments;
 import DAO.DBContacts;
 import Models.Appointment;
 import Models.Contact;
+import Models.ReportByDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +38,22 @@ public class ReportsScreenController implements Initializable {
     private TableView<String> appointmentsMonthTypeTableView;
 
     @FXML
-    private TableView<String> customerLocationsTableView;
+    private TableColumn<?, ?> colMonth;
+
+    @FXML
+    private TableColumn<?, ?> colType;
+
+    @FXML
+    private TableColumn<?, ?> colCount;
+
+    @FXML
+    private TableView<ReportByDivision> customerLocationsTableView;
+
+    @FXML
+    private TableColumn<?, ?> colDSP;
+
+    @FXML
+    private TableColumn<?, ?> colDSPCount;
 
     @FXML
     private TableView<Appointment> appointmentTableView;
@@ -71,6 +87,17 @@ public class ReportsScreenController implements Initializable {
 
     @FXML
     void onActionFilterContacts(ActionEvent event) {
+        String contactFilter = dropDownContact.getValue();
+
+        if (contactFilter.equals("All Contacts"))
+        {
+            appointmentTableView.setItems(DBAppointments.getAllAppointments());
+        }
+
+        else
+        {
+            appointmentTableView.setItems(DBAppointments.getFilteredAppointments(null, contactFilter));
+        }
 
     }
 
@@ -103,11 +130,19 @@ public class ReportsScreenController implements Initializable {
 
         try {
             ObservableList<Contact> allContacts = DBContacts.getAllContacts();
+            ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
+
             ObservableList<String> contactNames = FXCollections.observableArrayList();
+            ObservableList<String> appointmentMonths = FXCollections.observableArrayList();
+
+            //   --->   Create All Contacts option in contact filter drop down   <---
+            contactNames.add("All Contacts");
 
             //  --->   LAMBDA expression #1  <---
             allContacts.forEach(contact -> contactNames.add(contact.getContactName()));
+
             dropDownContact.setItems(contactNames);
+            dropDownContact.setValue("All Contacts");
             dropDownContact.setVisibleRowCount(5);
 
             //  --->   Populate appointmentTableView and columns  <---
@@ -122,11 +157,18 @@ public class ReportsScreenController implements Initializable {
             columnCustomer.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
             //  --->   Populate appointmentsMonthTypeTableView and columns  <---
+//            appointmentsMonthTypeTableView.setItems(DBAppointments.***);
 
+//            colMonth.setCellValueFactory(new PropertyValueFactory<>(""));
+//            colType.setCellValueFactory(new PropertyValueFactory<>(""));
+//            colCount.setCellValueFactory(new PropertyValueFactory<>(""));
 
 
             //  --->   Populate customerLocationsTableView and columns  <---
+            customerLocationsTableView.setItems(DBAppointments.getCustomersByDivision());
 
+            colDSP.setCellValueFactory(new PropertyValueFactory<>("division"));
+            colDSPCount.setCellValueFactory(new PropertyValueFactory<>("count"));
 
 
 
