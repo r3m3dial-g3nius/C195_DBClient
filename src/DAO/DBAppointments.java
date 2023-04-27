@@ -4,6 +4,7 @@ import Controller.LoginScreenController;
 import Helper.DBConnection;
 import Models.Appointment;
 import Models.ReportByDivision;
+import Models.ReportByMonthType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -62,28 +63,11 @@ public class DBAppointments {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Queries database for number of customers by division, creates ReportsByDivision object and adds to Observable list of same type.
+     * @return list of ReportsByDivision objects
+     * @throws SQLException
+     */
     public static ObservableList<ReportByDivision> getCustomersByDivision() throws SQLException {
         ObservableList<ReportByDivision> customersByDivision = FXCollections.observableArrayList();
 
@@ -118,7 +102,39 @@ public class DBAppointments {
 
     }
 
+    public static ObservableList<ReportByMonthType> getReportsByMonthType()
+    {
+        ObservableList<ReportByMonthType> numAppointmentsMonthType = FXCollections.observableArrayList();
 
+        String sql = "SELECT MONTHNAME(Start) AS Month_Name, Type, count(*) AS Type_Count, month(Start) AS Month " +
+                "FROM appointments GROUP BY Month, Month_Name, Type ORDER BY Month";
+
+        try
+        {
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                String month = rs.getString(1);
+                String type = rs.getString(2);
+                int count = rs.getInt(3);
+                int monthNum = rs.getInt(4);
+
+                ReportByMonthType r = new ReportByMonthType(month, type, count);
+
+                numAppointmentsMonthType.add(r);
+
+            }
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return numAppointmentsMonthType;
+    }
 
 
 

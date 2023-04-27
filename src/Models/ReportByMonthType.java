@@ -10,4 +10,16 @@ public class ReportByMonthType {
         this.type = type;
         this.count = count;
     }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getCount() {
+        return count;
+    }
 }

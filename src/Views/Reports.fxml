@@ -31,7 +31,7 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="206.0" text="All Appointments by Month and Type" />
                         <TableView fx:id="appointmentsMonthTypeTableView" maxWidth="240.0" prefHeight="220.0" prefWidth="240.0">
                           <columns>
-                            <TableColumn fx:id="colMonth" prefWidth="100.0" text="Month" />
+                            <TableColumn fx:id="colMonth" prefWidth="85.0" text="Month" />
                             <TableColumn fx:id="colType" prefWidth="100.0" text="Type" />
                               <TableColumn fx:id="colCount" prefWidth="40.0" text="#" />
                           </columns>
@@ -43,7 +43,7 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="113.0" text="Customer Locations" />
                         <TableView fx:id="customerLocationsTableView" maxWidth="240.0" prefHeight="220.0" prefWidth="240.0">
                            <columns>
-                              <TableColumn fx:id="colDSP" prefWidth="200.0" text="Division/State/Province" />
+                              <TableColumn fx:id="colDSP" prefWidth="185.0" text="Division/State/Province" />
                               <TableColumn fx:id="colDSPCount" prefWidth="40.0" text="#" />
                            </columns>
                         </TableView>
@@ -65,7 +65,7 @@
                 <TableColumn fx:id="columnAppointmentID" prefWidth="100.0" text="Appointment ID" />
                 <TableColumn fx:id="columnTitle" prefWidth="100.0" text="Title" />
                   <TableColumn fx:id="columnType" prefWidth="100.0" text="Type" />
-                  <TableColumn fx:id="columnDescription" prefWidth="155.0" text="Description" />
+                  <TableColumn fx:id="columnDescription" prefWidth="140.0" text="Description" />
                   <TableColumn fx:id="columnStart" prefWidth="130.0" text="Start" />
                   <TableColumn fx:id="columnEnd" prefWidth="130.0" text="End" />
                   <TableColumn fx:id="columnCustomer" prefWidth="65.0" text="Customer" />

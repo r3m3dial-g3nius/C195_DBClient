@@ -10,4 +10,11 @@ public class ReportByDivision {
         this.count = count;
     }
 
+    public String getDivision() {
+        return division;
+    }
+
+    public int getCount() {
+        return count;
+    }
 }

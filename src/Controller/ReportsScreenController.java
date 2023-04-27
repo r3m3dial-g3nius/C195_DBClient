@@ -5,6 +5,7 @@ import DAO.DBContacts;
 import Models.Appointment;
 import Models.Contact;
 import Models.ReportByDivision;
+import Models.ReportByMonthType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +36,7 @@ public class ReportsScreenController implements Initializable {
     Parent scene;
 
     @FXML
-    private TableView<String> appointmentsMonthTypeTableView;
+    private TableView<ReportByMonthType> appointmentsMonthTypeTableView;
 
     @FXML
     private TableColumn<?, ?> colMonth;
@@ -119,6 +120,7 @@ public class ReportsScreenController implements Initializable {
 
     /**
      * Initializes the Reports screen
+     * LAMBDA #1 iterates through list of all appointments, adds contact name String value to list contactNames
      *
      * @param url the location
      * @param resourceBundle the resources
@@ -130,10 +132,8 @@ public class ReportsScreenController implements Initializable {
 
         try {
             ObservableList<Contact> allContacts = DBContacts.getAllContacts();
-            ObservableList<Appointment> allAppointments = DBAppointments.getAllAppointments();
 
             ObservableList<String> contactNames = FXCollections.observableArrayList();
-            ObservableList<String> appointmentMonths = FXCollections.observableArrayList();
 
             //   --->   Create All Contacts option in contact filter drop down   <---
             contactNames.add("All Contacts");
@@ -157,21 +157,17 @@ public class ReportsScreenController implements Initializable {
             columnCustomer.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
             //  --->   Populate appointmentsMonthTypeTableView and columns  <---
-//            appointmentsMonthTypeTableView.setItems(DBAppointments.***);
+            appointmentsMonthTypeTableView.setItems(DBAppointments.getReportsByMonthType());
 
-//            colMonth.setCellValueFactory(new PropertyValueFactory<>(""));
-//            colType.setCellValueFactory(new PropertyValueFactory<>(""));
-//            colCount.setCellValueFactory(new PropertyValueFactory<>(""));
-
+            colMonth.setCellValueFactory(new PropertyValueFactory<>("month"));
+            colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+            colCount.setCellValueFactory(new PropertyValueFactory<>("count"));
 
             //  --->   Populate customerLocationsTableView and columns  <---
             customerLocationsTableView.setItems(DBAppointments.getCustomersByDivision());
 
             colDSP.setCellValueFactory(new PropertyValueFactory<>("division"));
             colDSPCount.setCellValueFactory(new PropertyValueFactory<>("count"));
-
-
-
 
         }
 
@@ -180,12 +176,6 @@ public class ReportsScreenController implements Initializable {
             e.printStackTrace();
         }
 
-
-
-
-
-        }
-
-
+    }
 
 }
