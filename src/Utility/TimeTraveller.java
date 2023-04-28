@@ -63,9 +63,20 @@ public class TimeTraveller {
      */
     public static boolean inBusinessHours(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT) throws DateTimeException
     {
+
+        //   ********************   WHICH ONE IS CORRECT?   *****************************************
         //   >>----->   establish user requested LDT in Zone ID system.default()   <-----<<
         requestedStartLDT = TimeTraveller.timeZoneFormatter(requestedStartLDT, ZoneId.systemDefault());
         requestedEndLDT = TimeTraveller.timeZoneFormatter(requestedEndLDT, ZoneId.systemDefault());
+
+        //   >>----->   change user requested LDT to Zone ID America/New_York   <-----<<
+        requestedStartLDT = TimeTraveller.timeZoneFormatter(requestedStartLDT, ZoneId.of("America/New_York"));
+        requestedEndLDT = TimeTraveller.timeZoneFormatter(requestedEndLDT, ZoneId.of("America/New_York"));
+        //   ********************   WHICH ONE IS CORRECT?   *****************************************
+
+
+
+
 
         //   >>----->   extract local time values   <-----<<
         LocalTime requestedStartTime = requestedStartLDT.toLocalTime();
