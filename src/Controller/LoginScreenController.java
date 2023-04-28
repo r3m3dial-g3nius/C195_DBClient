@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -113,6 +114,11 @@ public class LoginScreenController implements Initializable {
             String user_name = userNameField.getText();
             String password = passwordField.getText();
 
+            ZoneId timeZone = ZoneId.systemDefault();
+            String tz = timeZone.toString();
+
+
+
             ResourceBundle rb = ResourceBundle.getBundle("language");
 
             User newUser = DBUsers.getUser(user_name, password);
@@ -136,7 +142,7 @@ public class LoginScreenController implements Initializable {
             {
                 authorizedUser = newUser;                     //   -------  static var to use in createdby updatedby cols
 
-                System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()));
+                System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()) + " " + tz);
                 System.out.println();
 
 

@@ -12,7 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.*;
+import java.time.temporal.ChronoField;
+import java.time.temporal.WeekFields;
+import java.util.Calendar;
 
 public class DBAppointments {
 
@@ -137,32 +140,6 @@ public class DBAppointments {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * filters appointments in tableview based on user input drop down values for time and contact
      *
@@ -177,11 +154,26 @@ public class DBAppointments {
         ObservableList<Appointment> tempAppointments = FXCollections.observableArrayList();
         ObservableList<Appointment> filteredAppointments = FXCollections.observableArrayList();
 
-        LocalDateTime startCurrentMonth = LocalDateTime.now().minusMonths(1);
-        LocalDateTime endCurrentMonth = LocalDateTime.now().plusMonths(1);
+        //   ----->   find current week number of current year   <-----
+        Month thisMonth = LocalDateTime.now().getMonth();
 
-        LocalDateTime startCurrentWeek = LocalDateTime.now().minusWeeks(1);
-        LocalDateTime endCurrentWeek = LocalDateTime.now().plusWeeks(1);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        int currentWeekOfYear = currentDateTime.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+
+//        System.out.println(currentWeekOfYear);    //  ******  TEST
+
+        //   ----->   establish current month start/end   <-----
+        LocalDateTime startCurrentMonth = LocalDateTime.of(LocalDateTime.now().getYear(), thisMonth, 1, 0, 0);
+        LocalDateTime endCurrentMonth = LocalDateTime.of(LocalDate.now().getYear(), thisMonth, thisMonth.maxLength(), 23, 59);
+
+//        LocalDateTime startCurrentWeek = LocalDateTime.now(ZoneId.systemDefault()).with(DayOfWeek.SUNDAY);
+//        LocalDateTime endCurrentWeek = LocalDateTime.now(ZoneId.systemDefault()).with(DayOfWeek.SATURDAY);
+
+//        LocalDateTime startCurrentMonth = LocalDateTime.now().minusMonths(1);
+//        LocalDateTime endCurrentMonth = LocalDateTime.now().plusMonths(1);
+
+//        LocalDateTime startCurrentWeek = LocalDateTime.now().minusWeeks(1);
+//        LocalDateTime endCurrentWeek = LocalDateTime.now().plusWeeks(1);
 
 //        System.out.println(time);           // -----   test
 //        System.out.println(contact);
@@ -209,14 +201,31 @@ public class DBAppointments {
         //   ----->   only time filter selected   <-----
         else if (time != null && contact == null)
         {
+
+//            if (time.equals("Current Week"))
+//            {
+//                for (Appointment a : allAppointments)
+//                {
+//                    if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek)) {
+//                        filteredAppointments.add(a);
+//                    }
+//                }
+//
+//                return filteredAppointments;
+//            }
+
+
             if (time.equals("Current Week"))
             {
                 for (Appointment a : allAppointments)
                 {
-                    if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek)) {
+                    //   ********************************************
+                    if (a.getAppointmentStart().get(ChronoField.ALIGNED_WEEK_OF_YEAR) == currentWeekOfYear)
+                    {
                         filteredAppointments.add(a);
                     }
                 }
+
                 return filteredAppointments;
             }
 
@@ -259,7 +268,7 @@ public class DBAppointments {
             {
                 for (Appointment a : tempAppointments)
                 {
-                    if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek))
+                    if (a.getAppointmentStart().get(ChronoField.ALIGNED_WEEK_OF_YEAR) == currentWeekOfYear)
                     {
                         filteredAppointments.add(a);
                     }
