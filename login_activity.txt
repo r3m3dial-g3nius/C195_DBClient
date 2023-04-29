@@ -1,0 +1,3 @@
+   >>----->   Login attempt by Username 'tester' DENIED at 2023-04-29 13:05:08.6793809 America/Chicago
+   >>----->   Login attempt by Username 'hacker' DENIED at 2023-04-29 13:05:30.3583855 America/Chicago
++ Username 'admin' SUCCESSFULLY logged in at 2023-04-29 13:05:36.6878091 America/Chicago

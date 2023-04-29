@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.TimeZone;
 
@@ -33,6 +33,7 @@ public class LoginScreenController implements Initializable {
     Stage stage;
     Parent scene;
     public static User authorizedUser;          //   -------  static var to use in createdby updatedby cols
+
 
     /**
      * "Login" label at top of window
@@ -117,7 +118,9 @@ public class LoginScreenController implements Initializable {
             ZoneId timeZone = ZoneId.systemDefault();
             String tz = timeZone.toString();
 
-
+            String loginFileName = "login_activity.txt";
+            FileWriter fwLoginTracker = new FileWriter(loginFileName, true);
+            PrintWriter pwLoginTracker = new PrintWriter(fwLoginTracker);
 
             ResourceBundle rb = ResourceBundle.getBundle("language");
 
@@ -130,7 +133,13 @@ public class LoginScreenController implements Initializable {
 
             if (newUser.getUserID() == 0)               // -----------------   If invalid login
             {
-                System.out.println("Whoops!  Invalid login credentials...please try again");
+                //   >>---------->   update login_activity.txt   <----------<<
+                String loginUpdate = ("   >>----->   Login attempt by Username '" + user_name + "' DENIED at " + Timestamp.valueOf(LocalDateTime.now()) + " " + tz);
+                pwLoginTracker.println(loginUpdate);
+                pwLoginTracker.close();
+
+                System.out.println(loginUpdate);
+                System.out.println();
 
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(rb.getString("error"));
@@ -142,7 +151,12 @@ public class LoginScreenController implements Initializable {
             {
                 authorizedUser = newUser;                     //   -------  static var to use in createdby updatedby cols
 
-                System.out.println("Username '" + user_name + "' successfully logged in at " + Timestamp.valueOf(LocalDateTime.now()) + " " + tz);
+                //   >>---------->   update login_activity.txt   <----------<<
+                String loginUpdate = ("+ Username '" + user_name + "' SUCCESSFULLY logged in at " + Timestamp.valueOf(LocalDateTime.now()) + " " + tz);
+                pwLoginTracker.println(loginUpdate);
+                pwLoginTracker.close();
+
+                System.out.println(loginUpdate);
                 System.out.println();
 
 

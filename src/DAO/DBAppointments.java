@@ -14,8 +14,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoField;
-import java.time.temporal.WeekFields;
-import java.util.Calendar;
 
 public class DBAppointments {
 
@@ -122,7 +120,7 @@ public class DBAppointments {
                 String month = rs.getString(1);
                 String type = rs.getString(2);
                 int count = rs.getInt(3);
-                int monthNum = rs.getInt(4);
+                int monthNum = rs.getInt(4);        //   >>-----> Only used for sorting purposes in query
 
                 ReportByMonthType r = new ReportByMonthType(month, type, count);
 
@@ -201,25 +199,10 @@ public class DBAppointments {
         //   ----->   only time filter selected   <-----
         else if (time != null && contact == null)
         {
-
-//            if (time.equals("Current Week"))
-//            {
-//                for (Appointment a : allAppointments)
-//                {
-//                    if (a.getAppointmentStart().isAfter(startCurrentWeek) && a.getAppointmentStart().isBefore(endCurrentWeek)) {
-//                        filteredAppointments.add(a);
-//                    }
-//                }
-//
-//                return filteredAppointments;
-//            }
-
-
             if (time.equals("Current Week"))
             {
                 for (Appointment a : allAppointments)
                 {
-                    //   ********************************************
                     if (a.getAppointmentStart().get(ChronoField.ALIGNED_WEEK_OF_YEAR) == currentWeekOfYear)
                     {
                         filteredAppointments.add(a);
