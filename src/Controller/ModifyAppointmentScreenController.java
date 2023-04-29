@@ -213,6 +213,11 @@ public class ModifyAppointmentScreenController implements Initializable {
         LocalDateTime userRequestedStartDT = startTS.toLocalDateTime();
         LocalDateTime userRequestedEndDT = endTS.toLocalDateTime();
 
+        //   >>---------->   attach local time zone to ^^^ variables  <----------<<
+        userRequestedStartDT = TimeTraveller.attachLocalTimeZone(userRequestedStartDT);
+        userRequestedEndDT = TimeTraveller.attachLocalTimeZone(userRequestedEndDT);
+
+
         //  >>>----->   Confirm appointment start time is not before now()   <-----<<<
         if (startTS.before(Timestamp.valueOf(LocalDateTime.now())))
         {
@@ -369,41 +374,53 @@ public class ModifyAppointmentScreenController implements Initializable {
             dropDownUser.setVisibleRowCount(5);
 
 
-            //   ---------->   populate dropDownStart   <----------
-            //   ---------->   appointment time range is 8am to 10pm EST   <----------
+            //   >>---------->   populate dropDownStart   <----------<<
+            //   >>---------->   appointment time range is 8am to 10pm EST   <----------<<
             ObservableList<String> startTimes = FXCollections.observableArrayList();
 
-            LocalDateTime earliestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));   // ---   8:00 am
-            LocalDateTime appointmentEarliestStart = TimeTraveller.timeZoneFormatter(earliestStartEST, ZoneId.of("America/New_York"));
+            LocalDateTime earliestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));     // ---   8:00 am earliest start time
+            earliestStartEST = TimeTraveller.attachESTTimeZone(earliestStartEST);                                   // ---   set timezone to EST
 
-            LocalDateTime latestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 45));   // ---   9:45 pm
-            LocalDateTime appointmentLatestStart = TimeTraveller.timeZoneFormatter(latestStartEST, ZoneId.of("America/New_York"));
+            LocalDateTime earliestStartLocalTime = TimeTraveller.convertESTToLocalTimeZone(earliestStartEST);       // ---   set variable to local time equivalent
 
-            while (appointmentEarliestStart.isBefore(appointmentLatestStart.plusMinutes(1)))
+            LocalDateTime latestStartEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(21, 45));     // ---   9:45 pm latest start time
+            latestStartEST = TimeTraveller.attachESTTimeZone(latestStartEST);                                       // ---   set timezone to EST
+
+            LocalDateTime latestStartLocalTime = TimeTraveller.convertESTToLocalTimeZone(latestStartEST);           // ---   set variable to local time equivalent
+
+            //   >>---------->  add start times to list   <----------<<
+            while (earliestStartLocalTime.isBefore(latestStartLocalTime.plusMinutes(1)))
             {
-                startTimes.add(appointmentEarliestStart.toLocalTime().toString());
-                appointmentEarliestStart = appointmentEarliestStart.plusMinutes(15);
+                startTimes.add(earliestStartLocalTime.toLocalTime().toString());
+                earliestStartLocalTime = earliestStartLocalTime.plusMinutes(15);
             }
 
+            //   >>---------->  set items in dropdown start time combobox   <----------<<
             dropDownStartTime.setItems(startTimes);
 
 
-            //   ---------->   populate dropDownEnd   <----------
-            //   ---------->   appointment time range is 8am to 10pm EST   <----------
+            //   >>---------->   populate dropDownEnd   <----------<<
+            //   >>---------->   appointment time range is 8am to 10pm EST   <----------<<
             ObservableList<String> endTimes = FXCollections.observableArrayList();
 
-            LocalDateTime earliestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 15));   // ---   8:15 am
-            LocalDateTime appointmentEarliestEnd = TimeTraveller.timeZoneFormatter(earliestEndEST, ZoneId.of("America/New_York"));
+            LocalDateTime earliestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 15));      // ---   8:15 am latest start time
+            earliestEndEST = TimeTraveller.attachESTTimeZone(earliestEndEST);                                       // ---   set timezone to EST
 
-            LocalDateTime latestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 00));   // ---   9:45 pm
-            LocalDateTime appointmentLatestEnd = TimeTraveller.timeZoneFormatter(latestEndEST, ZoneId.of("America/New_York"));
+            LocalDateTime earliestEndLocalTime = TimeTraveller.convertESTToLocalTimeZone(earliestEndEST);           // ---   set variable to local time equivalent
 
-            while (appointmentEarliestEnd.isBefore(appointmentLatestEnd.plusMinutes(1)))
+            LocalDateTime latestEndEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 0));        // ---   10:00 pm latest end time
+            latestEndEST = TimeTraveller.attachESTTimeZone(latestEndEST);                                           // ---   set timezone to EST
+
+            LocalDateTime latestEndLocalTime = TimeTraveller.convertESTToLocalTimeZone(latestEndEST);               // ---   set variable to local time equivalent
+
+            //   >>---------->  add end times to list   <----------<<
+            while (earliestEndLocalTime.isBefore(latestEndLocalTime.plusMinutes(1)))
             {
-                endTimes.add(appointmentEarliestEnd.toLocalTime().toString());
-                appointmentEarliestEnd = appointmentEarliestEnd.plusMinutes(15);
+                endTimes.add(earliestEndLocalTime.toLocalTime().toString());
+                earliestEndLocalTime = earliestEndLocalTime.plusMinutes(15);
             }
 
+            //   >>---------->  set items in dropdown end time combobox   <----------<<
             dropDownEndTime.setItems(endTimes);
 
 

@@ -1,13 +1,10 @@
 package Utility;
 
-import Controller.AppointmentScreenController;
 import Controller.ModifyAppointmentScreenController;
-import DAO.DBCustomers;
 import Models.Appointment;
 import Models.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 
 import java.sql.Timestamp;
 import java.time.*;
@@ -37,18 +34,25 @@ public class TimeTraveller {
         return Timestamp.valueOf(ldt);
     }
 
-    /**
-     * formats dateTime with desired time zone (zoneId)
-     *
-     * @param dateTime LocalDateTime value to format w time zone
-     * @param zoneId desired time zone
-     * @return LocalDateTime value with desired time zone
-     */
-    public static LocalDateTime timeZoneFormatter(LocalDateTime dateTime, ZoneId zoneId)
+    public static LocalDateTime attachLocalTimeZone(LocalDateTime dateTime)
     {
-        ZonedDateTime zdt = dateTime.atZone(zoneId);
+        ZonedDateTime zdt = dateTime.atZone(ZoneId.systemDefault());
+
+        return zdt.toLocalDateTime();
+    }
+
+    public static LocalDateTime attachESTTimeZone(LocalDateTime dateTime)
+    {
+        ZonedDateTime zdt = dateTime.atZone(ZoneId.of("America/New_York"));
+//        zdt = zdt.withZoneSameInstant(ZoneId.of("America/New_York"));
+
+        return zdt.toLocalDateTime();
+    }
+
+    public static LocalDateTime convertESTToLocalTimeZone(LocalDateTime dateTime)
+    {
+        ZonedDateTime zdt = dateTime.atZone(ZoneId.of("America/New_York"));
         zdt = zdt.withZoneSameInstant(ZoneId.systemDefault());
-//        LocalDateTime test = zdt.toLocalDateTime();
 
         return zdt.toLocalDateTime();
     }
@@ -64,38 +68,41 @@ public class TimeTraveller {
     public static boolean inBusinessHours(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT) throws DateTimeException
     {
 
-        //   ********************   WHICH ONE IS CORRECT?   *****************************************
         //   >>----->   establish user requested LDT in Zone ID system.default()   <-----<<
-        requestedStartLDT = TimeTraveller.timeZoneFormatter(requestedStartLDT, ZoneId.systemDefault());
-        requestedEndLDT = TimeTraveller.timeZoneFormatter(requestedEndLDT, ZoneId.systemDefault());
-
-        //   >>----->   change user requested LDT to Zone ID America/New_York   <-----<<
-        requestedStartLDT = TimeTraveller.timeZoneFormatter(requestedStartLDT, ZoneId.of("America/New_York"));
-        requestedEndLDT = TimeTraveller.timeZoneFormatter(requestedEndLDT, ZoneId.of("America/New_York"));
-        //   ********************   WHICH ONE IS CORRECT?   *****************************************
+        requestedStartLDT = TimeTraveller.attachLocalTimeZone(requestedStartLDT);
+        requestedEndLDT = TimeTraveller.attachLocalTimeZone(requestedEndLDT);
 
 
-
-
+        System.out.println("Requested start time in local time = " + requestedStartLDT);
+        System.out.println("Requested end time in local time = " + requestedEndLDT);
 
         //   >>----->   extract local time values   <-----<<
         LocalTime requestedStartTime = requestedStartLDT.toLocalTime();
         LocalTime requestedEndTime = requestedEndLDT.toLocalTime();
 
-        //   >>----->   establish business hours in Zone ID "America/New_York"   <-----<<
-        LocalTime workdayStartTime = LocalTime.of(8, 0);
-        LocalDateTime workdayStartTimeLDT = LocalDateTime.of(LocalDate.now(), workdayStartTime);
-        workdayStartTimeLDT = TimeTraveller.timeZoneFormatter(workdayStartTimeLDT, ZoneId.of("America/New_York"));
-        workdayStartTime = workdayStartTimeLDT.toLocalTime();
 
-        LocalTime workdayEndTime = LocalTime.of(22,0);
-        LocalDateTime workdayEndTimeLDT = LocalDateTime.of(LocalDate.now(), workdayEndTime);
-        workdayEndTimeLDT = TimeTraveller.timeZoneFormatter(workdayEndTimeLDT, ZoneId.of("America/New_York"));
-        workdayEndTime = workdayEndTimeLDT.toLocalTime();
+        //   >>----->   establish business hours in EST   <-----<<
+        LocalDateTime workdayStartTimeEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0));      // ---   8:00 am start of workday
+        workdayStartTimeEST = TimeTraveller.attachESTTimeZone(workdayStartTimeEST);                                 // ---   set timezone to EST
+
+        LocalDateTime workdayStartLDT = TimeTraveller.convertESTToLocalTimeZone(workdayStartTimeEST);               // ---   set variable to LDT equivalent
+        LocalTime workdayStartLocalTime = workdayStartLDT.toLocalTime();                                            // ---   extract local time
+
+
+        LocalDateTime workdayEndTimeEST = LocalDateTime.of(LocalDate.now(), LocalTime.of(22, 0));       // ---   10:00 am end of workday
+        workdayEndTimeEST = TimeTraveller.attachESTTimeZone(workdayEndTimeEST);                                     // ---   set timezone to EST
+
+        LocalDateTime workdayEndLDT = TimeTraveller.convertESTToLocalTimeZone(workdayEndTimeEST);                   // ---   set variable to LDT equivalent
+        LocalTime workdayEndLocalTime = workdayEndLDT.toLocalTime();                                                // ---   extract local time
+
+
+        System.out.println("Workday start time in local time - " + workdayStartLocalTime.toString() + ". Requested start time - " + requestedStartTime.toString());
+        System.out.println("Workday end time in local time - " + workdayEndLocalTime.toString() + ". Requested end time - " + requestedEndTime.toString());
 
         //   >>----->   evaluate if start/end times are during business hours   <-----<<
-        if ((requestedStartTime.isAfter(workdayStartTime)) && requestedStartTime.isBefore(workdayEndTime) &&
-                (requestedEndTime.isAfter(workdayStartTime)) && (requestedEndTime.isBefore(workdayEndTime)))
+        //   >>----->   note requestedStartTime >= workdayStartLocalTime; requestedEndTime <= workdayEndLocalTime   <-----<<
+        if ((requestedStartTime.equals(workdayStartLocalTime) || requestedStartTime.isAfter(workdayStartLocalTime)) && requestedStartTime.isBefore(workdayEndLocalTime) &&
+                (requestedEndTime.isAfter(workdayStartLocalTime)) && (requestedEndTime.equals(workdayEndLocalTime) || requestedEndTime.isBefore(workdayEndLocalTime)))
         {
             return true;
         }
