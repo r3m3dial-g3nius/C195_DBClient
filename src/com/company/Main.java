@@ -1,8 +1,6 @@
 package com.company;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -10,6 +8,9 @@ import javafx.scene.Scene;
 import Helper.DBConnection;
 import java.io.IOException;
 
+/**
+ * Author: Steven Bennett
+ */
 
 /**
  * This is the Main class of the app.
@@ -35,7 +36,7 @@ public class Main extends Application {
 
 
         Scene scene = new Scene(fxmlLoader.load());
-        primaryStage.setTitle("Client Scheduler");          //   --------------------   CHANGE THIS LATER  ----------------
+        primaryStage.setTitle("Client Scheduler");          //   --------------------   Client Scheduler?  ----------------
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();                      //   center on screen
         primaryStage.show();
