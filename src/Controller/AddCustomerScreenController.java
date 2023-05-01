@@ -26,8 +26,7 @@ import java.util.ResourceBundle;
 
 /**
  * This class controls the Add Customer screen.
- *
- * Controls the Add Customer screen of the app.
+ * The Add Customer screen enables the user to enter and upload new customer data to the database.
  */
 public class AddCustomerScreenController implements Initializable {
 

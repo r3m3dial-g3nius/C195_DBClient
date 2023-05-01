@@ -29,7 +29,8 @@ MySQL Driver 8.0.32
 
 --How to run--
 
-When the application executes, the user is presented with a Login Screen. The user must enter a valid username and password that matches user information stored in the mySQL database. 
+After launching the application, the user is presented with a Login Screen. The user must enter a valid username and password that matches user information stored in the mySQL database. 
+The testing username/password(s) provided are username: test, password: test; username: admin, password: admin. 
 
 
 --Additional Report--

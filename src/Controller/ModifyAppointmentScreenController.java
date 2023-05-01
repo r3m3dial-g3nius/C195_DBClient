@@ -32,9 +32,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
- * This class manages the Modify Appointment screen.
- *
- * Controls the Modify Appointment screen of the app.
+ * This class controls the Modify Appointment screen.
+ * The Modify Appointment screen enables the user to enter and upload the new customer appointment data to the database.
  */
 public class ModifyAppointmentScreenController implements Initializable {
 
@@ -97,8 +96,9 @@ public class ModifyAppointmentScreenController implements Initializable {
     private TextField textFieldUserName;
 
     /**
-     * fires when user selects customer id from dropDownCustomer, updates textFieldCustomerName with name of customer
-     * @param actionEvent
+     * This method takes the user input from dropDownCustomer combobox, updates textFieldCustomerName with name of customer.
+     * A list of all customers in the database is created and searched for a Customer object matching the Customer ID number via a for loop.
+     * @param actionEvent Executes when the user selects a Customer ID from the dropDownCustomer combobox.
      */
     @FXML
     void onActionSetCustomerTextField(ActionEvent actionEvent)
@@ -121,8 +121,9 @@ public class ModifyAppointmentScreenController implements Initializable {
 
 
     /**
-     * fires when user selects user id from dropDownUser, updates textFieldUserName with name of user
-     * @param actionEvent
+     * This method takes the user input from dropDownUser combobox, updates textFieldUserName with name of user.
+     * A list of all users in the database is created and searched for a User object matching the User ID number via a for loop.
+     * @param actionEvent Executes when the user selects a User ID from the dropDownUser combobox.
      */
     @FXML
     void onActionSetUserTextField(ActionEvent actionEvent)
@@ -144,11 +145,11 @@ public class ModifyAppointmentScreenController implements Initializable {
     }
 
     /**
-     * Fires when user presses the Save button. Extracts data from Modify Appointment screen and updates the appropriate
-     * Appointment in appointments table in database after evaluating any scheduling conflicts.
-     * @param event
-     * @throws SQLException
-     * @throws IOException
+     * This method modifies an existing customer appointment in the database with user input.
+     * After the user inputs valid data into the text fields and comboboxes, that Appointment object is updated in the database after a series of conditional statements.
+     * @param event Executes when user presses the Save button.
+     * @throws SQLException In the event of an SQL error.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionSaveChanges(ActionEvent event) throws SQLException, IOException {
@@ -309,10 +310,10 @@ public class ModifyAppointmentScreenController implements Initializable {
     }
 
     /**
-     * fires when Cancel button is pressed, returns user to Appointments screen
+     * This method returns the user to the previous screen (Appointments screen).
      *
-     * @param event
-     * @throws IOException
+     * @param event Executes when the user presses the Cancel button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException
@@ -326,7 +327,7 @@ public class ModifyAppointmentScreenController implements Initializable {
 
 
     /**
-     * Initializes the Modify Appointment screen
+     * This method initializes the Add Appointment screen. Here the dropDownStart, dropDownEnd, dropDownContact, dropDownCustomer, and dropDownUser comboboxes are populated.
      *
      * lambda #1 - populates Observable list contactNames with String values of contact name
      * lambda #2 - populates Observable list customerIDs with String values of customer ID numbers.
