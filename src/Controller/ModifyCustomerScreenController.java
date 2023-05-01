@@ -27,7 +27,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * This class controls the Modify Customer screen
+ * This class controls the Modify Customer screen.
+ * The Modify Customer screen enables the user to modify and update existing customer data in the database.
  */
 public class ModifyCustomerScreenController implements Initializable{
 
@@ -66,9 +67,10 @@ public class ModifyCustomerScreenController implements Initializable{
     private Button updateButton;
 
     /**
-     * fires when user selects country from country drop down, populates division drop down w appropriate divisions based on country selection
-     *
-     * @param event
+     * This method populates dropDownDivision combobox with the appropriate list once the user selects a value in dropDownCountry combobox.
+     * The label labelDivision is also updated to the appropriate term as related to their customs.
+     * @param event Executes when user selects country from dropDownCountry combobox.
+     * @throws NullPointerException In the event that a null value is unexpectedly returned.
      */
     @FXML
     void onActionCountrySelect(ActionEvent event) throws NullPointerException
@@ -108,10 +110,10 @@ public class ModifyCustomerScreenController implements Initializable{
     }
 
     /**
-     * fires when Cancel button is pressed, returns user to previous screen
+     * This method returns the user to the previous screen (Customers screen).
      *
-     * @param event
-     * @throws IOException
+     * @param event Executes when the user presses the Cancel button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException {
@@ -127,9 +129,12 @@ public class ModifyCustomerScreenController implements Initializable{
 
 
     /**
-     * fires when Update button is pressed, updates Customer data in database
+     * This method updates existing customer data in the database.
+     * After the user updates existing customer data with valid inputs, the existing customer data is updated in the database.
      *
-     * @param event
+     * @param event Executes when Update button is pressed.
+     * @throws SQLException In the event of an SQL error.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws SQLException, IOException {
@@ -166,13 +171,15 @@ public class ModifyCustomerScreenController implements Initializable{
 
 
     /**
-     * initializes the Modify Customer screen
+     * This method initializes the Modify Customer screen.
+     * Here the dropDownCountry and dropDownDivision comboboxes are populated.
+     * The label labelDivision is also updated to appropriate terminology.
      *
      * Lambda expression #1 - populates ObservableList with String values of division names
      * Lambda expression #2 - populates ObservableList with String values of country names
      *
-     * @param url
-     * @param resourceBundle
+     * @param url the location
+     * @param resourceBundle the resources
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)

@@ -65,11 +65,12 @@ public class AddCustomerScreenController implements Initializable {
 
 
     /**
-     * Fires when Add button is pressed, adds new customer to database
+     * This method adds a new customer to the database.
+     * After the user inputs valid new customer data, a new Customer object is created and uploaded to the database.
      *
-     * @param event
-     * @throws SQLException
-     * @throws IOException
+     * @param event Executes when Add button is pressed.
+     * @throws SQLException In the event of an SQL error.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionAddNewCustomer(ActionEvent event) throws SQLException, IOException
@@ -100,9 +101,10 @@ public class AddCustomerScreenController implements Initializable {
 
 
     /**
-     * fires when user selects country from country drop down, populates division drop down w appropriate divisions based on country selection
+     * This method populates dropDownDivision combobox with the appropriate list once the user selects a value in dropDownCountry combobox.
+     * The label labelDivision is also updated to the appropriate term as related to their customs.
      *
-     * @param event
+     * @param event Executes when user selects country from dropDownCountry combobox.
      */
     @FXML
     void onActionCountrySelect(ActionEvent event)
@@ -140,10 +142,10 @@ public class AddCustomerScreenController implements Initializable {
 
 
     /**
-     * fires when Cancel button is pressed, returns user to previous screen
+     * This method returns the user to the previous screen (Customers screen).
      *
-     * @param event
-     * @throws IOException
+     * @param event Executes when the user presses the Cancel button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionReturnPreviousScreen(ActionEvent event) throws IOException
@@ -159,7 +161,8 @@ public class AddCustomerScreenController implements Initializable {
 
 
     /**
-     * Initializes the Add Customer screen
+     * This method initializes the Add Customer screen.
+     * Here dropDownCountry and dropDownDivision comboboxes are populated.
      *
      * @param url the location
      * @param resourceBundle the resources
