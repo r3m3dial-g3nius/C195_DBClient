@@ -30,20 +30,14 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * This class is a Controller for the Customer Screen.
- *
- * Controls the Customer screen of the app.
+ * This class controls the Customer Screen.
+ * The Customer screen enables the user to view all customers in database, and add/modify/delete customers from database.
  */
 public class CustomerScreenController implements Initializable {
 
     Stage stage;
     Parent scene;
     static Customer selectedCustomer;
-
-    public static Customer getSelectedCustomer()
-    {
-        return selectedCustomer;
-    }
 
     @FXML
     private ComboBox<String> dropDownCountry;
@@ -91,9 +85,18 @@ public class CustomerScreenController implements Initializable {
     private Button deleteCustomerButton;
 
     /**
-     * fires when the Reset button is pressed; reloads table without filters
-     * @param event
-     * @throws IOException
+     * This method gets the user selected customer in the Customer screen.
+     * @return Returns Customer object, the customer selected by the user.
+     */
+    public static Customer getSelectedCustomer()
+    {
+        return selectedCustomer;
+    }
+
+    /**
+     * This method reloads the Customer screen, essentially resetting the drop-down comboboxes serving as filters.
+     * @param event Executes when the user presses the Reset button.
+     * @throws IOException In the event of an IO exception.
      */
     @FXML
     void onActionResetFilter(ActionEvent event) throws IOException
@@ -114,9 +117,13 @@ public class CustomerScreenController implements Initializable {
     /**
      * fires when the either combobox receives a new selection; applies user selected filters from Country and Division to tableview
      *
+     * This method applies user selected filters to the list displayed in the tableview.
+     * User input values are extracted from dropDownCountry and dropDownDivision comboboxes and utilized in following conditional statements to filter what Customers are displayed in the tableview.
+     * The table view is updated.
+     *
      * Lambda expressions #1 - populates string list of division names from list of division objects
      * Lambda expressions #1 - populates string list of country names from list of country objects
-     * @param event
+     * @param event Executes when the user presses the Apply button.
      */
     @FXML
     void onActionApplyFilter(ActionEvent event)
@@ -218,9 +225,10 @@ public class CustomerScreenController implements Initializable {
     }
 
     /**
-     * fires when the Main Menu button is selected; returns user to Main Menu
-     * @param event
-     * @throws IOException
+     * This method returns the user to the Main Menu.
+     * Returns user the Main Menu.
+     * @param event Executes when the user presses the Main Menu button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException
@@ -233,8 +241,9 @@ public class CustomerScreenController implements Initializable {
     }
 
     /**
-     * fires when Add button is selected; opens Add Customer screen
-     * @param event
+     * This method loads the Add Customer screen.
+     * Loads Add Customer screen.
+     * @param event Executes when the user presses the Add button.
      */
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
@@ -248,8 +257,9 @@ public class CustomerScreenController implements Initializable {
     }
 
     /**
-     * fires when Modify button is selected; opens Modify Customer screen
-     * @param event
+     * This method loads the Modify Customer screen.
+     * Loads Modify Customer screen.
+     * @param event Executes when the user presses the Modify button.
      */
     @FXML
     void onActionModifyCustomer(ActionEvent event) throws IOException {
@@ -276,8 +286,10 @@ public class CustomerScreenController implements Initializable {
 
 
     /**
-     * fires when Delete button is pressed; deletes all appointments associated w/ selected Customer, then deletes Customer
-     * @param event
+     * This method deletes user selected customer and all appointments associated with the selected customer.
+     * Through a series of conditional statements, this method determines if the user selected customer has any appointments.
+     * If appointments are found, the appointments are deleted and then the customer is deleted from the database.
+     * @param event Executes when the user presses the Delete button.
      */
     @FXML
     void onActionDeleteCustomer(ActionEvent event)
@@ -351,7 +363,8 @@ public class CustomerScreenController implements Initializable {
 
 
     /**
-     * Initializes the Customer screen
+     * This method initializes the Customer screen.
+     * Here the comboboxes dropDownCountry, dropDownDivision, and the tableview are populated.
      *
      * Lambda expression #1 - populates ObservableList with String values of division names
      * Lambda expression #2 - populates ObservableList with String values of country names

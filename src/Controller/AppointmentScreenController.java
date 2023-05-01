@@ -25,9 +25,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * This class is a Controller template.
- *
- * Controls the Appointment screen of the app.
+ * This class controls the Appointment screen.
+ * The Appointment screen allows the user to view and filter all appointments, add/modify/delete appointments.
  */
 public class AppointmentScreenController implements Initializable {
 
@@ -91,8 +90,10 @@ public class AppointmentScreenController implements Initializable {
     private Button deleteAppointmentButton;
 
     /**
-     * Applies user selected filters to data displayed in tableview
-     * @param event
+     * This method applies user selected filters to data displayed in tableview.
+     * User input is gathered from dropDownTime and dropDownContact comboboxes and used as arguments (filters) when retrieving appointments from the database.
+     * The tableview is automatically updated.
+     * @param event Executes when the user presses the Apply button.
      */
     @FXML
     void onActionApplyFilters(ActionEvent event) {
@@ -108,10 +109,11 @@ public class AppointmentScreenController implements Initializable {
     }
 
     /**
-     * fires when user presses Reset button...reloads the Appointment screen without filters
+     * The method resets the dropDownTime and dropDownContact comboboxes to their respective original prompts and null values.
+     * The tableview is updated automatically.
      *
-     * @param event
-     * @throws IOException
+     * @param event Executes when the user presses the reset button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionResetFilter(ActionEvent event) throws IOException
@@ -125,9 +127,10 @@ public class AppointmentScreenController implements Initializable {
     }
 
     /**
-     * fires when user presses Main Menu button, returns user to Main Menu
-     * @param event
-     * @throws IOException
+     * This method returns the user to the Main Menu.
+     * returns user the Main Menu.
+     * @param event Executes when the user presses the Main Menu button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException
@@ -141,9 +144,10 @@ public class AppointmentScreenController implements Initializable {
     }
 
     /**
-     * fires when user selects Add button; loads Add Appointment screen
-     * @param event
-     * @throws IOException
+     * This method loads the Add Appointment screen.
+     * Loads the Add Appointment screen.
+     * @param event Executes when the user presses the Add button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException
@@ -160,9 +164,10 @@ public class AppointmentScreenController implements Initializable {
     }
 
     /**
-     * fires when user presses Modify button; loads Modify Appointment screen
-     * @param event
-     * @throws IOException
+     * This method loads the Modify Appointment screen.
+     * Loads the Modify Appointment screen.
+     * @param event Executes when the user presses the Modify button.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException
@@ -191,9 +196,12 @@ public class AppointmentScreenController implements Initializable {
 
     /**
      * fires when user pressed Delete button; deletes selected Appointment from appointments table in database
-     * @param event
-     * @throws IOException
-     * @throws SQLException
+     *
+     * This method deletes appointment data from the database.
+     * After user confirms deletion in a dialog box, this method deletes appointment data from the database, then provides confirmation of deletion in another dialog box.
+     * @param event Executes when the user presses the Delete button.
+     * @throws IOException In the event of an IO error.
+     * @throws SQLException In the event of an SQL error.
      */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) throws IOException, SQLException {
@@ -244,7 +252,9 @@ public class AppointmentScreenController implements Initializable {
     }
 
     /**
-     * Initializes the Appointment screen
+     * This method initializes the Appointment screen.
+     * Here the tableview, dropDownTime and dropDownContact comboboxes are populated.
+     * LAMBDA #1 - populates list of Contact names
      *
      * @param url the location
      * @param resourceBundle the resources

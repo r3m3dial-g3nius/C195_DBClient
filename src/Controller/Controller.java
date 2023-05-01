@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * This class is a Controller template.
+ * This is a template for Controller classes.
+ * This is to provide a consistent template to use for creating new Controller classes.
  *
  * Controls the XXXXX screen of the app.
  */
