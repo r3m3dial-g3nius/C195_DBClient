@@ -203,8 +203,9 @@ public class Customer {
 
     //   ------------------------------------    FOR DELETE APPOINTMENT on CUSTOMER SCREEN   ---------------------------------
     /**
-     * checks all appointments, returns true if this customer ID is listed in appointments table under Customer_ID
-     * @returns true if customer ID number is found, false if customer ID is not found in appointments table
+     * This method verifies if customer has any appointments scheduled.
+     *
+     * @return true if customer ID number is found, false if customer ID is not found in appointments table
      */
     public boolean hasAppointments()
     {
@@ -220,7 +221,7 @@ public class Customer {
     }
 
     /**
-     * this method compiles a list of all appointments with this customer
+     * This method compiles a list of all appointments with this customer.
      * @return list of Appointment objects where customer ID matches this customer ID
      */
     public ObservableList<Appointment> getCustomerAppointmentList()

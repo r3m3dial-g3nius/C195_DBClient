@@ -8,17 +8,16 @@ import javafx.scene.Scene;
 import Helper.DBConnection;
 import java.io.IOException;
 
-/**
- * Author: Steven Bennett
- */
+//   >>------------------------------>   Author: Steven Bennett   <------------------------------<<
 
 /**
  * This is the Main class of the app.
+ * The application is designed to enable the user to add, modify, and delete customer appointments for contacts.
  */
 public class Main extends Application {
 
     /**
-     * Set up initial app primaryStage
+     * This method loads the Login screen.
      *
      * @param primaryStage The primaryStage to be set.
      * @throws IOException The exception that is thrown if there's an error.
@@ -26,9 +25,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException
     {
-
-
-
         //  >>---------->   TEMP BYPASS TO SKIP LOGIN SCREEN   <----------<<
 //        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/Views/MainMenu.fxml"));
 
@@ -44,7 +40,8 @@ public class Main extends Application {
 
 
     /**
-     * Opens and closes database connection
+     * This is the main method of the application.
+     * This method opens the database connection, launches arguments, then closes database connection.
      *
      * @param args The arguments
      */
