@@ -18,9 +18,6 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.*;
-import java.util.Scanner;
-import java.util.TimeZone;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
