@@ -4,9 +4,7 @@ import DAO.DBContacts;
 import DAO.DBCustomers;
 import DAO.DBUsers;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 /**
  * This class manages Appointment data.
