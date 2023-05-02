@@ -8,14 +8,16 @@ import java.sql.*;
 
 
 /**
- * This class handles database interactions with Division.
+ * This class manages all database exchanges associated with Division data.
  */
 public class DBDivisions {
 
     /**
-     * Returns list of all divisions in database.
+     * This method returns a list of all Divisions in database.
+     * By using a Prepared statement, this method executes a database query to retrieve all divisions stored in the database.
+     * Each tuple retrieved is used to create an Division object which is added to a list and finally returned.
      *
-     * @return list of all divisions
+     * @return Returns a list of Division objects.
      */
     public static ObservableList<Division> getAllDivisions()
     {
@@ -47,10 +49,10 @@ public class DBDivisions {
 
 
     /**
-     * Returns Division object from argument specifying Division ID (int)
-     *
-     * @param divisionID ID of division
-     * @return Division object
+     * This method is a getter, returns Division object from database that matches specified division ID number.
+     * By using a prepared statement, this method queries the database for division data that matches user specified division ID number.
+     * @param divisionID ID number of division.
+     * @return Returns Division object identified by divisionID.
      */
     public static Division getDivision(int divisionID)
     {
