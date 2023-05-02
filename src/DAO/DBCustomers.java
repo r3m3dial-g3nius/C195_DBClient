@@ -12,13 +12,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class handles database interactions with customers.
+ * This class manages all database exchanges associated with Customer data.
  */
 public class DBCustomers {
 
     /**
-     * Returns list of all customers in database
-     * @return list of Customer objects
+     * This method returns a list of all customers in database.
+     * By using a Prepared statement, this method executes a database query to retrieve all customers stored in the database.
+     * Each tuple retrieved is used to create a Customer object which is added to a list and finally returned.
+     *
+     * @return Returns a list of Customer objects.
      */
     public static ObservableList<Customer> getAllCustomers()
     {
@@ -54,9 +57,10 @@ public class DBCustomers {
     }
 
     /**
-     * This method gets Customer object from database that matches user specified customer ID number
+     * This method is a getter, returns Customer object from database that matches specified customer ID number.
+     * By using a prepared statement, this method queries the database for customer data that matches user specified customer ID number.
      * @param customer_ID ID number of customer
-     * @return Customer object identified by customer_ID
+     * @return Returns customer object identified by customer_ID.
      */
     public static Customer getCustomer(int customer_ID)
     {
@@ -97,14 +101,15 @@ public class DBCustomers {
 
 
     /**
-     * Adds new customer to database
+     * This method inserts new customer into customers table in the database.
+     * A prepared statement is used to insert a new customer into the customers table of the database.
      *
      * @param customerName name of customer
      * @param customerAddress address of customer
      * @param postalCode postal code of customer
      * @param phone phone number of customer
      * @param divisionName name of division
-     * @throws SQLException
+     * @throws SQLException In the event of an SQL error.
      */
     public static void addNewCustomer(String customerName, String customerAddress, String postalCode, String phone, String divisionName) throws SQLException
     {
@@ -141,7 +146,8 @@ public class DBCustomers {
 
 
     /**
-     * Updates customer info in database
+     * This method updates existing customer data in the database.
+     * By using a prepared statement, customer data in the customers table is updated.
      *
      * @param customerID customer ID number
      * @param name customer name
@@ -150,7 +156,7 @@ public class DBCustomers {
      * @param phone customer phone
      * @param divisionID customer division ID number
      *
-     * @throws SQLException
+     * @throws SQLException In the event of an SQL error.
      */
     public static void modifyCustomer(int customerID, String name, String address, String postalCode, String phone, int divisionID) throws SQLException
     {
@@ -176,9 +182,10 @@ public class DBCustomers {
 
 
     /**
-     * Deletes customer info assigned to customerID in customers table in database
+     * This method deletes customer data from the database.
+     * By using a prepared statement, customer data specified by customerID is deleted from the customers table of the database.
      * @param customerID ID number of customer
-     * @throws SQLException
+     * @throws SQLException In the event of an SQL error.
      */
     //      ------------------------------------------------------------------
     public static void deleteCustomer(int customerID) throws SQLException {
