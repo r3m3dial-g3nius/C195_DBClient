@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 
 /**
  * This class is controls the Reports Screen.
- *
  * Controls the Reports screen of the app.
  */
 public class ReportsScreenController implements Initializable {
@@ -86,6 +85,11 @@ public class ReportsScreenController implements Initializable {
     @FXML
     private Button mainMenuButton;
 
+    /**
+     * This method filters the appointments table view by contact name, received as input via the combobox dropDownContact.
+     * User input is gathered as a string value and a helper function completes the process (DBAppointments.getFilteredAppointments()).
+     * @param event Executes when the user selects a value from the combobox dropDownContact.
+     */
     @FXML
     void onActionFilterContacts(ActionEvent event) {
         String contactFilter = dropDownContact.getValue();
@@ -103,9 +107,9 @@ public class ReportsScreenController implements Initializable {
     }
 
     /**
-     * Navigates user back to Main Menu Screen
-     * @param event Clicking the Main Menu button
-     * @throws IOException
+     * This method navigates user back to Main Menu screen.
+     * @param event Executes when the Main Menu button is pressed.
+     * @throws IOException In the event of an IO error.
      */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
@@ -119,7 +123,8 @@ public class ReportsScreenController implements Initializable {
 
 
     /**
-     * Initializes the Reports screen
+     * This method initializes the Reports screen.
+     * The appointment, appointment by month and type, and customer by location tableviews are populated here.
      * LAMBDA #1 iterates through list of all appointments, adds contact name String value to list contactNames
      *
      * @param url the location

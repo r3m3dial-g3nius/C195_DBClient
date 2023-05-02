@@ -4,13 +4,21 @@ import Helper.DBConnection;
 import Models.Contact;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class manages all database exchanges associated with Contact data.
+ */
 public class DBContacts {
 
+    /**
+     * This method returns a list of all contacts in the database.
+     * By using a prepared statement, this method executes a database query to retrieve all contacts stored in the database.
+     * Each tuple is retrieved and used to create a Contact object which is added to a list and finally returned.
+     * @return Returns a list of Contact objects.
+     */
     public static ObservableList<Contact> getAllContacts()
     {
         ObservableList<Contact> allContacts = FXCollections.observableArrayList();

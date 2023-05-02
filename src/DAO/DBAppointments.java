@@ -7,7 +7,6 @@ import Models.ReportByDivision;
 import Models.ReportByMonthType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,12 +14,17 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoField;
 
+/**
+ * This class manages all database exchanges associated with Appointment data.
+ */
 public class DBAppointments {
 
     /**
-     * Returns list of all appointments in database
+     * This method returns a list of all appointments in database.
+     * By using a Prepared statement, this method executes a database query to retrieve all appointments stored in the database.
+     * Each tuple retrieved is used to create an Appointment object which is added to a list and finally returned.
      *
-     * @return list of Appointment objects
+     * @return Returns a list of Appointment objects.
      */
     public static ObservableList<Appointment> getAllAppointments()
     {
@@ -65,9 +69,11 @@ public class DBAppointments {
 
 
     /**
-     * Queries database for number of customers by division, creates ReportsByDivision object and adds to Observable list of same type.
-     * @return list of ReportsByDivision objects
-     * @throws SQLException
+     * This method queries the database for number of customers by division.
+     * With the use of a prepared statement, this method creates ReportsByDivision object with the data retrieved.
+     * An Observable list containing a compilation of ReportsByDivision objects is created and returned.
+     * @return Returns a list of ReportsByDivision objects.
+     * @throws SQLException In the event of an SQL error.
      */
     public static ObservableList<ReportByDivision> getCustomersByDivision() throws SQLException {
         ObservableList<ReportByDivision> customersByDivision = FXCollections.observableArrayList();
@@ -103,6 +109,12 @@ public class DBAppointments {
 
     }
 
+    /**
+     * This method queries the database for appointment data used in the Reports screen.
+     * Data is returned and utilized to create new ReportByMonthType objects which are added to a list.
+     *
+     * @return Returns a list of ReportByMonthType objects.
+     */
     public static ObservableList<ReportByMonthType> getReportsByMonthType()
     {
         ObservableList<ReportByMonthType> numAppointmentsMonthType = FXCollections.observableArrayList();
@@ -139,12 +151,13 @@ public class DBAppointments {
 
 
     /**
-     * filters appointments in tableview based on user input drop down values for time and contact
-     *
-     * @param time time specification - All, Current Week, or Current Month
-     * @param contact name of contact
-     * @return Observable list of filtered appointments based on user input from drop down boxes
-     * @throws NullPointerException
+     * This method filters the appointments tableview in the Appointments screen.
+     * User input is gathered from comboboxes for time and contact.
+     * A series of conditional statements selects the desired data indicated by user selection(s).
+     * @param time Time specification - All, Current Week, or Current Month.
+     * @param contact Name of contact.
+     * @return Returns an observable list of filtered appointments based on user input from drop down boxes.
+     * @throws NullPointerException In the event of a null value.
      */
     public static ObservableList<Appointment> getFilteredAppointments(String time, String contact) throws NullPointerException
     {
@@ -164,17 +177,6 @@ public class DBAppointments {
         LocalDateTime startCurrentMonth = LocalDateTime.of(LocalDateTime.now().getYear(), thisMonth, 1, 0, 0);
         LocalDateTime endCurrentMonth = LocalDateTime.of(LocalDate.now().getYear(), thisMonth, thisMonth.maxLength(), 23, 59);
 
-//        LocalDateTime startCurrentWeek = LocalDateTime.now(ZoneId.systemDefault()).with(DayOfWeek.SUNDAY);
-//        LocalDateTime endCurrentWeek = LocalDateTime.now(ZoneId.systemDefault()).with(DayOfWeek.SATURDAY);
-
-//        LocalDateTime startCurrentMonth = LocalDateTime.now().minusMonths(1);
-//        LocalDateTime endCurrentMonth = LocalDateTime.now().plusMonths(1);
-
-//        LocalDateTime startCurrentWeek = LocalDateTime.now().minusWeeks(1);
-//        LocalDateTime endCurrentWeek = LocalDateTime.now().plusWeeks(1);
-
-//        System.out.println(time);           // -----   test
-//        System.out.println(contact);
 
         //   ----->   no filters selected   <-----
         if (time == null && contact == null)
@@ -281,7 +283,8 @@ public class DBAppointments {
 
 
     /**
-     * inserts new appointment into appointments table in database
+     * This method inserts new appointment into appointments table in database.
+     * A prepared statement is utilized to insert a new appointment into the database.
      *
      * @param title title of appointment
      * @param description description of appointment
@@ -293,7 +296,7 @@ public class DBAppointments {
      * @param user_ID user ID number
      * @param contact_ID contact ID number
      *
-     * @throws SQLException
+     * @throws SQLException In the event of an SQL error.
      */
     public static void addNewAppointment(String title, String description, String location,
                                          String type, Timestamp start, Timestamp end, int customer_ID, int user_ID,
@@ -340,7 +343,8 @@ public class DBAppointments {
     }
 
     /**
-     * Modifies existing Appointment in appointments table per user input
+     * This method modifies existing Appointment data in the database.
+     * By using a prepared statement, existing appointment data in the database's appointments table is updated with user input.
      *
      * @param title title of appointment
      * @param description description of appointment
@@ -352,7 +356,7 @@ public class DBAppointments {
      * @param userID user ID number
      * @param contactID contact ID number
      * @param appointmentID appointment ID number (unique)
-     * @throws SQLException
+     * @throws SQLException In the event of an SQL error.
      */
     public static void modifyAppointment(String title, String description, String location, String type, Timestamp startTS, Timestamp endTS, int customerID, int userID, int contactID, int appointmentID) throws SQLException
     {
@@ -382,9 +386,10 @@ public class DBAppointments {
     }
 
     /**
-     * Deletes Appointment specified by appointment ID number from appointments table in database
+     * This method deletes an appointment from the database.
+     * By using a prepared statement with the appointment ID number, appointment data is deleted from appointments table in database.
      * @param appointmentID unique ID number of appointment
-     * @throws SQLException
+     * @throws SQLException In the event of an SQL error.
      */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -396,6 +401,13 @@ public class DBAppointments {
         ps.execute();
     }
 
+    /**
+     * This method deletes appointment data from the database associated with a specified customer ID number.
+     * By using a prepared statement with the customer ID number, appointment data is deleted from appointments table in database.
+     * @param customerID unique ID number of customer.
+     * @throws SQLException In the event of an SQL error.
+     */
+
     public static void deleteCustomerAppointments(int customerID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Customer_ID = ?";
 
@@ -405,7 +417,5 @@ public class DBAppointments {
 
         ps.execute();
     }
-
-
 
 }

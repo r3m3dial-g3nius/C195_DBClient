@@ -9,13 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controls the Main Menu screen of the app.
+ * This method controls the Main Menu screen of the app.
+ * The Main Menu enables the user to open the Appointments, Customers, or Reports screen as well as exit the application.
  */
 public class MainMenuController implements Initializable {
 
@@ -53,8 +53,8 @@ public class MainMenuController implements Initializable {
     private Button exitButton;
 
     /**
-     * fires when Appointments button is pressed
-     * @param event
+     * This method opens the Appointments screen.
+     * @param event Executes when Appointments button is pressed
      */
     @FXML
     void onActionAppointmentButton(ActionEvent event) throws IOException {
@@ -69,8 +69,8 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * fires when Customers button is pressed
-     * @param event
+     * This method opens the Customers screen.
+     * @param event Executes when the Customers button is pressed.
      */
     @FXML
     void onActionCustomersButton(ActionEvent event) throws IOException {
@@ -84,8 +84,8 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * fires when Reports button is pressed
-     * @param event
+     * This method opens the Reports screen.
+     * @param event Executes when Reports button is pressed.
      */
     @FXML
     void onActionReportsButton(ActionEvent event) throws IOException {
@@ -99,8 +99,8 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * fires when the Exit button is pressed
-     * @param event
+     * This method exits the application.
+     * @param event Executes when the Exit button is pressed.
      */
     @FXML
     void onActionExit(ActionEvent event)
@@ -110,8 +110,7 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Initializes the Main Menu screen
-     *
+     * This method initializes the Main Menu screen.
      * @param url the location
      * @param resourceBundle the resources
      */
@@ -120,7 +119,5 @@ public class MainMenuController implements Initializable {
     {
         // initialize screen
     }
-
-
 
 }
