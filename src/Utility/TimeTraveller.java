@@ -11,16 +11,16 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This class handles time conversion duties
+ * This class handles time conversion duties.
  */
 public class TimeTraveller {
 
     /**
-     * converts String values of time and date into properly formatted Timestamp date/time
+     * This method converts String values of time and date into properly formatted Timestamp date/time.
      *
      * @param time String value of time
      * @param date String value of date
-     * @return Timestamp value date/time
+     * @return Returns Timestamp value date/time.
      */
     public static Timestamp convertStringTimeDate2TimeStamp(String time, String date)        // not UTC
     {
@@ -34,6 +34,11 @@ public class TimeTraveller {
         return Timestamp.valueOf(ldt);
     }
 
+    /**
+     * This method adds the system default time zone to a LocalDateTime variable.
+     * @param dateTime LocalDateTime variable to which the user would like specify as the system default timezone.
+     * @return Returns LocalDateTime value set to system default time zone.
+     */
     public static LocalDateTime attachLocalTimeZone(LocalDateTime dateTime)
     {
         ZonedDateTime zdt = dateTime.atZone(ZoneId.systemDefault());
@@ -41,6 +46,11 @@ public class TimeTraveller {
         return zdt.toLocalDateTime();
     }
 
+    /**
+     * This method adds Eastern Standard Time zone to the LocalDateTime arg.
+     * @param dateTime LocalDateTime in which the user would like to specify as EST.
+     * @return Returns LocalDateTime value set to EST.
+     */
     public static LocalDateTime attachESTTimeZone(LocalDateTime dateTime)
     {
         ZonedDateTime zdt = dateTime.atZone(ZoneId.of("America/New_York"));
@@ -49,6 +59,11 @@ public class TimeTraveller {
         return zdt.toLocalDateTime();
     }
 
+    /**
+     * This method accepts a LocalDateTime argument and converts the timezone it is associated with from EST to system default time zone.
+     * @param dateTime LocalDateTime in which the user would like to convert from EST to system default time zone.
+     * @return Returns LocalDateTime value set to system default time zone.
+     */
     public static LocalDateTime convertESTToLocalTimeZone(LocalDateTime dateTime)
     {
         ZonedDateTime zdt = dateTime.atZone(ZoneId.of("America/New_York"));
@@ -59,11 +74,11 @@ public class TimeTraveller {
 
 
     /**
-     * This method evaluates if the requested appointment start/end times are during business hours (8:00AM - 10:00PM EST)
+     * This method evaluates if the requested appointment start/end times are during business hours (8:00AM - 10:00PM EST).
      * @param requestedStartLDT user requested appointment start time
      * @param requestedEndLDT user requested appointment end time
-     * @return true if appointment start/end times are within business hours, false if not
-     * @throws DateTimeException
+     * @return Returns true if appointment start/end times are within business hours, false if not.
+     * @throws DateTimeException In the event of a DateTime error.
      */
     public static boolean inBusinessHours(LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT) throws DateTimeException
     {
@@ -143,9 +158,9 @@ public class TimeTraveller {
      * @param customer Customer in which appointment is being scheduled
      * @param requestedStartLDT user requested appointment start date/time
      * @param requestedEndLDT user requested appointment end date/time
-     * @return returns 1 if overlap is found for user requested start date/time, returns 2 if overlap is found for user
+     * @return Returns 1 if overlap is found for user requested start date/time, returns 2 if overlap is found for user
      * requested end date/time, returns 3 if an appointment is already scheduled  between user requested start/end
-     * date/time, returns 4 if no overlap or no appointments are found for customer
+     * date/time, returns 4 if no overlap or no appointments are found for customer.
      */
     public static int isOverlappingTimes(boolean isNewAppointment, Customer customer, LocalDateTime requestedStartLDT, LocalDateTime requestedEndLDT)
     {

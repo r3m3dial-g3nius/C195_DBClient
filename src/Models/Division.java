@@ -3,16 +3,27 @@ package Models;
 import DAO.DBCountries;
 
 /**
- * this class manages first class divisions data
+ * This class manages all Division data.
  */
 public class Division {
 
+    /**
+     * The ID number of the Division object.
+     */
     private int divisionID;
+
+    /**
+     * The division name of the Division object.
+     */
     private String divisionName;
+
+    /**
+     * The country ID number of the Division object.
+     */
     private int countryID;
 
     /**
-     * Constructor for Division class
+     * This is the constructor for Division class.
      * @param divisionID ID number of division
      * @param divisionName Name of Division
      * @param countryID ID number of Division country
@@ -25,57 +36,33 @@ public class Division {
     }
 
     /**
-     * gets division ID number
-     * @return ID number of division
+     * This method gets the division ID number of the Division object.
+     * @return Returns the division ID number.
      */
     public int getDivisionID() {
         return divisionID;
     }
 
     /**
-     * sets division ID number
-     * @param divisionID ID number of division
-     */
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
-    }
-
-    /**
-     * gets division name
-     * @return name of division
+     * This method gets the division name of the Division object.
+     * @return Returns name of division.
      */
     public String getDivisionName() {
         return divisionName;
     }
 
     /**
-     * sets division name
-     * @param divisionName name of division
-     */
-    public void setDivisionName(String divisionName) {
-        this.divisionName = divisionName;
-    }
-
-    /**
-     * gets country ID number
-     * @return ID number of country
+     * This method gets country ID number of the Division object.
+     * @return Returns the ID number of country.
      */
     public int getCountryID() {
         return countryID;
     }
 
     /**
-     * sets country ID number
+     * This method gets the country name of the Division object.
      * @param countryID ID number of country
-     */
-    public void setCountryID(int countryID) {
-        this.countryID = countryID;
-    }
-
-    /**
-     * gets name of country where division is located
-     * @param countryID ID number of country
-     * @return name of country
+     * @return Returns name of country.
      */
     public String getCountryName(int countryID)
     {
@@ -95,10 +82,37 @@ public class Division {
         return countryName;
     }
 
+//    /**
+//     * sets division ID number
+//     * @param divisionID ID number of division
+//     */
+//    public void setDivisionID(int divisionID) {
+//        this.divisionID = divisionID;
+//    }
+//
+//    /**
+//     * sets division name
+//     * @param divisionName name of division
+//     */
+//    public void setDivisionName(String divisionName) {
+//        this.divisionName = divisionName;
+//    }
+//
+//    /**
+//     * sets country ID number
+//     * @param countryID ID number of country
+//     */
+//    public void setCountryID(int countryID) {
+//        this.countryID = countryID;
+//    }
+
+    /**
+     * Overrides the toString() method.
+     * @return Returns divison name of the Division object.
+     */
     @Override
     public String toString()
     {
-//        return super.toString();
         return divisionName;
     }
 

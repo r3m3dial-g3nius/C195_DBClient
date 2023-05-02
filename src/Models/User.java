@@ -5,22 +5,32 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
- * This class manages the User data
+ * This class manages all User objects.
  */
 public class User {
 
+    /**
+     * The unique user ID number.
+     */
     private int userID;
+
+    /**
+     * The username.
+     */
     private String userName;
+
+    /**
+     * The password.
+     */
     private String password;
 
     /**
-     * Constructor for new User object
+     * This is the constructor for new User object.
      *
      * @param userId ID of user
-     * @param userName Name of user
+     * @param userName Username
      * @param password User's password
      */
     public User(int userId, String userName, String password)
@@ -31,16 +41,16 @@ public class User {
     }
 
     /**
-     * Returns the user ID
+     * This method gets the user ID of the User object.
      *
-     * @return ID of user
+     * @return Returns the ID number of the User object.
      */
     public int getUserID() {
         return userID;
     }
 
     /**
-     * Sets user ID
+     * This method sets user ID of the User object.
      *
      * @param userID ID of user
      */
@@ -49,49 +59,52 @@ public class User {
     }
 
     /**
-     * Returns user name
+     * This method gets the username of the User object.
      *
-     * @return name of user
+     * @return Returns username.
      */
     public String getUserName() {
         return userName;
     }
 
-    /**
-     * Sets username
-     *
-     * @param userName name of user
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    //   ------------------------------------   not used   ----------------------------------
+//    /**
+//     * This method sets username of the User object.
+//     *
+//     * @param userName Returns username (used for login)
+//     */
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
 
 
     //   ------------------------------------   passwords....private?   ----------------------------------
 
-    /**
-     * Returns user password
-     *
-     * @return password of user
-     */
-    public String getPassword() {
-        return password;
-    }
+//    /**
+//     * Returns user password
+//     *
+//     * @return password of user
+//     */
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    /**
+//     * Sets user password
+//     *
+//     * @param password password of user
+//     */
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+
 
     /**
-     * Sets user password
+     * This method gets a list of all appointments associated with this User object.
+     * Two list are created. The first list consists of all appointments in the database.
+     * It is iterated through and all appointments associated with this User is added to a list which is eventually returned.
      *
-     * @param password password of user
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    /**
-     * gets list of Appointment objects with matching user ID
-     *
-     * @return list of Appointment objects, (all of this user's appointments)
+     * @return Returns a list of Appointment objects that match this User object's userID.
      */
     public ObservableList<Appointment> getUserAppointmentList()
     {
@@ -111,10 +124,10 @@ public class User {
     }
 
     /**
-     * determines if this user has an appointment scheduled to start in the next 15 min from current time
-     *
-     * @return Appointment object with start time in 15 min or less from current time, null if next Appointment start
-     * time is > 15 min away
+     * This method determines if this user has an appointment scheduled to start in the next 15 min from current time.
+     * A list of all appointments is created and iterated through with conditional statements to determine if any are scheduled in a 15-minute window from the current time.
+     * @return Returns an Appointment object with start time in 15 min or less from current time, null if next Appointment start
+     * time is greater than 15 min away
      */
     public Appointment hasAppointmentSoon()
     {
