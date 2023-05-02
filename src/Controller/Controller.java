@@ -23,7 +23,7 @@ import java.util.Optional;
  * This is a template for Controller classes.
  * This is to provide a consistent template to use for creating new Controller classes.
  *
- * Controls the XXXXX screen of the app.
+ * Controls a screen of the app.
  */
 public class Controller implements Initializable {
 

@@ -110,8 +110,6 @@ public class CustomerScreenController implements Initializable {
     }
 
     /**
-     * fires when the either combobox receives a new selection; applies user selected filters from Country and Division to tableview
-     *
      * This method applies user selected filters to the list displayed in the tableview.
      * User input values are extracted from dropDownCountry and dropDownDivision comboboxes and utilized in following conditional statements to filter what Customers are displayed in the tableview.
      * The table view is updated.

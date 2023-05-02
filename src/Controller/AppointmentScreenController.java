@@ -195,8 +195,6 @@ public class AppointmentScreenController implements Initializable {
     }
 
     /**
-     * fires when user pressed Delete button; deletes selected Appointment from appointments table in database
-     *
      * This method deletes appointment data from the database.
      * After user confirms deletion in a dialog box, this method deletes appointment data from the database, then provides confirmation of deletion in another dialog box.
      * @param event Executes when the user presses the Delete button.
