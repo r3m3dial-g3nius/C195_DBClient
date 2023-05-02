@@ -9,28 +9,80 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 /**
- * This class manages Appointment data
+ * This class manages Appointment data.
  */
 public class Appointment {
 
+    /**
+     * The unique ID number of the Appointment object.
+     */
     private int appointmentID;
+
+    /**
+     * The title of the Appointment object.
+     */
     private String appointmentTitle;
+
+    /**
+     * The description of the Appointment object.
+     */
     private String appointmentDescription;
+
+    /**
+     * The location of the Appointment object.
+     */
     private String appointmentLocation;
+
+    /**
+     * The type of the Appointment object.
+     */
     private String appointmentType;
 
+    /**
+     * The start date/time of the Appointment object.
+     */
     private LocalDateTime appointmentStart;
+
+    /**
+     * The end date/time of the Appointment object.
+     */
     private LocalDateTime appointmentEnd;
 
+    /**
+     * The customer ID of the Appointment object.
+     */
     private int customerID;
+
+    /**
+     * The user ID of the Appointment object.
+     */
     private int userID;
+
+    /**
+     * The contact ID of the Appointment object.
+     */
     private int contactID;
+
+    /**
+     * The name of the customer fetched by getCustomerName().
+     * This value is assigned in the constructor.
+     */
     private String customerName;
+
+    /**
+     * The name of the user fetched by getUserName().
+     * This value is assigned in the constructor.
+     */
     private String userName;
+
+    /**
+     * The name of the contact fetched by getContactName().
+     * This value is assigned in the constructor.
+     */
     private String contactName;
 
     /**
-     * Contructor for Appointment class
+     * This is the contructor for Appointment objects.
      *
      * @param appointmentID Appointment ID number
      * @param appointmentTitle Title of appointment
@@ -63,86 +115,126 @@ public class Appointment {
         this.contactName = getContactName(contactID);
     }
 
+    /**
+     * This method gets the appointment ID number of the Appointment object.
+     * @return Returns appointmentID.
+     */
     public int getAppointmentID() {
         return appointmentID;
     }
 
+    /**
+     * This method gets the appointment title of the Appointment object.
+     * @return Returns appointmentTitle.
+     */
     public String getAppointmentTitle() {
         return appointmentTitle;
     }
 
-    public void setAppointmentTitle(String appointmentTitle) {
-        this.appointmentTitle = appointmentTitle;
-    }
-
+    /**
+     * This method gets the appointment description of the Appointment object.
+     * @return Returns appointmentDescription.
+     */
     public String getAppointmentDescription() {
         return appointmentDescription;
     }
 
-    public void setAppointmentDescription(String appointmentDescription) {
-        this.appointmentDescription = appointmentDescription;
-    }
-
+    /**
+     * This method gets the appointment location of the Appointment object.
+     * @return Returns appointmentLocation.
+     */
     public String getAppointmentLocation() {
         return appointmentLocation;
     }
 
-    public void setAppointmentLocation(String appointmentLocation) {
-        this.appointmentLocation = appointmentLocation;
-    }
-
+    /**
+     * This method gets the appointment type of the Appointment object.
+     * @return Returns appointmentType.
+     */
     public String getAppointmentType() {
         return appointmentType;
     }
 
-    public void setAppointmentType(String appointmentType) {
-        this.appointmentType = appointmentType;
-    }
-
+    /**
+     * This method gets the appointment start date/time of the Appointment object.
+     * @return Returns appointmentStart.
+     */
     public LocalDateTime getAppointmentStart() {
         return appointmentStart;
     }
 
-    public void setAppointmentStart(LocalDateTime appointmentStart) {
-        this.appointmentStart = appointmentStart;
-    }
-
+    /**
+     * This method gets the appointment end date/time of the Appointment object.
+     * @return Returns appointmentEnd.
+     */
     public LocalDateTime getAppointmentEnd() {
         return appointmentEnd;
     }
 
-    public void setAppointmentEnd(LocalDateTime appointmentEnd) {
-        this.appointmentEnd = appointmentEnd;
-    }
-
+    /**
+     * This method gets the customer ID of the Appointment object.
+     * @return Returns customer ID.
+     */
     public int getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
-
+    /**
+     * This method gets the user ID of the Appointment object.
+     * @return Returns userID.
+     */
     public int getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
+    /**
+     * This method gets the contact ID of the Appointment object.
+     * @return Returns contactID.
+     */
     public int getContactID() {
         return contactID;
     }
 
-    public void setContactID(int contactID) {
-        this.contactID = contactID;
-    }
+//    public void setCustomerID(int customerID) {
+//        this.customerID = customerID;
+//
+//    }
+//    public void setUserID(int userID) {
+//        this.userID = userID;
+//    }
+//
+//    public void setAppointmentTitle(String appointmentTitle) {
+//        this.appointmentTitle = appointmentTitle;
+//    }
+//
+//    public void setAppointmentDescription(String appointmentDescription) {
+//        this.appointmentDescription = appointmentDescription;
+//    }
+//
+//    public void setAppointmentLocation(String appointmentLocation) {
+//        this.appointmentLocation = appointmentLocation;
+//    }
+//
+//    public void setAppointmentType(String appointmentType) {
+//        this.appointmentType = appointmentType;
+//    }
+//
+//    public void setAppointmentStart(LocalDateTime appointmentStart) {
+//        this.appointmentStart = appointmentStart;
+//    }
+//
+//    public void setAppointmentEnd(LocalDateTime appointmentEnd) {
+//        this.appointmentEnd = appointmentEnd;
+//    }
+//
+//    public void setContactID(int contactID) {
+//        this.contactID = contactID;
+//    }
 
     /**
-     * gets name of customer assigned to customerID
-     * @param customerID ID number of customer
-     * @return String value name of customer
+     * This method gets name of customer assigned to customerID.
+     * @param customerID ID number of customer.
+     * @return String value name of customer.
      */
     public String getCustomerName(int customerID)
     {
@@ -169,9 +261,9 @@ public class Appointment {
     }
 
     /**
-     * gets name of user assigned to userID
-     * @param userID ID number of user
-     * @return String value name of user
+     * This method gets name of user assigned to userID.
+     * @param userID ID number of user.
+     * @return Returns String value name of user.
      */
     public String getUserName(int userID)
     {
@@ -198,9 +290,9 @@ public class Appointment {
     }
 
     /**
-     * gets name of contact assigned to contactID
-     * @param contactID ID number of contact
-     * @return String value of contact
+     * This method gets name of contact assigned to contactID.
+     * @param contactID ID number of contact.
+     * @return Returns String value of contact.
      */
     public String getContactName(int contactID)
     {

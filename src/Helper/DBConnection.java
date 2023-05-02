@@ -22,7 +22,7 @@ public abstract class DBConnection {
 
 
     /**
-     * Opens the database connection.
+     * This method opens the database connection.
      */
     public static void openConnection()
     {
@@ -41,9 +41,9 @@ public abstract class DBConnection {
 
 
     /**
-     * Gets the connection with the database.
+     * This method gets the Connection object associated with the database.
      *
-     * @return returns the connection
+     * @return Returns the Connection object.
      */
     public static Connection getConnection()
     {
@@ -52,7 +52,7 @@ public abstract class DBConnection {
 
 
     /**
-     * Closes the connection to the database.
+     * This method closes the connection to the database.
      */
     public static void closeConnection()
     {

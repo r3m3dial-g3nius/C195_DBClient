@@ -9,14 +9,16 @@ import java.sql.*;
 
 
 /**
- * This class handles database interactions with users.
+ * This class manages all database exchanges associated with User data.
  */
 public class DBUsers {
 
     /**
-     * Returns list of all users in database
+     * This method returns a list of all users in database.
+     * By using a Prepared statement, this method executes a database query to retrieve all users stored in the database.
+     * Each tuple retrieved is used to create a User object which is added to a list and finally returned.
      *
-     * @return list of all users in database
+     * @return Returns a list of User objects.
      */
     public static ObservableList<User> getAllUsers()
     {
@@ -51,9 +53,10 @@ public class DBUsers {
 
     /**
      * This method returns User object from users table in database specified by user ID.
+     * By using a prepared statement, this method queries the database for user data that matches specified username and password.
      * @param username name of user to return
      * @param userPassword password of user to return
-     * @return User object
+     * @return If user data matching username and password is located, that User object is returned. If not found, returns null.
      */
     public static User getUser(String username, String userPassword)
     {
