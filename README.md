@@ -24,7 +24,7 @@ In NetBeans, zip your file by going to File>Export Project>To ZIP and click Expo
 
 
 
-Note: You may receive an error message upon submitting your files because the automated plagiarism detectors at WGU will not be able to access a zipped file, but the evaluation team will run their checks manually when evaluating your submission.
+***Note: You may receive an error message upon submitting your files because the automated plagiarism detectors at WGU will not be able to access a zipped file, but the evaluation team will run their checks manually when evaluating your submission.
 
 
 
